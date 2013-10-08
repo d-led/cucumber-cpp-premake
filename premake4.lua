@@ -55,12 +55,14 @@ function DefaultConfig()
 	location( cfg.location )
 	configuration "Debug"
 		defines { "DEBUG", "_DEBUG" }
-		objdir "Build/obj"
+		objdir( path.join(cfg.location, path.join("Debug", "obj") ) )
+		targetdir 'bin/Debug'
 		targetprefix ""
 		flags { "Symbols" }
 	configuration "Release"
 		defines { "RELEASE" }
-		objdir "Build/obj"
+		objdir( path.join(cfg.location, path.join("Release", "obj") ) )
+		targetdir 'bin/Release'
 		targetprefix ""
 		flags { "Optimize" }
 	configuration "*" -- to reset configuration filter

@@ -28,8 +28,8 @@ ifndef RESCOMP
 endif
 
 ifeq ($(config),debug)
-  OBJDIR     = ../Build/obj/Debug/googlemock-main
-  TARGETDIR  = ..
+  OBJDIR     = Debug/obj/Debug/googlemock-main
+  TARGETDIR  = ../bin/Debug
   TARGET     = $(TARGETDIR)/googlemock-main.a
   DEFINES   += -DDEBUG -D_DEBUG -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
@@ -50,8 +50,8 @@ ifeq ($(config),debug)
 endif
 
 ifeq ($(config),release)
-  OBJDIR     = ../Build/obj/Release/googlemock-main
-  TARGETDIR  = ..
+  OBJDIR     = Release/obj/Release/googlemock-main
+  TARGETDIR  = ../bin/Release
   TARGET     = $(TARGETDIR)/googlemock-main.a
   DEFINES   += -DRELEASE -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include

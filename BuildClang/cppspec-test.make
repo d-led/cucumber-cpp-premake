@@ -28,18 +28,18 @@ ifndef RESCOMP
 endif
 
 ifeq ($(config),debug)
-  OBJDIR     = ../Build/obj/Debug/cppspec-test
-  TARGETDIR  = ..
+  OBJDIR     = Debug/obj/Debug/cppspec-test
+  TARGETDIR  = ../bin/Debug
   TARGET     = $(TARGETDIR)/cppspec-test
   DEFINES   += -DDEBUG -D_DEBUG -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -v  -fPIC
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -L.. -v
+  LDFLAGS   += -L.. -L../bin/Debug -v
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += ../cppspec.a ../googlemock.a -lc++ -lboost_regex-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_date_time-mt -lboost_chrono-mt -lboost_thread-mt -lboost_system-mt
-  LDDEPS    += ../cppspec.a ../googlemock.a
+  LIBS      += ../bin/Debug/cppspec.a ../bin/Debug/googlemock.a -lc++ -lboost_regex-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_date_time-mt -lboost_chrono-mt -lboost_thread-mt -lboost_system-mt
+  LDDEPS    += ../bin/Debug/cppspec.a ../bin/Debug/googlemock.a
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
   endef
@@ -50,18 +50,18 @@ ifeq ($(config),debug)
 endif
 
 ifeq ($(config),release)
-  OBJDIR     = ../Build/obj/Release/cppspec-test
-  TARGETDIR  = ..
+  OBJDIR     = Release/obj/Release/cppspec-test
+  TARGETDIR  = ../bin/Release
   TARGET     = $(TARGETDIR)/cppspec-test
   DEFINES   += -DRELEASE -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O2 -v  -fPIC
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -L.. -Wl,-x -v
+  LDFLAGS   += -L.. -L../bin/Release -Wl,-x -v
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += ../cppspec.a ../googlemock.a -lc++ -lboost_regex-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_date_time-mt -lboost_chrono-mt -lboost_thread-mt -lboost_system-mt
-  LDDEPS    += ../cppspec.a ../googlemock.a
+  LIBS      += ../bin/Release/cppspec.a ../bin/Release/googlemock.a -lc++ -lboost_regex-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_date_time-mt -lboost_chrono-mt -lboost_thread-mt -lboost_system-mt
+  LDDEPS    += ../bin/Release/cppspec.a ../bin/Release/googlemock.a
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
   endef

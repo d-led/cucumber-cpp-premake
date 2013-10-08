@@ -28,8 +28,8 @@ ifndef RESCOMP
 endif
 
 ifeq ($(config),debug)
-  OBJDIR     = ../Build/obj/Debug/cppspec
-  TARGETDIR  = ..
+  OBJDIR     = Debug/obj/Debug/cppspec
+  TARGETDIR  = ../bin/Debug
   TARGET     = $(TARGETDIR)/cppspec.a
   DEFINES   += -DDEBUG -D_DEBUG -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
@@ -50,8 +50,8 @@ ifeq ($(config),debug)
 endif
 
 ifeq ($(config),release)
-  OBJDIR     = ../Build/obj/Release/cppspec
-  TARGETDIR  = ..
+  OBJDIR     = Release/obj/Release/cppspec
+  TARGETDIR  = ../bin/Release
   TARGET     = $(TARGETDIR)/cppspec.a
   DEFINES   += -DRELEASE -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
