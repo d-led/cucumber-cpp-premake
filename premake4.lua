@@ -153,7 +153,8 @@ project "cucumber-cpp"
 			"./cucumber-cpp/src/**.cpp" --first, cheap non-configurable version
 		}
 		excludes {
-			"./cucumber-cpp/src/drivers/BoostDriver.cpp"
+			"./cucumber-cpp/src/drivers/BoostDriver.cpp",
+			"./cucumber-cpp/src/main.cpp"
 		}
 		CompilerSpecificConfiguration()
 

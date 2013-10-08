@@ -16,6 +16,5 @@
     <ClCompile Include="..\cucumber-cpp\src\connectors\wire\WireProtocol.cpp" />
     <ClCompile Include="..\cucumber-cpp\src\connectors\wire\WireProtocolCommands.cpp" />
     <ClCompile Include="..\cucumber-cpp\src\connectors\wire\WireServer.cpp" />
-    <ClCompile Include="..\cucumber-cpp\src\main.cpp" />
   </ItemGroup>
 </Project>
