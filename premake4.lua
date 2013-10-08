@@ -99,7 +99,7 @@ solution "cucumber-cpp-premake"
 		libdirs ( cfg.libdirs )
 		includedirs (concat ( cfg.includedirs, { 
 			[[./cppspec/include]],
-			[[./googlemock/fused-src/]],
+			[[./googlemock/fused-src]],
 			[[./cucumber-cpp/include]]
 		} ) )
 		vpaths {
@@ -165,6 +165,27 @@ project "cppspec-test"
 		CompilerSpecificConfiguration()
 
 ----------------------------------------------------------------------------------------------------------------
+project "gmock-test"
+	location( cfg.location )
+		kind "ConsoleApp"
+		DefaultConfig()
+		includedirs {
+			[[./googlemock]],
+			[[./googlemock/include]],
+			[[./googlemock/gtest/include]],			
+		}
+		language "C++"
+		files {
+			"./googlemock/test/gmock_all_test.cc",
+			"./googlemock/test/*.h"
+		}
+		links( concat (cfg.links, { 
+			"googlemock"
+		}))
+		linkoptions { "-v" }
+		CompilerSpecificConfiguration()
+
+----------------------------------------------------------------------------------------------------------------
 
 function file_exists(name)
 	local f=io.open(name,"r")
@@ -187,5 +208,6 @@ newaction {
 	description = "run lua test",
 	execute     = function ()
 		start_test_of( "cppspec-test" )
+		start_test_of( "gmock-test" )
 	end
 }
