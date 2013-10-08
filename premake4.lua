@@ -146,9 +146,6 @@ project "cucumber-cpp"
 		kind "StaticLib"
 		DefaultConfig()
 		language "C++"
-		includedirs {
-			"."
-		}
 		files {
 			"./cucumber-cpp/src/**.cpp" --first, cheap non-configurable version
 		}
@@ -248,5 +245,14 @@ newaction {
 		start_test_of( "cppspec-test" )
 		start_test_of( "gmock-test" )
 		start_test_of( "gtest-test" )
+	end
+}
+
+newaction {
+	trigger = "patch",
+	description = "patch cucumber-cpp",
+	execute = function()
+		local fn = [[ "./cucumber-cpp/src/drivers/CppSpecDriver.cpp" ]]
+		os.execute( [[sed 's/#include <CppSpec\/CppSpec.h>/#include <CppSpec.h>/g']]..fn..[[ > r.tmp && mv r.tmp ]]..fn )
 	end
 }
