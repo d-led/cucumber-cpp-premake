@@ -39,6 +39,9 @@ for i,v in pairs(cmd) do
  cfg[i]=cmd[i][OS]
 end
 
+cfg.debug_target_dir = 'bin/Debug'
+cfg.release_target_dir = 'bin/Release'
+
 local function concat( array1, array2 )
 	local res = {}
 	for _,v in ipairs(array1) do
@@ -56,7 +59,7 @@ function DefaultConfig()
 	configuration "Debug"
 		defines { "DEBUG", "_DEBUG" }
 		objdir( path.join(cfg.location, path.join("Debug", "obj") ) )
-		targetdir 'bin/Debug'
+		targetdir ( cfg.debug_target_dir )
 		targetprefix ""
 		flags { "Symbols" }
 	configuration "Release"
@@ -160,3 +163,29 @@ project "cppspec-test"
 		}))
 		linkoptions { "-v" }
 		CompilerSpecificConfiguration()
+
+----------------------------------------------------------------------------------------------------------------
+
+function file_exists(name)
+	local f=io.open(name,"r")
+	if f~=nil then io.close(f) return true else return false end
+end
+
+local function start_test_of(executable)
+	local debug_path = path.join( cfg.debug_target_dir , executable )
+	local release_path = path.join( cfg.release_target_dir , executable )
+	if file_exists( debug_path ) then
+		os.execute( debug_path )
+	end
+	if file_exists( release_path ) then
+		os.execute( release_path )
+	end
+end
+
+newaction {
+	trigger     = "test",
+	description = "run lua test",
+	execute     = function ()
+		start_test_of( "cppspec-test" )
+	end
+}
