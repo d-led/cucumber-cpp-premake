@@ -36,10 +36,10 @@ ifeq ($(config),debug)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -v -std=gnu++0x -fPIC
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -L.. -L../bin/Debug -v
+  LDFLAGS   += -L..
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += ../bin/Debug/cppspec.a ../bin/Debug/googlemock.a -l -lboost_regex-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_date_time-mt -lboost_chrono-mt -lboost_thread-mt -lboost_system-mt
-  LDDEPS    += ../bin/Debug/cppspec.a ../bin/Debug/googlemock.a
+  LIBS      += 
+  LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
   endef
@@ -58,10 +58,10 @@ ifeq ($(config),release)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O2 -v -std=gnu++0x -fPIC
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -L.. -L../bin/Release -s -v
+  LDFLAGS   += -L.. -s
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += ../bin/Release/cppspec.a ../bin/Release/googlemock.a -l -lboost_regex-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_date_time-mt -lboost_chrono-mt -lboost_thread-mt -lboost_system-mt
-  LDDEPS    += ../bin/Release/cppspec.a ../bin/Release/googlemock.a
+  LIBS      += 
+  LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
   endef

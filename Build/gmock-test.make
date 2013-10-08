@@ -36,7 +36,7 @@ ifeq ($(config),debug)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -v -std=gnu++0x -fPIC
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -L.. -L../bin/Debug -v
+  LDFLAGS   += -L.. -L../bin/Debug
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LIBS      += ../bin/Debug/googlemock.a -l
   LDDEPS    += ../bin/Debug/googlemock.a
@@ -58,7 +58,7 @@ ifeq ($(config),release)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O2 -v -std=gnu++0x -fPIC
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -L.. -L../bin/Release -s -v
+  LDFLAGS   += -L.. -L../bin/Release -s
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LIBS      += ../bin/Release/googlemock.a -l
   LDDEPS    += ../bin/Release/googlemock.a

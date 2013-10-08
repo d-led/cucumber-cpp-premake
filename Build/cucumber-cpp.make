@@ -77,7 +77,6 @@ OBJECTS := \
 	$(OBJDIR)/Scenario.o \
 	$(OBJDIR)/Table.o \
 	$(OBJDIR)/HookRegistrar.o \
-	$(OBJDIR)/main.o \
 	$(OBJDIR)/CukeEngine.o \
 	$(OBJDIR)/CukeEngineImpl.o \
 	$(OBJDIR)/Regex.o \
@@ -165,9 +164,6 @@ $(OBJDIR)/Table.o: ../cucumber-cpp/src/Table.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 $(OBJDIR)/HookRegistrar.o: ../cucumber-cpp/src/HookRegistrar.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/main.o: ../cucumber-cpp/src/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 $(OBJDIR)/CukeEngine.o: ../cucumber-cpp/src/CukeEngine.cpp
