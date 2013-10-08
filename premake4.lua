@@ -87,7 +87,7 @@ end
 ----------------------------------------------------------------------------------------------------------------
 
 -- A solution contains projects, and defines the available configurations
-solution "stackcrawlertest"
+solution "cucumber-cpp-premake"
 	location( cfg.location )
 		configurations { "Debug", "Release" }
 		platforms { "native" }
@@ -101,6 +101,28 @@ solution "stackcrawlertest"
 			["Headers"] = {"**.h","**.hpp"},
 			["Sources"] = {"**.c", "**.cpp"},
 		}
+
+----------------------------------------------------------------------------------------------------------------
+project "googlemock"
+	location( cfg.location )
+		kind "StaticLib"
+		DefaultConfig()
+		language "C++"
+		files {
+			"./googlemock/fused-src/gmock-gtest-all.cc"
+		}
+		CompilerSpecificConfiguration()
+
+----------------------------------------------------------------------------------------------------------------
+project "googlemock-main"
+	location( cfg.location )
+		kind "StaticLib"
+		DefaultConfig()
+		language "C++"
+		files {
+			"./googlemock/fused-src/gmock_main.cc"
+		}
+		CompilerSpecificConfiguration()
 
 ----------------------------------------------------------------------------------------------------------------
 project "cppspec"
@@ -129,6 +151,7 @@ project "cppspec-test"
 			"boost_regex-mt",
 			"boost_program_options-mt",
 			"cppspec",
+			"googlemock",
 			"boost_filesystem-mt",
 			"boost_date_time-mt"
 		}))
