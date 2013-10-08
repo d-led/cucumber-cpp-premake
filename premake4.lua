@@ -221,6 +221,28 @@ project "gtest-test"
 		CompilerSpecificConfiguration()
 
 ----------------------------------------------------------------------------------------------------------------
+project "cucumber-cpp-unit-test"
+	location( cfg.location )
+		kind "ConsoleApp"
+		DefaultConfig()
+		language "C++"
+		files {
+			"./cucumber-cpp/tests/unit/*.cpp"
+		}
+		excludes {
+			"./cucumber-cpp/tests/unit/BasicStepTest.cpp"	
+		}
+		links( concat (cfg.links, {
+			"cucumber-cpp",
+			"googlemock",
+			"googlemock-main",
+			"boost_system-mt",
+			"boost_regex-mt"
+		}))
+		linkoptions { "-v" }
+		CompilerSpecificConfiguration()
+
+----------------------------------------------------------------------------------------------------------------
 
 function file_exists(name)
 	local f=io.open(name,"r")

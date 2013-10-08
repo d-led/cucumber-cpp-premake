@@ -28,19 +28,19 @@ ifndef RESCOMP
 endif
 
 ifeq ($(config),debug)
-  OBJDIR     = Debug/obj/Debug/cucumber-cpp
+  OBJDIR     = Debug/obj/Debug/cucumber-cpp-unit-test
   TARGETDIR  = ../bin/Debug
-  TARGET     = $(TARGETDIR)/cucumber-cpp.a
+  TARGET     = $(TARGETDIR)/cucumber-cpp-unit-test
   DEFINES   += -DDEBUG -D_DEBUG -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -v  -fPIC
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -L..
+  LDFLAGS   += -L.. -L../bin/Debug -v
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += 
-  LDDEPS    += 
-  LINKCMD    = $(AR) -rcs $(TARGET) $(OBJECTS)
+  LIBS      += ../bin/Debug/cucumber-cpp.a ../bin/Debug/googlemock.a ../bin/Debug/googlemock-main.a -lc++ -lboost_system-mt -lboost_regex-mt
+  LDDEPS    += ../bin/Debug/cucumber-cpp.a ../bin/Debug/googlemock.a ../bin/Debug/googlemock-main.a
+  LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
   endef
   define PRELINKCMDS
@@ -50,19 +50,19 @@ ifeq ($(config),debug)
 endif
 
 ifeq ($(config),release)
-  OBJDIR     = Release/obj/Release/cucumber-cpp
+  OBJDIR     = Release/obj/Release/cucumber-cpp-unit-test
   TARGETDIR  = ../bin/Release
-  TARGET     = $(TARGETDIR)/cucumber-cpp.a
+  TARGET     = $(TARGETDIR)/cucumber-cpp-unit-test
   DEFINES   += -DRELEASE -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O2 -v  -fPIC
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -L.. -Wl,-x
+  LDFLAGS   += -L.. -L../bin/Release -Wl,-x -v
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += 
-  LDDEPS    += 
-  LINKCMD    = $(AR) -rcs $(TARGET) $(OBJECTS)
+  LIBS      += ../bin/Release/cucumber-cpp.a ../bin/Release/googlemock.a ../bin/Release/googlemock-main.a -lc++ -lboost_system-mt -lboost_regex-mt
+  LDDEPS    += ../bin/Release/cucumber-cpp.a ../bin/Release/googlemock.a ../bin/Release/googlemock-main.a
+  LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
   endef
   define PRELINKCMDS
@@ -72,22 +72,13 @@ ifeq ($(config),release)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/ContextManager.o \
-	$(OBJDIR)/CukeCommands.o \
-	$(OBJDIR)/CukeEngine.o \
-	$(OBJDIR)/CukeEngineImpl.o \
-	$(OBJDIR)/HookRegistrar.o \
-	$(OBJDIR)/main.o \
-	$(OBJDIR)/Regex.o \
-	$(OBJDIR)/Scenario.o \
-	$(OBJDIR)/StepManager.o \
-	$(OBJDIR)/Table.o \
-	$(OBJDIR)/Tag.o \
-	$(OBJDIR)/WireProtocol.o \
-	$(OBJDIR)/WireProtocolCommands.o \
-	$(OBJDIR)/WireServer.o \
-	$(OBJDIR)/CppSpecDriver.o \
-	$(OBJDIR)/GTestDriver.o \
+	$(OBJDIR)/ContextManagerTest.o \
+	$(OBJDIR)/CukeCommandsTest.o \
+	$(OBJDIR)/RegexTest.o \
+	$(OBJDIR)/StepCallChainTest.o \
+	$(OBJDIR)/StepManagerTest.o \
+	$(OBJDIR)/TableTest.o \
+	$(OBJDIR)/TagTest.o \
 
 RESOURCES := \
 
@@ -105,7 +96,7 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 	@:
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking cucumber-cpp
+	@echo Linking cucumber-cpp-unit-test
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -126,7 +117,7 @@ else
 endif
 
 clean:
-	@echo Cleaning cucumber-cpp
+	@echo Cleaning cucumber-cpp-unit-test
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -152,52 +143,25 @@ endif
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 endif
 
-$(OBJDIR)/ContextManager.o: ../cucumber-cpp/src/ContextManager.cpp
+$(OBJDIR)/ContextManagerTest.o: ../cucumber-cpp/tests/unit/ContextManagerTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/CukeCommands.o: ../cucumber-cpp/src/CukeCommands.cpp
+$(OBJDIR)/CukeCommandsTest.o: ../cucumber-cpp/tests/unit/CukeCommandsTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/CukeEngine.o: ../cucumber-cpp/src/CukeEngine.cpp
+$(OBJDIR)/RegexTest.o: ../cucumber-cpp/tests/unit/RegexTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/CukeEngineImpl.o: ../cucumber-cpp/src/CukeEngineImpl.cpp
+$(OBJDIR)/StepCallChainTest.o: ../cucumber-cpp/tests/unit/StepCallChainTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/HookRegistrar.o: ../cucumber-cpp/src/HookRegistrar.cpp
+$(OBJDIR)/StepManagerTest.o: ../cucumber-cpp/tests/unit/StepManagerTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/main.o: ../cucumber-cpp/src/main.cpp
+$(OBJDIR)/TableTest.o: ../cucumber-cpp/tests/unit/TableTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Regex.o: ../cucumber-cpp/src/Regex.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Scenario.o: ../cucumber-cpp/src/Scenario.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/StepManager.o: ../cucumber-cpp/src/StepManager.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Table.o: ../cucumber-cpp/src/Table.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Tag.o: ../cucumber-cpp/src/Tag.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/WireProtocol.o: ../cucumber-cpp/src/connectors/wire/WireProtocol.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/WireProtocolCommands.o: ../cucumber-cpp/src/connectors/wire/WireProtocolCommands.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/WireServer.o: ../cucumber-cpp/src/connectors/wire/WireServer.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/CppSpecDriver.o: ../cucumber-cpp/src/drivers/CppSpecDriver.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/GTestDriver.o: ../cucumber-cpp/src/drivers/GTestDriver.cpp
+$(OBJDIR)/TagTest.o: ../cucumber-cpp/tests/unit/TagTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 

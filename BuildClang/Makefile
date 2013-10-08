@@ -6,7 +6,7 @@ ifndef config
 endif
 export config
 
-PROJECTS := googlemock googlemock-main cppspec cucumber-cpp cppspec-test gmock-test gtest-test
+PROJECTS := googlemock googlemock-main cppspec cucumber-cpp cppspec-test gmock-test gtest-test cucumber-cpp-unit-test
 
 .PHONY: all clean help $(PROJECTS)
 
@@ -40,6 +40,10 @@ gtest-test: googlemock googlemock-main
 	@echo "==== Building gtest-test ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f gtest-test.make
 
+cucumber-cpp-unit-test: cucumber-cpp googlemock googlemock-main
+	@echo "==== Building cucumber-cpp-unit-test ($(config)) ===="
+	@${MAKE} --no-print-directory -C . -f cucumber-cpp-unit-test.make
+
 clean:
 	@${MAKE} --no-print-directory -C . -f googlemock.make clean
 	@${MAKE} --no-print-directory -C . -f googlemock-main.make clean
@@ -48,6 +52,7 @@ clean:
 	@${MAKE} --no-print-directory -C . -f cppspec-test.make clean
 	@${MAKE} --no-print-directory -C . -f gmock-test.make clean
 	@${MAKE} --no-print-directory -C . -f gtest-test.make clean
+	@${MAKE} --no-print-directory -C . -f cucumber-cpp-unit-test.make clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -66,5 +71,6 @@ help:
 	@echo "   cppspec-test"
 	@echo "   gmock-test"
 	@echo "   gtest-test"
+	@echo "   cucumber-cpp-unit-test"
 	@echo ""
 	@echo "For more information, see http://industriousone.com/premake/quick-start"
