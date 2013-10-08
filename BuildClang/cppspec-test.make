@@ -36,9 +36,9 @@ ifeq ($(config),debug)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -v -stdlib=libc++ -std=c++11 -fPIC
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -L..
+  LDFLAGS   += -L.. -v
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += ../cppspec.a ../googlemock.a -lc++ -lboost_system-mt -lboost_thread-mt -lboost_regex-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_date_time-mt
+  LIBS      += ../cppspec.a ../googlemock.a -lc++ -lboost_regex-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_date_time-mt -lboost_chrono-mt -lboost_thread-mt -lboost_system-mt
   LDDEPS    += ../cppspec.a ../googlemock.a
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
@@ -58,9 +58,9 @@ ifeq ($(config),release)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O2 -v -stdlib=libc++ -std=c++11 -fPIC
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -L.. -Wl,-x
+  LDFLAGS   += -L.. -Wl,-x -v
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += ../cppspec.a ../googlemock.a -lc++ -lboost_system-mt -lboost_thread-mt -lboost_regex-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_date_time-mt
+  LIBS      += ../cppspec.a ../googlemock.a -lc++ -lboost_regex-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_date_time-mt -lboost_chrono-mt -lboost_thread-mt -lboost_system-mt
   LDDEPS    += ../cppspec.a ../googlemock.a
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS

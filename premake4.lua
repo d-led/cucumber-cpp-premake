@@ -146,13 +146,15 @@ project "cppspec-test"
 			"./cppspec/test/*.h"
 		}
 		links( concat (cfg.links, { 
-			"boost_system-mt",
-			"boost_thread-mt",
+			"cppspec",
 			"boost_regex-mt",
 			"boost_program_options-mt",
-			"cppspec",
-			"googlemock",
 			"boost_filesystem-mt",
-			"boost_date_time-mt"
+			"boost_date_time-mt",
+			"boost_chrono-mt",
+			"boost_thread-mt",
+			"boost_system-mt",
+			"googlemock"
 		}))
+		linkoptions { "-v" }
 		CompilerSpecificConfiguration()
