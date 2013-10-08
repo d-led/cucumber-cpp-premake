@@ -141,6 +141,23 @@ project "cppspec"
 		CompilerSpecificConfiguration()
 
 ----------------------------------------------------------------------------------------------------------------
+project "cucumber-cpp"
+	location( cfg.location )
+		kind "StaticLib"
+		DefaultConfig()
+		language "C++"
+		includedirs {
+			"."
+		}
+		files {
+			"./cucumber-cpp/src/**.cpp" --first, cheap non-configurable version
+		}
+		excludes {
+			"./cucumber-cpp/src/drivers/BoostDriver.cpp"
+		}
+		CompilerSpecificConfiguration()
+
+----------------------------------------------------------------------------------------------------------------
 project "cppspec-test"
 	location( cfg.location )
 		kind "ConsoleApp"

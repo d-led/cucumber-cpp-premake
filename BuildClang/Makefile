@@ -6,7 +6,7 @@ ifndef config
 endif
 export config
 
-PROJECTS := googlemock googlemock-main cppspec cppspec-test gmock-test gtest-test
+PROJECTS := googlemock googlemock-main cppspec cucumber-cpp cppspec-test gmock-test gtest-test
 
 .PHONY: all clean help $(PROJECTS)
 
@@ -24,6 +24,10 @@ cppspec:
 	@echo "==== Building cppspec ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f cppspec.make
 
+cucumber-cpp: 
+	@echo "==== Building cucumber-cpp ($(config)) ===="
+	@${MAKE} --no-print-directory -C . -f cucumber-cpp.make
+
 cppspec-test: cppspec googlemock
 	@echo "==== Building cppspec-test ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f cppspec-test.make
@@ -40,6 +44,7 @@ clean:
 	@${MAKE} --no-print-directory -C . -f googlemock.make clean
 	@${MAKE} --no-print-directory -C . -f googlemock-main.make clean
 	@${MAKE} --no-print-directory -C . -f cppspec.make clean
+	@${MAKE} --no-print-directory -C . -f cucumber-cpp.make clean
 	@${MAKE} --no-print-directory -C . -f cppspec-test.make clean
 	@${MAKE} --no-print-directory -C . -f gmock-test.make clean
 	@${MAKE} --no-print-directory -C . -f gtest-test.make clean
@@ -57,6 +62,7 @@ help:
 	@echo "   googlemock"
 	@echo "   googlemock-main"
 	@echo "   cppspec"
+	@echo "   cucumber-cpp"
 	@echo "   cppspec-test"
 	@echo "   gmock-test"
 	@echo "   gtest-test"
