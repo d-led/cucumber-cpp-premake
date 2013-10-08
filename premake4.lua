@@ -186,6 +186,27 @@ project "gmock-test"
 		CompilerSpecificConfiguration()
 
 ----------------------------------------------------------------------------------------------------------------
+project "gtest-test"
+	location( cfg.location )
+		kind "ConsoleApp"
+		DefaultConfig()
+		includedirs {
+			[[./googlemock/gtest]],
+			[[./googlemock/gtest/include]]
+		}
+		language "C++"
+		files {
+			"./googlemock/gtest/test/gtest_all_test.cc",
+			"./googlemock/gtest/test/*.h"
+		}
+		links( concat (cfg.links, { 
+			"googlemock",
+			"googlemock-main"
+		}))
+		linkoptions { "-v" }
+		CompilerSpecificConfiguration()
+
+----------------------------------------------------------------------------------------------------------------
 
 function file_exists(name)
 	local f=io.open(name,"r")
@@ -209,5 +230,6 @@ newaction {
 	execute     = function ()
 		start_test_of( "cppspec-test" )
 		start_test_of( "gmock-test" )
+		start_test_of( "gtest-test" )
 	end
 }

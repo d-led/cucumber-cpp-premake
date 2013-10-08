@@ -6,7 +6,7 @@ ifndef config
 endif
 export config
 
-PROJECTS := googlemock googlemock-main cppspec cppspec-test gmock-test
+PROJECTS := googlemock googlemock-main cppspec cppspec-test gmock-test gtest-test
 
 .PHONY: all clean help $(PROJECTS)
 
@@ -32,12 +32,17 @@ gmock-test: googlemock
 	@echo "==== Building gmock-test ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f gmock-test.make
 
+gtest-test: googlemock googlemock-main
+	@echo "==== Building gtest-test ($(config)) ===="
+	@${MAKE} --no-print-directory -C . -f gtest-test.make
+
 clean:
 	@${MAKE} --no-print-directory -C . -f googlemock.make clean
 	@${MAKE} --no-print-directory -C . -f googlemock-main.make clean
 	@${MAKE} --no-print-directory -C . -f cppspec.make clean
 	@${MAKE} --no-print-directory -C . -f cppspec-test.make clean
 	@${MAKE} --no-print-directory -C . -f gmock-test.make clean
+	@${MAKE} --no-print-directory -C . -f gtest-test.make clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -54,5 +59,6 @@ help:
 	@echo "   cppspec"
 	@echo "   cppspec-test"
 	@echo "   gmock-test"
+	@echo "   gtest-test"
 	@echo ""
 	@echo "For more information, see http://industriousone.com/premake/quick-start"
