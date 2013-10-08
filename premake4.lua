@@ -24,7 +24,7 @@ local cmd	=	{
  	buildoptions = {
  		linux = "-v -std=gnu++0x -fPIC",
  		windows = "-v -std=c++11 -fPIC",
- 		macosx = "-v -stdlib=libc++ -std=c++11 -fPIC"
+ 		macosx = "-v  -fPIC" ---stdlib=libc++ -std=c++11
  	},
  	links = {
  		linux = { "" },
