@@ -8,7 +8,7 @@ local cmd	=	{
 	},
  	libdirs = {
  		linux = { "" },
- 		windows = { "" },
+        windows = { path.join(os.getenv("BOOST"),"stage/lib") },
  		macosx = { "" }
  	},
 	includedirs = {
@@ -28,7 +28,7 @@ local cmd	=	{
  	},
  	links = {
  		linux = { "" },
- 		windows = { "" },
+ 		windows = { },
  		macosx = { "c++" }
  	}
 }
@@ -80,6 +80,9 @@ function CompilerSpecificConfiguration()
 	configuration {"codeblocks" }
 
 	configuration { "vs*"}
+        defines {
+            "_VARIADIC_MAX=10"
+        }
 
 	configuration { "macosx" }
 		defines { 
@@ -155,6 +158,7 @@ project "cucumber-cpp"
 		CompilerSpecificConfiguration()
 
 ----------------------------------------------------------------------------------------------------------------
+
 project "cppspec-test"
 	location( cfg.location )
 		kind "ConsoleApp"
@@ -164,6 +168,7 @@ project "cppspec-test"
 			"./cppspec/test/*.cpp",
 			"./cppspec/test/*.h"
 		}
+		configuration { "linux", "macosx" }
 		links( concat (cfg.links, { 
 			"cppspec",
 			"boost_regex-mt",
@@ -175,7 +180,12 @@ project "cppspec-test"
 			"boost_system-mt",
 			"googlemock"
 		}))
-		linkoptions { "-v" }
+		configuration { "vs*" }
+		links( concat (cfg.links, { 
+			"cppspec",
+			"googlemock"
+		}))
+		configuration { "*" }
 		CompilerSpecificConfiguration()
 
 ----------------------------------------------------------------------------------------------------------------
@@ -196,7 +206,6 @@ project "gmock-test"
 		links( concat (cfg.links, { 
 			"googlemock"
 		}))
-		linkoptions { "-v" }
 		CompilerSpecificConfiguration()
 
 ----------------------------------------------------------------------------------------------------------------
@@ -217,7 +226,6 @@ project "gtest-test"
 			"googlemock",
 			"googlemock-main"
 		}))
-		linkoptions { "-v" }
 		CompilerSpecificConfiguration()
 
 ----------------------------------------------------------------------------------------------------------------
@@ -232,6 +240,7 @@ project "cucumber-cpp-unit-test"
 		excludes {
 			"./cucumber-cpp/tests/unit/BasicStepTest.cpp"	
 		}
+		configuration { "linux", "macosx" }
 		links( concat (cfg.links, {
 			"cucumber-cpp",
 			"googlemock",
@@ -239,7 +248,13 @@ project "cucumber-cpp-unit-test"
 			"boost_system-mt",
 			"boost_regex-mt"
 		}))
-		linkoptions { "-v" }
+		configuration { "vs*" }
+		links( concat (cfg.links, { 
+			"cucumber-cpp",
+			"googlemock",
+			"googlemock-main"
+		}))
+		configuration { "*" }
 		CompilerSpecificConfiguration()
 
 ----------------------------------------------------------------------------------------------------------------
