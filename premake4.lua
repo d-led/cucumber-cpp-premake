@@ -27,7 +27,7 @@ local cmd	=	{
  		macosx = "-v  -fPIC" ---stdlib=libc++ -std=c++11
  	},
  	links = {
- 		linux = { "" },
+ 		linux = { },
  		windows = { },
  		macosx = { "c++" }
  	},
