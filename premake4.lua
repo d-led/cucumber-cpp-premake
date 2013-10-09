@@ -31,7 +31,7 @@ local cmd	=	{
  		windows = { },
  		macosx = { "c++" }
  	},
- 	defines {
+ 	defines_ {
  		linux = { },
  		windows = { "_WIN32_WINDOWS" },
  		macosx = { }
@@ -159,7 +159,7 @@ project "cucumber-cpp"
 		files {
 			"./cucumber-cpp/src/**.cpp" --first, cheap non-configurable version
 		}
-		defines ( cfg.defines )
+		defines ( cfg.defines_ )
 		excludes {
 			"./cucumber-cpp/src/drivers/BoostDriver.cpp",
 			"./cucumber-cpp/src/main.cpp"
