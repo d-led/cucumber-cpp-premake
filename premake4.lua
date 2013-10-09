@@ -163,7 +163,7 @@ make_static_lib("cucumber-cpp-main", { "./cucumber-cpp/src/main.cpp" }, function
 end)
 ----------------------------------------------------------------------------------------------------------------
 make_static_lib("cucumber-cpp-boost-driver", { "./cucumber-cpp/src/drivers/BoostDriver.cpp" }, function()
-	defines ( cfg.defines )
+	defines ( concat( cfg.defines, {"BOOST_TEST_ALTERNATIVE_INIT_API"} ) )
 end)
 ----------------------------------------------------------------------------------------------------------------
 make_static_lib("cucumber-cpp-cppspec-driver", { "./cucumber-cpp/src/drivers/CppSpecDriver.cpp" }, function()
