@@ -82,6 +82,9 @@ OBJECTS := \
 	$(OBJDIR)/Regex.o \
 	$(OBJDIR)/ContextManager.o \
 	$(OBJDIR)/StepManager.o \
+	$(OBJDIR)/WireServer.o \
+	$(OBJDIR)/WireProtocolCommands.o \
+	$(OBJDIR)/WireProtocol.o \
 
 RESOURCES := \
 
@@ -174,6 +177,15 @@ $(OBJDIR)/ContextManager.o: ../cucumber-cpp/src/ContextManager.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 $(OBJDIR)/StepManager.o: ../cucumber-cpp/src/StepManager.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/WireServer.o: ../cucumber-cpp/src/connectors/wire/WireServer.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/WireProtocolCommands.o: ../cucumber-cpp/src/connectors/wire/WireProtocolCommands.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/WireProtocol.o: ../cucumber-cpp/src/connectors/wire/WireProtocol.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
