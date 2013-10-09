@@ -115,6 +115,12 @@
     </ClCompile>
     <ClCompile Include="..\cucumber-cpp\src\Tag.cpp">
     </ClCompile>
+    <ClCompile Include="..\cucumber-cpp\src\connectors\wire\WireProtocol.cpp">
+    </ClCompile>
+    <ClCompile Include="..\cucumber-cpp\src\connectors\wire\WireProtocolCommands.cpp">
+    </ClCompile>
+    <ClCompile Include="..\cucumber-cpp\src\connectors\wire\WireServer.cpp">
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
