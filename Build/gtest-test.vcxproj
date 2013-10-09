@@ -61,6 +61,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ProgramDataBaseFileName>$(OutDir)gtest-test.pdb</ProgramDataBaseFileName>
       <Optimization>Disabled</Optimization>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>DEBUG;_DEBUG;_VARIADIC_MAX=10;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -84,6 +85,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>RELEASE;_VARIADIC_MAX=10;%(PreprocessorDefinitions)</PreprocessorDefinitions>

@@ -87,6 +87,10 @@ function CompilerSpecificConfiguration()
             "_VARIADIC_MAX=10"
         }
 
+        buildoptions {
+        	"/bigobj"
+    	}
+
         flags {
         	"NoEditAndContinue"
     	}
