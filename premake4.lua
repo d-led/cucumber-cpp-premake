@@ -30,6 +30,11 @@ local cmd	=	{
  		linux = { "" },
  		windows = { },
  		macosx = { "c++" }
+ 	},
+ 	defines {
+ 		linux = { },
+ 		windows = { "_WIN32_WINDOWS" },
+ 		macosx = { }
  	}
 }
 
@@ -81,6 +86,10 @@ function CompilerSpecificConfiguration()
         defines {
             "_VARIADIC_MAX=10"
         }
+
+        flags {
+        	"NoEditAndContinue"
+    	}
 
 	configuration { "macosx" }
 		defines { 
@@ -150,6 +159,7 @@ project "cucumber-cpp"
 		files {
 			"./cucumber-cpp/src/**.cpp" --first, cheap non-configurable version
 		}
+		defines ( cfg.defines )
 		excludes {
 			"./cucumber-cpp/src/drivers/BoostDriver.cpp",
 			"./cucumber-cpp/src/main.cpp"
