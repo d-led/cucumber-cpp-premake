@@ -30,7 +30,7 @@ endif
 ifeq ($(config),debug)
   OBJDIR     = Debug/obj/Debug/cucumber-cpp
   TARGETDIR  = ../bin/Debug
-  TARGET     = $(TARGETDIR)/cucumber-cpp.a
+  TARGET     = $(TARGETDIR)/libcucumber-cpp.a
   DEFINES   += -DDEBUG -D_DEBUG -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
@@ -52,7 +52,7 @@ endif
 ifeq ($(config),release)
   OBJDIR     = Release/obj/Release/cucumber-cpp
   TARGETDIR  = ../bin/Release
-  TARGET     = $(TARGETDIR)/cucumber-cpp.a
+  TARGET     = $(TARGETDIR)/libcucumber-cpp.a
   DEFINES   += -DRELEASE -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
@@ -77,7 +77,6 @@ OBJECTS := \
 	$(OBJDIR)/CukeEngine.o \
 	$(OBJDIR)/CukeEngineImpl.o \
 	$(OBJDIR)/HookRegistrar.o \
-	$(OBJDIR)/main.o \
 	$(OBJDIR)/Regex.o \
 	$(OBJDIR)/Scenario.o \
 	$(OBJDIR)/StepManager.o \
@@ -165,9 +164,6 @@ $(OBJDIR)/CukeEngineImpl.o: ../cucumber-cpp/src/CukeEngineImpl.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 $(OBJDIR)/HookRegistrar.o: ../cucumber-cpp/src/HookRegistrar.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/main.o: ../cucumber-cpp/src/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 $(OBJDIR)/Regex.o: ../cucumber-cpp/src/Regex.cpp

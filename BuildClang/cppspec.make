@@ -30,7 +30,7 @@ endif
 ifeq ($(config),debug)
   OBJDIR     = Debug/obj/Debug/cppspec
   TARGETDIR  = ../bin/Debug
-  TARGET     = $(TARGETDIR)/cppspec.a
+  TARGET     = $(TARGETDIR)/libcppspec.a
   DEFINES   += -DDEBUG -D_DEBUG -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
@@ -52,7 +52,7 @@ endif
 ifeq ($(config),release)
   OBJDIR     = Release/obj/Release/cppspec
   TARGETDIR  = ../bin/Release
-  TARGET     = $(TARGETDIR)/cppspec.a
+  TARGET     = $(TARGETDIR)/libcppspec.a
   DEFINES   += -DRELEASE -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
