@@ -285,12 +285,3 @@ newaction {
 		start_test_of( "gtest-test" )
 	end
 }
-
-newaction {
-	trigger     = "patch", --temporary hack
-	description = "patch cucumber-cpp",
-	execute     = function()
-		local fn = [[ "./cucumber-cpp/src/drivers/CppSpecDriver.cpp" ]]
-		os.execute( [[sed 's/#include <CppSpec\/CppSpec.h>/#include <CppSpec.h>/g']]..fn..[[ > r.tmp && mv r.tmp ]]..fn )
-	end
-}
