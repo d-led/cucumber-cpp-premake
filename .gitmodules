@@ -4,3 +4,6 @@
 [submodule "cppspec"]
 	path = cppspec
 	url = https://github.com/tpuronen/cppspec.git
+[submodule "cucumber-cpp"]
+	path = cucumber-cpp
+	url = https://github.com/d-led/cucumber-cpp.git
