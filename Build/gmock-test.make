@@ -38,8 +38,8 @@ ifeq ($(config),debug)
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -L.. -L../bin/Debug
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += ../bin/Debug/googlemock.a -l
-  LDDEPS    += ../bin/Debug/googlemock.a
+  LIBS      += ../bin/Debug/libgooglemock.a -l
+  LDDEPS    += ../bin/Debug/libgooglemock.a
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
   endef
@@ -60,8 +60,8 @@ ifeq ($(config),release)
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -L.. -L../bin/Release -s
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += ../bin/Release/googlemock.a -l
-  LDDEPS    += ../bin/Release/googlemock.a
+  LIBS      += ../bin/Release/libgooglemock.a -l
+  LDDEPS    += ../bin/Release/libgooglemock.a
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
   endef

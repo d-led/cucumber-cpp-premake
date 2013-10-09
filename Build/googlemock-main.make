@@ -30,7 +30,7 @@ endif
 ifeq ($(config),debug)
   OBJDIR     = Debug/obj/Debug/googlemock-main
   TARGETDIR  = ../bin/Debug
-  TARGET     = $(TARGETDIR)/googlemock-main.a
+  TARGET     = $(TARGETDIR)/libgooglemock-main.a
   DEFINES   += -DDEBUG -D_DEBUG
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
@@ -52,7 +52,7 @@ endif
 ifeq ($(config),release)
   OBJDIR     = Release/obj/Release/googlemock-main
   TARGETDIR  = ../bin/Release
-  TARGET     = $(TARGETDIR)/googlemock-main.a
+  TARGET     = $(TARGETDIR)/libgooglemock-main.a
   DEFINES   += -DRELEASE
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)

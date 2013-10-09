@@ -60,13 +60,11 @@ function DefaultConfig()
 		defines { "DEBUG", "_DEBUG" }
 		objdir( path.join(cfg.location, path.join("Debug", "obj") ) )
 		targetdir ( cfg.debug_target_dir )
-		targetprefix ""
 		flags { "Symbols" }
 	configuration "Release"
 		defines { "RELEASE" }
 		objdir( path.join(cfg.location, path.join("Release", "obj") ) )
 		targetdir 'bin/Release'
-		targetprefix ""
 		flags { "Optimize" }
 	configuration "*" -- to reset configuration filter
 end
@@ -169,7 +167,7 @@ project "cppspec-test"
 			"./cppspec/test/*.cpp",
 			"./cppspec/test/*.h"
 		}
-		configuration { "linux", "macosx" }
+		configuration { "linux" }
 		links( concat (cfg.links, { 
 			"cppspec",
 			"boost_regex-mt",
@@ -181,6 +179,18 @@ project "cppspec-test"
 			"boost_system-mt",
 			"googlemock"
 		}))
+        configuration { "macosx" }
+        links( concat (cfg.links, { 
+            "cppspec",
+            "boost_regex-mt",
+            "boost_program_options-mt",
+            "boost_filesystem-mt",
+            "boost_date_time-mt",
+            "boost_chrono-mt",
+            "boost_thread-mt",
+            "boost_system-mt",
+            "googlemock"
+        }))
 		configuration { "vs*" }
 		links( concat (cfg.links, { 
 			"cppspec",
@@ -241,7 +251,7 @@ project "cucumber-cpp-unit-test"
 		excludes {
 			"./cucumber-cpp/tests/unit/BasicStepTest.cpp"	
 		}
-		configuration { "linux", "macosx" }
+		configuration { "linux" }
 		links( concat (cfg.links, {
 			"cucumber-cpp",
 			"googlemock",
@@ -249,6 +259,14 @@ project "cucumber-cpp-unit-test"
 			"boost_system-mt",
 			"boost_regex-mt"
 		}))
+        configuration { "macosx" }
+        links( concat (cfg.links, {
+            "cucumber-cpp",
+            "googlemock",
+            "googlemock-main",
+            "boost_system-mt",
+            "boost_regex-mt"
+        }))
 		configuration { "vs*" }
 		links( concat (cfg.links, { 
 			"cucumber-cpp",
@@ -287,9 +305,9 @@ newaction {
 }
 
 newaction {
-	trigger = "patch",
+	trigger     = "patch",
 	description = "patch cucumber-cpp",
-	execute = function()
+	execute     = function()
 		local fn = [[ "./cucumber-cpp/src/drivers/CppSpecDriver.cpp" ]]
 		os.execute( [[sed 's/#include <CppSpec\/CppSpec.h>/#include <CppSpec.h>/g']]..fn..[[ > r.tmp && mv r.tmp ]]..fn )
 	end

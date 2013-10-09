@@ -36,10 +36,10 @@ ifeq ($(config),debug)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -v -std=gnu++0x -fPIC
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -L..
+  LDFLAGS   += -L.. -L../bin/Debug
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += 
-  LDDEPS    += 
+  LIBS      += ../bin/Debug/libcucumber-cpp.a ../bin/Debug/libgooglemock.a ../bin/Debug/libgooglemock-main.a -l -lboost_system-mt -lboost_regex-mt
+  LDDEPS    += ../bin/Debug/libcucumber-cpp.a ../bin/Debug/libgooglemock.a ../bin/Debug/libgooglemock-main.a
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
   endef
@@ -58,10 +58,10 @@ ifeq ($(config),release)
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O2 -v -std=gnu++0x -fPIC
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -L.. -s
+  LDFLAGS   += -L.. -L../bin/Release -s
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += 
-  LDDEPS    += 
+  LIBS      += ../bin/Release/libcucumber-cpp.a ../bin/Release/libgooglemock.a ../bin/Release/libgooglemock-main.a -l -lboost_system-mt -lboost_regex-mt
+  LDDEPS    += ../bin/Release/libcucumber-cpp.a ../bin/Release/libgooglemock.a ../bin/Release/libgooglemock-main.a
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
   endef

@@ -30,7 +30,7 @@ endif
 ifeq ($(config),debug)
   OBJDIR     = Debug/obj/Debug/cucumber-cpp
   TARGETDIR  = ../bin/Debug
-  TARGET     = $(TARGETDIR)/cucumber-cpp.a
+  TARGET     = $(TARGETDIR)/libcucumber-cpp.a
   DEFINES   += -DDEBUG -D_DEBUG
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
@@ -52,7 +52,7 @@ endif
 ifeq ($(config),release)
   OBJDIR     = Release/obj/Release/cucumber-cpp
   TARGETDIR  = ../bin/Release
-  TARGET     = $(TARGETDIR)/cucumber-cpp.a
+  TARGET     = $(TARGETDIR)/libcucumber-cpp.a
   DEFINES   += -DRELEASE
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)

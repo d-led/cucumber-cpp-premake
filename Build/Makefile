@@ -28,7 +28,7 @@ cucumber-cpp:
 	@echo "==== Building cucumber-cpp ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f cucumber-cpp.make
 
-cppspec-test: 
+cppspec-test: cppspec googlemock
 	@echo "==== Building cppspec-test ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f cppspec-test.make
 
@@ -40,7 +40,7 @@ gtest-test: googlemock googlemock-main
 	@echo "==== Building gtest-test ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f gtest-test.make
 
-cucumber-cpp-unit-test: 
+cucumber-cpp-unit-test: cucumber-cpp googlemock googlemock-main
 	@echo "==== Building cucumber-cpp-unit-test ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f cucumber-cpp-unit-test.make
 
