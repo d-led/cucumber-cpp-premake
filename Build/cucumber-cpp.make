@@ -34,7 +34,7 @@ ifeq ($(config),debug)
   DEFINES   += -DDEBUG -D_DEBUG
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -v -std=gnu++0x -fPIC
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -v -fPIC
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -L..
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
@@ -56,7 +56,7 @@ ifeq ($(config),release)
   DEFINES   += -DRELEASE
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -O2 -v -std=gnu++0x -fPIC
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -O2 -v -fPIC
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -L.. -s
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
@@ -82,11 +82,6 @@ OBJECTS := \
 	$(OBJDIR)/Regex.o \
 	$(OBJDIR)/ContextManager.o \
 	$(OBJDIR)/StepManager.o \
-	$(OBJDIR)/CppSpecDriver.o \
-	$(OBJDIR)/GTestDriver.o \
-	$(OBJDIR)/WireServer.o \
-	$(OBJDIR)/WireProtocolCommands.o \
-	$(OBJDIR)/WireProtocol.o \
 
 RESOURCES := \
 
@@ -179,21 +174,6 @@ $(OBJDIR)/ContextManager.o: ../cucumber-cpp/src/ContextManager.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 $(OBJDIR)/StepManager.o: ../cucumber-cpp/src/StepManager.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/CppSpecDriver.o: ../cucumber-cpp/src/drivers/CppSpecDriver.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/GTestDriver.o: ../cucumber-cpp/src/drivers/GTestDriver.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/WireServer.o: ../cucumber-cpp/src/connectors/wire/WireServer.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/WireProtocolCommands.o: ../cucumber-cpp/src/connectors/wire/WireProtocolCommands.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/WireProtocol.o: ../cucumber-cpp/src/connectors/wire/WireProtocol.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 

@@ -22,12 +22,12 @@ local cmd	=	{
 		macosx = "BuildClang"
 	},
  	buildoptions = {
- 		linux = "-v -std=gnu++0x -fPIC",
+ 		linux = "-v -fPIC",
  		windows = "-v -std=c++11 -fPIC",
  		macosx = "-v  -fPIC" ---stdlib=libc++ -std=c++11
  	},
  	links = {
- 		linux = { },
+ 		linux = { "pthread" },
  		windows = { },
  		macosx = { "c++" }
  	},
