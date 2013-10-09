@@ -121,67 +121,48 @@ solution "cucumber-cpp-premake"
 			["Sources"] = {"**.c", "**.cpp"},
 		}
 
-----------------------------------------------------------------------------------------------------------------
-project "googlemock"
-	location( cfg.location )
-		kind "StaticLib"
-		DefaultConfig()
-		language "C++"
-		files {
-			"./googlemock/fused-src/gmock-gtest-all.cc"
-		}
-		CompilerSpecificConfiguration()
 
 ----------------------------------------------------------------------------------------------------------------
-project "googlemock-main"
+
+local function make_project(project_type,name,files_,extras)
+	project(name)
 	location( cfg.location )
-		kind "StaticLib"
+		kind(project_type)
 		DefaultConfig()
 		language "C++"
-		files {
-			"./googlemock/fused-src/gmock_main.cc"
-		}
+		files (files_)
 		CompilerSpecificConfiguration()
 
-----------------------------------------------------------------------------------------------------------------
-project "cppspec"
-	location( cfg.location )
-		kind "StaticLib"
-		DefaultConfig()
-		language "C++"
-		files {
-			"./cppspec/src/*.cpp"
-		}
-		CompilerSpecificConfiguration()
+		if type(extras)=="function" then
+			extras()
+		end
+end
+
+local function make_static_lib(name,files_,extras)
+	make_project("StaticLib",name,files_,extras)
+end
+
+local function make_console_app(name,files_,extras)
+	make_project("ConsoleApp",name,files_,extras)
+end
 
 ----------------------------------------------------------------------------------------------------------------
-project "cucumber-cpp"
-	location( cfg.location )
-		kind "StaticLib"
-		DefaultConfig()
-		language "C++"
-		files {
-			"./cucumber-cpp/src/**.cpp" --first, cheap non-configurable version
-		}
-		defines ( cfg.defines )
-		excludes {
+make_static_lib("googlemock", {"./googlemock/fused-src/gmock-gtest-all.cc"} )
+----------------------------------------------------------------------------------------------------------------
+make_static_lib("googlemock-main", {"./googlemock/fused-src/gmock_main.cc"} )
+----------------------------------------------------------------------------------------------------------------
+make_static_lib("cppspec",{"./cppspec/src/*.cpp"} )
+----------------------------------------------------------------------------------------------------------------
+make_static_lib("cucumber-cpp", {"./cucumber-cpp/src/**.cpp" }, function()
+	defines ( cfg.defines )
+	excludes {
 			"./cucumber-cpp/src/drivers/BoostDriver.cpp",
 			"./cucumber-cpp/src/main.cpp"
-		}
-		CompilerSpecificConfiguration()
-
+	}
+end)
 ----------------------------------------------------------------------------------------------------------------
-
-project "cppspec-test"
-	location( cfg.location )
-		kind "ConsoleApp"
-		DefaultConfig()
-		language "C++"
-		files {
-			"./cppspec/test/*.cpp",
-			"./cppspec/test/*.h"
-		}
-		configuration { "linux" }
+make_console_app("cppspec-test", {"./cppspec/test/*.cpp", "./cppspec/test/*.h"}, function()
+	configuration { "linux" }
 		links( concat (cfg.links, { 
 			"cppspec",
 			"boost_regex-mt",
@@ -211,57 +192,31 @@ project "cppspec-test"
 			"googlemock"
 		}))
 		configuration { "*" }
-		CompilerSpecificConfiguration()
-
+end)
 ----------------------------------------------------------------------------------------------------------------
-project "gmock-test"
-	location( cfg.location )
-		kind "ConsoleApp"
-		DefaultConfig()
+make_console_app("gmock-test",{"./googlemock/test/gmock_all_test.cc", "./googlemock/test/*.h"},function()
 		includedirs {
 			[[./googlemock]],
 			[[./googlemock/include]],
 			[[./googlemock/gtest/include]],			
 		}
-		language "C++"
-		files {
-			"./googlemock/test/gmock_all_test.cc",
-			"./googlemock/test/*.h"
-		}
 		links( concat (cfg.links, { 
 			"googlemock"
 		}))
-		CompilerSpecificConfiguration()
-
+end)
 ----------------------------------------------------------------------------------------------------------------
-project "gtest-test"
-	location( cfg.location )
-		kind "ConsoleApp"
-		DefaultConfig()
+make_console_app("gtest-test",{"./googlemock/gtest/test/gtest_all_test.cc", "./googlemock/gtest/test/*.h"},function()
 		includedirs {
 			[[./googlemock/gtest]],
 			[[./googlemock/gtest/include]]
-		}
-		language "C++"
-		files {
-			"./googlemock/gtest/test/gtest_all_test.cc",
-			"./googlemock/gtest/test/*.h"
 		}
 		links( concat (cfg.links, { 
 			"googlemock",
 			"googlemock-main"
 		}))
-		CompilerSpecificConfiguration()
-
+end)
 ----------------------------------------------------------------------------------------------------------------
-project "cucumber-cpp-unit-test"
-	location( cfg.location )
-		kind "ConsoleApp"
-		DefaultConfig()
-		language "C++"
-		files {
-			"./cucumber-cpp/tests/unit/*.cpp"
-		}
+make_console_app("cucumber-cpp-unit-test",{"./cucumber-cpp/tests/unit/*.cpp"},function()
 		excludes {
 			"./cucumber-cpp/tests/unit/BasicStepTest.cpp"	
 		}
@@ -288,8 +243,7 @@ project "cucumber-cpp-unit-test"
 			"googlemock-main"
 		}))
 		configuration { "*" }
-		CompilerSpecificConfiguration()
-
+end)
 ----------------------------------------------------------------------------------------------------------------
 
 function file_exists(name)
@@ -319,7 +273,7 @@ newaction {
 }
 
 newaction {
-	trigger     = "patch",
+	trigger     = "patch", --temporary hack
 	description = "patch cucumber-cpp",
 	execute     = function()
 		local fn = [[ "./cucumber-cpp/src/drivers/CppSpecDriver.cpp" ]]
