@@ -153,12 +153,25 @@ make_static_lib("googlemock-main", {"./googlemock/fused-src/gmock_main.cc"} )
 ----------------------------------------------------------------------------------------------------------------
 make_static_lib("cppspec",{"./cppspec/src/*.cpp"} )
 ----------------------------------------------------------------------------------------------------------------
-make_static_lib("cucumber-cpp", {"./cucumber-cpp/src/**.cpp" }, function()
+make_static_lib("cucumber-cpp", {"./cucumber-cpp/src/*.cpp" }, function()
 	defines ( cfg.defines )
-	excludes {
-			"./cucumber-cpp/src/drivers/BoostDriver.cpp",
-			"./cucumber-cpp/src/main.cpp"
-	}
+	excludes { "./cucumber-cpp/src/main.cpp" }
+end)
+----------------------------------------------------------------------------------------------------------------
+make_static_lib("cucumber-cpp-main", { "./cucumber-cpp/src/main.cpp" }, function()
+	defines ( cfg.defines )
+end)
+----------------------------------------------------------------------------------------------------------------
+make_static_lib("cucumber-cpp-boost-driver", { "./cucumber-cpp/src/drivers/BoostDriver.cpp" }, function()
+	defines ( cfg.defines )
+end)
+----------------------------------------------------------------------------------------------------------------
+make_static_lib("cucumber-cpp-cppspec-driver", { "./cucumber-cpp/src/drivers/CppSpecDriver.cpp" }, function()
+	defines ( cfg.defines )
+end)
+----------------------------------------------------------------------------------------------------------------
+make_static_lib("cucumber-cpp-gtest-driver", { "./cucumber-cpp/src/drivers/GTestDriver.cpp" }, function()
+	defines ( cfg.defines )
 end)
 ----------------------------------------------------------------------------------------------------------------
 make_console_app("cppspec-test", {"./cppspec/test/*.cpp", "./cppspec/test/*.h"}, function()

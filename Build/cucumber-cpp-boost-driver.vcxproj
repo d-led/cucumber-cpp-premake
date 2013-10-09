@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{ABB4A90A-9717-39AF-409D-71652CDF0432}</ProjectGuid>
+    <ProjectGuid>{B8E8A031-24AB-D4BB-6D5B-6348D95CAD99}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>cucumber-cpp</RootNamespace>
+    <RootNamespace>cucumber-cpp-boost-driver</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug native|Win32'" Label="Configuration">
@@ -40,14 +40,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug native|Win32'">
     <OutDir>..\bin\Debug\</OutDir>
-    <IntDir>Debug\obj\native\Debug\cucumber-cpp\</IntDir>
-    <TargetName>cucumber-cpp</TargetName>
+    <IntDir>Debug\obj\native\Debug\cucumber-cpp-boost-driver\</IntDir>
+    <TargetName>cucumber-cpp-boost-driver</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release native|Win32'">
     <OutDir>..\bin\Release\</OutDir>
-    <IntDir>Release\obj\native\Release\cucumber-cpp\</IntDir>
-    <TargetName>cucumber-cpp</TargetName>
+    <IntDir>Release\obj\native\Release\cucumber-cpp-boost-driver\</IntDir>
+    <TargetName>cucumber-cpp-boost-driver</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug native|Win32'">
@@ -57,7 +57,7 @@
       <PreprocessorDefinitions>DEBUG;_DEBUG;_VARIADIC_MAX=10;_WIN32_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\..\..\..\boost\boost_1_51;..\cppspec\include;..\googlemock\fused-src;..\cucumber-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ProgramDataBaseFileName>$(OutDir)cucumber-cpp.pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>$(OutDir)cucumber-cpp-boost-driver.pdb</ProgramDataBaseFileName>
       <Optimization>Disabled</Optimization>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -95,25 +95,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\cucumber-cpp\src\ContextManager.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\src\CukeCommands.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\src\CukeEngine.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\src\CukeEngineImpl.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\src\HookRegistrar.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\src\Regex.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\src\Scenario.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\src\StepManager.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\src\Table.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\src\Tag.cpp">
+    <ClCompile Include="..\cucumber-cpp\src\drivers\BoostDriver.cpp">
     </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
