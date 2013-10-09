@@ -153,10 +153,11 @@ make_static_lib("googlemock-main", {"./googlemock/fused-src/gmock_main.cc"} )
 ----------------------------------------------------------------------------------------------------------------
 make_static_lib("cppspec",{"./cppspec/src/*.cpp"} )
 ----------------------------------------------------------------------------------------------------------------
-make_static_lib("cucumber-cpp", {"./cucumber-cpp/src/*.cpp" }, function()
+make_static_lib("cucumber-cpp", {"./cucumber-cpp/src/*.cpp","./cucumber-cpp/src/connectors/wire/*.cpp"  }, function()
 	defines ( cfg.defines )
 	excludes { "./cucumber-cpp/src/main.cpp" }
 end)
+
 ----------------------------------------------------------------------------------------------------------------
 make_static_lib("cucumber-cpp-main", { "./cucumber-cpp/src/main.cpp" }, function()
 	defines ( cfg.defines )

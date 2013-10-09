@@ -28,10 +28,10 @@ ifndef RESCOMP
 endif
 
 ifeq ($(config),debug)
-  OBJDIR     = Debug/obj/Debug/cucumber-cpp
+  OBJDIR     = Debug/obj/Debug/cucumber-cpp-boost-driver
   TARGETDIR  = ../bin/Debug
-  TARGET     = $(TARGETDIR)/libcucumber-cpp.a
-  DEFINES   += -DDEBUG -D_DEBUG -DGTEST_USE_OWN_TR1_TUPLE=1
+  TARGET     = $(TARGETDIR)/libcucumber-cpp-boost-driver.a
+  DEFINES   += -DDEBUG -D_DEBUG -DGTEST_USE_OWN_TR1_TUPLE=1 -DBOOST_TEST_ALTERNATIVE_INIT_API
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -v  -fPIC
@@ -50,10 +50,10 @@ ifeq ($(config),debug)
 endif
 
 ifeq ($(config),release)
-  OBJDIR     = Release/obj/Release/cucumber-cpp
+  OBJDIR     = Release/obj/Release/cucumber-cpp-boost-driver
   TARGETDIR  = ../bin/Release
-  TARGET     = $(TARGETDIR)/libcucumber-cpp.a
-  DEFINES   += -DRELEASE -DGTEST_USE_OWN_TR1_TUPLE=1
+  TARGET     = $(TARGETDIR)/libcucumber-cpp-boost-driver.a
+  DEFINES   += -DRELEASE -DGTEST_USE_OWN_TR1_TUPLE=1 -DBOOST_TEST_ALTERNATIVE_INIT_API
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O2 -v  -fPIC
@@ -72,19 +72,7 @@ ifeq ($(config),release)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/ContextManager.o \
-	$(OBJDIR)/CukeCommands.o \
-	$(OBJDIR)/CukeEngine.o \
-	$(OBJDIR)/CukeEngineImpl.o \
-	$(OBJDIR)/HookRegistrar.o \
-	$(OBJDIR)/Regex.o \
-	$(OBJDIR)/Scenario.o \
-	$(OBJDIR)/StepManager.o \
-	$(OBJDIR)/Table.o \
-	$(OBJDIR)/Tag.o \
-	$(OBJDIR)/WireProtocol.o \
-	$(OBJDIR)/WireProtocolCommands.o \
-	$(OBJDIR)/WireServer.o \
+	$(OBJDIR)/BoostDriver.o \
 
 RESOURCES := \
 
@@ -102,7 +90,7 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 	@:
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking cucumber-cpp
+	@echo Linking cucumber-cpp-boost-driver
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -123,7 +111,7 @@ else
 endif
 
 clean:
-	@echo Cleaning cucumber-cpp
+	@echo Cleaning cucumber-cpp-boost-driver
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -149,43 +137,7 @@ endif
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 endif
 
-$(OBJDIR)/ContextManager.o: ../cucumber-cpp/src/ContextManager.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/CukeCommands.o: ../cucumber-cpp/src/CukeCommands.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/CukeEngine.o: ../cucumber-cpp/src/CukeEngine.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/CukeEngineImpl.o: ../cucumber-cpp/src/CukeEngineImpl.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/HookRegistrar.o: ../cucumber-cpp/src/HookRegistrar.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Regex.o: ../cucumber-cpp/src/Regex.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Scenario.o: ../cucumber-cpp/src/Scenario.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/StepManager.o: ../cucumber-cpp/src/StepManager.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Table.o: ../cucumber-cpp/src/Table.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/Tag.o: ../cucumber-cpp/src/Tag.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/WireProtocol.o: ../cucumber-cpp/src/connectors/wire/WireProtocol.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/WireProtocolCommands.o: ../cucumber-cpp/src/connectors/wire/WireProtocolCommands.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/WireServer.o: ../cucumber-cpp/src/connectors/wire/WireServer.cpp
+$(OBJDIR)/BoostDriver.o: ../cucumber-cpp/src/drivers/BoostDriver.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
