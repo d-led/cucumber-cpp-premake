@@ -261,8 +261,8 @@ end)
 ----------------------------------------------------------------------------------------------------------------
 local function make_gtest_steps(name,files_,folder_)
 	local l = {
-		"cucumber-cpp",
 		"cucumber-cpp-main",
+		"cucumber-cpp",
 		"googlemock",
 		"cucumber-cpp-gtest-driver"
 	}
