@@ -260,20 +260,33 @@ make_console_app("cucumber-cpp-unit-test",{"./cucumber-cpp/tests/unit/*.cpp"},fu
 end)
 ----------------------------------------------------------------------------------------------------------------
 local function make_gtest_steps(name,files_,folder_)
+	local l = {
+		"cucumber-cpp",
+		"cucumber-cpp-main",
+		"googlemock",
+		"cucumber-cpp-gtest-driver"
+	}
 	make_console_app(name,files_,function()
-			links( concat (cfg.links, { 
-				"cucumber-cpp",
-				"cucumber-cpp-main",
-				"googlemock",
-				"cucumber-cpp-gtest-driver"
-			}))
-targetdir(folder_)
-end)
+		configuration { "linux" }
+		links( concat (cfg.links, concat( l, {
+			"boost_system-mt",
+			"boost_regex-mt"
+		})))
+        configuration { "macosx" }
+       	links( concat (cfg.links, concat( l, {
+			"boost_system-mt",
+			"boost_regex-mt"
+		})))
+		configuration { "vs*" }
+		links( concat (cfg.links, l ) )
+		configuration { "*" }
+	targetdir(folder_)
+	end)
+end
 ----------------------------------------------------------------------------------------------------------------
 make_gtest_steps("TagSteps",
 	{"./cucumber-cpp/examples/FeatureShowcase/features/step_definitions/TagSteps.cpp"},
 	[[./cucumber-cpp/examples/FeatureShowcase/features/step_definitions]])
-end)
 make_gtest_steps("TableSteps",
 	{"./cucumber-cpp/examples/FeatureShowcase/features/step_definitions/TableSteps.cpp"},
 	[[./cucumber-cpp/examples/FeatureShowcase/features/step_definitions]])

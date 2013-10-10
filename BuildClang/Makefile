@@ -6,7 +6,7 @@ ifndef config
 endif
 export config
 
-PROJECTS := googlemock googlemock-main cppspec cucumber-cpp cucumber-cpp-main cucumber-cpp-boost-driver cucumber-cpp-cppspec-driver cucumber-cpp-gtest-driver cppspec-test gmock-test gtest-test cucumber-cpp-unit-test
+PROJECTS := googlemock googlemock-main cppspec cucumber-cpp cucumber-cpp-main cucumber-cpp-boost-driver cucumber-cpp-cppspec-driver cucumber-cpp-gtest-driver cppspec-test gmock-test gtest-test cucumber-cpp-unit-test TagSteps TableSteps
 
 .PHONY: all clean help $(PROJECTS)
 
@@ -60,6 +60,14 @@ cucumber-cpp-unit-test: cucumber-cpp googlemock googlemock-main
 	@echo "==== Building cucumber-cpp-unit-test ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f cucumber-cpp-unit-test.make
 
+TagSteps: cucumber-cpp cucumber-cpp-main googlemock cucumber-cpp-gtest-driver
+	@echo "==== Building TagSteps ($(config)) ===="
+	@${MAKE} --no-print-directory -C . -f TagSteps.make
+
+TableSteps: cucumber-cpp cucumber-cpp-main googlemock cucumber-cpp-gtest-driver
+	@echo "==== Building TableSteps ($(config)) ===="
+	@${MAKE} --no-print-directory -C . -f TableSteps.make
+
 clean:
 	@${MAKE} --no-print-directory -C . -f googlemock.make clean
 	@${MAKE} --no-print-directory -C . -f googlemock-main.make clean
@@ -73,6 +81,8 @@ clean:
 	@${MAKE} --no-print-directory -C . -f gmock-test.make clean
 	@${MAKE} --no-print-directory -C . -f gtest-test.make clean
 	@${MAKE} --no-print-directory -C . -f cucumber-cpp-unit-test.make clean
+	@${MAKE} --no-print-directory -C . -f TagSteps.make clean
+	@${MAKE} --no-print-directory -C . -f TableSteps.make clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -96,5 +106,7 @@ help:
 	@echo "   gmock-test"
 	@echo "   gtest-test"
 	@echo "   cucumber-cpp-unit-test"
+	@echo "   TagSteps"
+	@echo "   TableSteps"
 	@echo ""
 	@echo "For more information, see http://industriousone.com/premake/quick-start"
