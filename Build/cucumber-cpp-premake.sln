@@ -25,6 +25,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest-test", "gtest-test.vc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cucumber-cpp-unit-test", "cucumber-cpp-unit-test.vcxproj", "{0563F591-F15C-1EE4-DAC9-B4F4C6628450}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TagSteps", "TagSteps.vcxproj", "{10CC8022-FC98-DB2D-25B2-C9D511DE10BC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TableSteps", "TableSteps.vcxproj", "{DCC0C988-C878-0BD6-3180-E4311D57A6C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|native = Debug|native
@@ -79,6 +83,14 @@ Global
 		{0563F591-F15C-1EE4-DAC9-B4F4C6628450}.Debug|native.Build.0 = Debug native|Win32
 		{0563F591-F15C-1EE4-DAC9-B4F4C6628450}.Release|native.ActiveCfg = Release native|Win32
 		{0563F591-F15C-1EE4-DAC9-B4F4C6628450}.Release|native.Build.0 = Release native|Win32
+		{10CC8022-FC98-DB2D-25B2-C9D511DE10BC}.Debug|native.ActiveCfg = Debug native|Win32
+		{10CC8022-FC98-DB2D-25B2-C9D511DE10BC}.Debug|native.Build.0 = Debug native|Win32
+		{10CC8022-FC98-DB2D-25B2-C9D511DE10BC}.Release|native.ActiveCfg = Release native|Win32
+		{10CC8022-FC98-DB2D-25B2-C9D511DE10BC}.Release|native.Build.0 = Release native|Win32
+		{DCC0C988-C878-0BD6-3180-E4311D57A6C6}.Debug|native.ActiveCfg = Debug native|Win32
+		{DCC0C988-C878-0BD6-3180-E4311D57A6C6}.Debug|native.Build.0 = Debug native|Win32
+		{DCC0C988-C878-0BD6-3180-E4311D57A6C6}.Release|native.ActiveCfg = Release native|Win32
+		{DCC0C988-C878-0BD6-3180-E4311D57A6C6}.Release|native.Build.0 = Release native|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

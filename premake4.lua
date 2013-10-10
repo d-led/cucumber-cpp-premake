@@ -8,7 +8,7 @@ local cmd	=	{
 	},
  	libdirs = {
  		linux = { "" },
-        windows = { path.join(os.getenv("BOOST"),"stage/lib") },
+        windows = { path.join(os.getenv("BOOST"),path.join("stage","lib")) },
  		macosx = { "" }
  	},
 	includedirs = {
@@ -314,8 +314,10 @@ local function start_cucumber_for(path_,executable)
 	os.chdir(p)
 	if os.get() == "linux" or os.get() == "macosx" then
 		local command = executable.." > /dev/null & cucumber"
-		print(command)
 		os.execute( command )
+    elseif os.get() == "windows" then
+        os.execute("start /B "..executable)
+        os.execute( "cucumber" )
 	end
 	os.chdir( od )
 end
