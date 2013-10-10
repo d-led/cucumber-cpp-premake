@@ -308,12 +308,33 @@ local function start_test_of(executable)
 	end
 end
 
+local function start_cucumber_for(path_,executable)
+	local od = os.getcwd()
+	local p = path.join(od,path_)
+	os.chdir(p)
+	if os.get() == "linux" or os.get() == "macosx" then
+		local command = executable.." > /dev/null & cucumber"
+		print(command)
+		os.execute( command )
+	end
+	os.chdir( od )
+end
+
 newaction {
 	trigger     = "test",
-	description = "run lua test",
+	description = "run unit tests",
 	execute     = function ()
 		start_test_of( "cppspec-test" )
 		start_test_of( "gmock-test" )
 		start_test_of( "gtest-test" )
+	end
+}
+
+newaction {
+	trigger     = "cucumber",
+	description = "run cucumber tests",
+	execute     = function ()
+		start_cucumber_for([[cucumber-cpp/examples/FeatureShowcase]],[[features/step_definitions/TableSteps]])
+		start_cucumber_for([[cucumber-cpp/examples/FeatureShowcase]],[[features/step_definitions/TagSteps]])
 	end
 }
