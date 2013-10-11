@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{0563F591-F15C-1EE4-DAC9-B4F4C6628450}</ProjectGuid>
+    <ProjectGuid>{8501C094-7190-495E-1AAF-5D59061D5A04}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>cucumber-cpp-unit-test</RootNamespace>
+    <RootNamespace>BoostCalculatorSteps</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug native|Win32'" Label="Configuration">
@@ -40,32 +40,32 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug native|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\Debug\</OutDir>
-    <IntDir>Debug\obj\native\Debug\cucumber-cpp-unit-test\</IntDir>
-    <TargetName>cucumber-cpp-unit-test</TargetName>
+    <OutDir>..\cucumber-cpp\examples\Calc\features\step_definitions\</OutDir>
+    <IntDir>Debug\obj\native\Debug\BoostCalculatorSteps\</IntDir>
+    <TargetName>BoostCalculatorSteps</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release native|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\Release\</OutDir>
-    <IntDir>Release\obj\native\Release\cucumber-cpp-unit-test\</IntDir>
-    <TargetName>cucumber-cpp-unit-test</TargetName>
+    <OutDir>..\cucumber-cpp\examples\Calc\features\step_definitions\</OutDir>
+    <IntDir>Release\obj\native\Release\BoostCalculatorSteps\</IntDir>
+    <TargetName>BoostCalculatorSteps</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug native|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>DEBUG;_DEBUG;_VARIADIC_MAX=10;_WIN32_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\..\..\boost\boost_1_51;..\cppspec\include;..\googlemock\fused-src;..\cucumber-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DEBUG;_DEBUG;_VARIADIC_MAX=10;BOOST_TEST_NO_MAIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\boost\boost_1_51;..\cppspec\include;..\googlemock\fused-src;..\cucumber-cpp\include;..\cucumber-cpp\examples\Calc\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ProgramDataBaseFileName>$(OutDir)cucumber-cpp-unit-test.pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>$(OutDir)BoostCalculatorSteps.pdb</ProgramDataBaseFileName>
       <Optimization>Disabled</Optimization>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>DEBUG;_DEBUG;_VARIADIC_MAX=10;_WIN32_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\..\..\boost\boost_1_51;..\cppspec\include;..\googlemock\fused-src;..\cucumber-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DEBUG;_DEBUG;_VARIADIC_MAX=10;BOOST_TEST_NO_MAIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\boost\boost_1_51;..\cppspec\include;..\googlemock\fused-src;..\cucumber-cpp\include;..\cucumber-cpp\examples\Calc\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -78,8 +78,8 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>RELEASE;_VARIADIC_MAX=10;_WIN32_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\..\..\boost\boost_1_51;..\cppspec\include;..\googlemock\fused-src;..\cucumber-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>RELEASE;_VARIADIC_MAX=10;BOOST_TEST_NO_MAIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\boost\boost_1_51;..\cppspec\include;..\googlemock\fused-src;..\cucumber-cpp\include;..\cucumber-cpp\examples\Calc\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -88,8 +88,8 @@
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>RELEASE;_VARIADIC_MAX=10;_WIN32_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\..\..\boost\boost_1_51;..\cppspec\include;..\googlemock\fused-src;..\cucumber-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>RELEASE;_VARIADIC_MAX=10;BOOST_TEST_NO_MAIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\boost\boost_1_51;..\cppspec\include;..\googlemock\fused-src;..\cucumber-cpp\include;..\cucumber-cpp\examples\Calc\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -101,30 +101,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\cucumber-cpp\tests\unit\ContextManagerTest.cpp">
+    <ClCompile Include="..\cucumber-cpp\examples\Calc\features\step_definitions\BoostCalculatorSteps.cpp">
     </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\tests\unit\CukeCommandsTest.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\tests\unit\RegexTest.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\tests\unit\StepCallChainTest.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\tests\unit\StepManagerTest.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\tests\unit\TableTest.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\tests\unit\TagTest.cpp">
+    <ClCompile Include="..\cucumber-cpp\examples\Calc\src\Calculator.cpp">
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="cucumber-cpp-main.vcxproj">
+      <Project>{1D16288F-892C-2625-D2A3-B1463EF9F6AC}</Project>
+    </ProjectReference>
     <ProjectReference Include="cucumber-cpp.vcxproj">
       <Project>{ABB4A90A-9717-39AF-409D-71652CDF0432}</Project>
     </ProjectReference>
-    <ProjectReference Include="googlemock.vcxproj">
-      <Project>{AC7B6BC4-9833-AD11-013B-866DED114802}</Project>
+    <ProjectReference Include="cppspec.vcxproj">
+      <Project>{5394F2D5-BF73-7171-C88B-FC4734EAD7D2}</Project>
     </ProjectReference>
-    <ProjectReference Include="googlemock-main.vcxproj">
-      <Project>{BE6573BE-2AF1-E082-3302-64779F0C3D83}</Project>
+    <ProjectReference Include="cucumber-cpp-boost-driver.vcxproj">
+      <Project>{B8E8A031-24AB-D4BB-6D5B-6348D95CAD99}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

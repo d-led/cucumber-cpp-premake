@@ -44,8 +44,8 @@ for i,v in pairs(cmd) do
  cfg[i]=cmd[i][OS]
 end
 
-cfg.debug_target_dir = 'bin/Debug'
-cfg.release_target_dir = 'bin/Release'
+cfg.debug_target_dir = path.join('bin','Debug')
+cfg.release_target_dir = path.join('bin','Release')
 
 local function concat( array1, array2 )
 	local res = {}
@@ -69,7 +69,7 @@ function DefaultConfig()
 	configuration "Release"
 		defines { "RELEASE" }
 		objdir( path.join(cfg.location, path.join("Release", "obj") ) )
-		targetdir 'bin/Release'
+		targetdir( cfg.release_target_dir )
 		flags { "Optimize" }
 	configuration "*" -- to reset configuration filter
 end
@@ -176,35 +176,28 @@ make_static_lib("cucumber-cpp-gtest-driver", { "./cucumber-cpp/src/drivers/GTest
 end)
 ----------------------------------------------------------------------------------------------------------------
 make_console_app("cppspec-test", {"./cppspec/test/*.cpp", "./cppspec/test/*.h"}, function()
+	links { "cppspec", "googlemock" }
+	links ( cfg.links )
 	configuration { "linux" }
-		links( concat (cfg.links, { 
-			"cppspec",
+		links { 
 			"boost_regex-mt",
 			"boost_program_options-mt",
 			"boost_filesystem-mt",
 			"boost_date_time-mt",
 			"boost_chrono-mt",
 			"boost_thread-mt",
-			"boost_system-mt",
-			"googlemock"
-		}))
+			"boost_system-mt"
+		}
         configuration { "macosx" }
-        links( concat (cfg.links, { 
-            "cppspec",
+        links { 
             "boost_regex-mt",
             "boost_program_options-mt",
             "boost_filesystem-mt",
             "boost_date_time-mt",
             "boost_chrono-mt",
             "boost_thread-mt",
-            "boost_system-mt",
-            "googlemock"
-        }))
-		configuration { "vs*" }
-		links( concat (cfg.links, { 
-			"cppspec",
-			"googlemock"
-		}))
+            "boost_system-mt"
+        }
 		configuration { "*" }
 end)
 ----------------------------------------------------------------------------------------------------------------
@@ -230,33 +223,49 @@ make_console_app("gtest-test",{"./googlemock/gtest/test/gtest_all_test.cc", "./g
 		}))
 end)
 ----------------------------------------------------------------------------------------------------------------
+local function standard_gmock_test_links()
+		links ( cfg.links )
+		links {
+			"cucumber-cpp",
+			"googlemock",
+			"googlemock-main"
+		}
+		configuration { "linux" }
+		links {
+			"boost_system-mt",
+			"boost_regex-mt"
+		}
+        configuration { "macosx" }
+        links {
+            "boost_system-mt",
+            "boost_regex-mt"
+        }
+		configuration { "*" }
+		defines ( cfg.defines )
+end
+----------------------------------------------------------------------------------------------------------------
 make_console_app("cucumber-cpp-unit-test",{"./cucumber-cpp/tests/unit/*.cpp"},function()
 		excludes {
 			"./cucumber-cpp/tests/unit/BasicStepTest.cpp"	
 		}
-		configuration { "linux" }
-		links( concat (cfg.links, {
-			"cucumber-cpp",
-			"googlemock",
-			"googlemock-main",
-			"boost_system-mt",
-			"boost_regex-mt"
-		}))
-        configuration { "macosx" }
-        links( concat (cfg.links, {
-            "cucumber-cpp",
-            "googlemock",
-            "googlemock-main",
-            "boost_system-mt",
-            "boost_regex-mt"
-        }))
-		configuration { "vs*" }
-		links( concat (cfg.links, { 
-			"cucumber-cpp",
-			"googlemock",
-			"googlemock-main"
-		}))
-		configuration { "*" }
+		standard_gmock_test_links()
+end)
+----------------------------------------------------------------------------------------------------------------
+make_console_app("cucumber-cpp-integration-test-1",{"./cucumber-cpp/tests/integration/*.cpp"},function()
+		excludes {
+			"./cucumber-cpp/tests/integration/drivers/*.cpp",
+			"./cucumber-cpp/tests/integration/StepRegistrationTest.cpp",
+			"./cucumber-cpp/tests/integration/TaggedHookRegistrationTest.cpp"
+		}
+		standard_gmock_test_links()
+end)
+----------------------------------------------------------------------------------------------------------------
+make_console_app("cucumber-cpp-integration-test-2",{"./cucumber-cpp/tests/integration/StepRegistrationTest.cpp"},function()
+		standard_gmock_test_links()
+end)
+----------------------------------------------------------------------------------------------------------------
+make_console_app("cucumber-cpp-integration-test-3",{"./cucumber-cpp/tests/integration/TaggedHookRegistrationTest.cpp"},function()
+		standard_gmock_test_links()
 end)
 ----------------------------------------------------------------------------------------------------------------
 local function make_steps(name,files_,folder_,extras_)
@@ -336,9 +345,16 @@ function file_exists(name)
 	if f~=nil then io.close(f) return true else return false end
 end
 
+local function normalize_executable_path(p)
+	if os.get() == "windows" then
+		return p:gsub('/','\\')..".exe"
+	end
+	return p
+end
+
 local function start_test_of(executable)
-	local debug_path = path.join( cfg.debug_target_dir , executable )
-	local release_path = path.join( cfg.release_target_dir , executable )
+	local debug_path = normalize_executable_path( path.join( cfg.debug_target_dir , executable ) )
+	local release_path = normalize_executable_path( path.join( cfg.release_target_dir , executable ) )
 	if file_exists( debug_path ) then
 		os.execute( debug_path )
 	end
@@ -368,6 +384,10 @@ newaction {
 		start_test_of( "cppspec-test" )
 		start_test_of( "gmock-test" )
 		start_test_of( "gtest-test" )
+		start_test_of( "cucumber-cpp-unit-test" )
+		start_test_of( "cucumber-cpp-integration-test-1" )
+		start_test_of( "cucumber-cpp-integration-test-2" )
+		start_test_of( "cucumber-cpp-integration-test-3" )
 	end
 }
 

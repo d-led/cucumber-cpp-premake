@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{0563F591-F15C-1EE4-DAC9-B4F4C6628450}</ProjectGuid>
+    <ProjectGuid>{2A6D1993-9650-28D3-9F53-560F0BB6EE23}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>cucumber-cpp-unit-test</RootNamespace>
+    <RootNamespace>cucumber-cpp-integration-test-4</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug native|Win32'" Label="Configuration">
@@ -41,15 +41,15 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug native|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\bin\Debug\</OutDir>
-    <IntDir>Debug\obj\native\Debug\cucumber-cpp-unit-test\</IntDir>
-    <TargetName>cucumber-cpp-unit-test</TargetName>
+    <IntDir>Debug\obj\native\Debug\cucumber-cpp-integration-test-4\</IntDir>
+    <TargetName>cucumber-cpp-integration-test-4</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release native|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\bin\Release\</OutDir>
-    <IntDir>Release\obj\native\Release\cucumber-cpp-unit-test\</IntDir>
-    <TargetName>cucumber-cpp-unit-test</TargetName>
+    <IntDir>Release\obj\native\Release\cucumber-cpp-integration-test-4\</IntDir>
+    <TargetName>cucumber-cpp-integration-test-4</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug native|Win32'">
@@ -59,7 +59,7 @@
       <PreprocessorDefinitions>DEBUG;_DEBUG;_VARIADIC_MAX=10;_WIN32_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\..\..\..\boost\boost_1_51;..\cppspec\include;..\googlemock\fused-src;..\cucumber-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ProgramDataBaseFileName>$(OutDir)cucumber-cpp-unit-test.pdb</ProgramDataBaseFileName>
+      <ProgramDataBaseFileName>$(OutDir)cucumber-cpp-integration-test-4.pdb</ProgramDataBaseFileName>
       <Optimization>Disabled</Optimization>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -101,19 +101,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\cucumber-cpp\tests\unit\ContextManagerTest.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\tests\unit\CukeCommandsTest.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\tests\unit\RegexTest.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\tests\unit\StepCallChainTest.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\tests\unit\StepManagerTest.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\tests\unit\TableTest.cpp">
-    </ClCompile>
-    <ClCompile Include="..\cucumber-cpp\tests\unit\TagTest.cpp">
+    <ClCompile Include="..\cucumber-cpp\tests\integration\TaggedHookRegistrationTest.cpp">
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
