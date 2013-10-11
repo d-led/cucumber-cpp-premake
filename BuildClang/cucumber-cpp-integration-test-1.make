@@ -28,9 +28,9 @@ ifndef RESCOMP
 endif
 
 ifeq ($(config),debug)
-  OBJDIR     = Debug/obj/Debug/cucumber-cpp-unit-test
+  OBJDIR     = Debug/obj/Debug/cucumber-cpp-integration-test-1
   TARGETDIR  = ../bin/Debug
-  TARGET     = $(TARGETDIR)/cucumber-cpp-unit-test
+  TARGET     = $(TARGETDIR)/cucumber-cpp-integration-test-1
   DEFINES   += -DDEBUG -D_DEBUG -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
@@ -50,9 +50,9 @@ ifeq ($(config),debug)
 endif
 
 ifeq ($(config),release)
-  OBJDIR     = Release/obj/Release/cucumber-cpp-unit-test
+  OBJDIR     = Release/obj/Release/cucumber-cpp-integration-test-1
   TARGETDIR  = ../bin/Release
-  TARGET     = $(TARGETDIR)/cucumber-cpp-unit-test
+  TARGET     = $(TARGETDIR)/cucumber-cpp-integration-test-1
   DEFINES   += -DRELEASE -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
@@ -72,13 +72,10 @@ ifeq ($(config),release)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/ContextManagerTest.o \
-	$(OBJDIR)/CukeCommandsTest.o \
-	$(OBJDIR)/RegexTest.o \
-	$(OBJDIR)/StepCallChainTest.o \
-	$(OBJDIR)/StepManagerTest.o \
-	$(OBJDIR)/TableTest.o \
-	$(OBJDIR)/TagTest.o \
+	$(OBJDIR)/ContextHandlingTest.o \
+	$(OBJDIR)/HookRegistrationTest.o \
+	$(OBJDIR)/WireProtocolTest.o \
+	$(OBJDIR)/WireServerTest.o \
 
 RESOURCES := \
 
@@ -96,7 +93,7 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 	@:
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking cucumber-cpp-unit-test
+	@echo Linking cucumber-cpp-integration-test-1
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -117,7 +114,7 @@ else
 endif
 
 clean:
-	@echo Cleaning cucumber-cpp-unit-test
+	@echo Cleaning cucumber-cpp-integration-test-1
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -143,25 +140,16 @@ endif
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 endif
 
-$(OBJDIR)/ContextManagerTest.o: ../cucumber-cpp/tests/unit/ContextManagerTest.cpp
+$(OBJDIR)/ContextHandlingTest.o: ../cucumber-cpp/tests/integration/ContextHandlingTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/CukeCommandsTest.o: ../cucumber-cpp/tests/unit/CukeCommandsTest.cpp
+$(OBJDIR)/HookRegistrationTest.o: ../cucumber-cpp/tests/integration/HookRegistrationTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/RegexTest.o: ../cucumber-cpp/tests/unit/RegexTest.cpp
+$(OBJDIR)/WireProtocolTest.o: ../cucumber-cpp/tests/integration/WireProtocolTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/StepCallChainTest.o: ../cucumber-cpp/tests/unit/StepCallChainTest.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/StepManagerTest.o: ../cucumber-cpp/tests/unit/StepManagerTest.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/TableTest.o: ../cucumber-cpp/tests/unit/TableTest.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/TagTest.o: ../cucumber-cpp/tests/unit/TagTest.cpp
+$(OBJDIR)/WireServerTest.o: ../cucumber-cpp/tests/integration/WireServerTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 

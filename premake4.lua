@@ -233,12 +233,14 @@ local function standard_gmock_test_links()
 		configuration { "linux" }
 		links {
 			"boost_system-mt",
-			"boost_regex-mt"
+			"boost_regex-mt",
+			"boost_thread-mt"
 		}
         configuration { "macosx" }
         links {
             "boost_system-mt",
-            "boost_regex-mt"
+            "boost_regex-mt",
+			"boost_thread-mt"
         }
 		configuration { "*" }
 		defines ( cfg.defines )
@@ -277,12 +279,16 @@ local function make_steps(name,files_,folder_,extras_)
 		configuration { "linux" }
 		links( concat (cfg.links, concat( l, {
 			"boost_system-mt",
-			"boost_regex-mt"
+			"boost_regex-mt",
+			"boost_chrono-mt",
+			"boost_thread-mt"
 		})))
         configuration { "macosx" }
        	links( concat (cfg.links, concat( l, {
 			"boost_system-mt",
-			"boost_regex-mt"
+			"boost_regex-mt",
+			"boost_chrono-mt",
+			"boost_thread-mt"
 		})))
 		configuration { "vs*" }
 		links( concat (cfg.links, l ) )

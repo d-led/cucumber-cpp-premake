@@ -28,18 +28,18 @@ ifndef RESCOMP
 endif
 
 ifeq ($(config),debug)
-  OBJDIR     = Debug/obj/Debug/cucumber-cpp-unit-test
-  TARGETDIR  = ../bin/Debug
-  TARGET     = $(TARGETDIR)/cucumber-cpp-unit-test
+  OBJDIR     = Debug/obj/Debug/GTestCalculatorSteps
+  TARGETDIR  = ../cucumber-cpp/examples/Calc/features/step_definitions
+  TARGET     = $(TARGETDIR)/GTestCalculatorSteps
   DEFINES   += -DDEBUG -D_DEBUG -DGTEST_USE_OWN_TR1_TUPLE=1
-  INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
+  INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include -I../cucumber-cpp/examples/Calc/src
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -v  -fPIC
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -L.. -L../bin/Debug
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += ../bin/Debug/libcucumber-cpp.a ../bin/Debug/libgooglemock.a ../bin/Debug/libgooglemock-main.a -lc++ -lboost_system-mt -lboost_regex-mt -lboost_thread-mt
-  LDDEPS    += ../bin/Debug/libcucumber-cpp.a ../bin/Debug/libgooglemock.a ../bin/Debug/libgooglemock-main.a
+  LIBS      += ../bin/Debug/libcucumber-cpp-main.a ../bin/Debug/libcucumber-cpp.a ../bin/Debug/libgooglemock.a ../bin/Debug/libcucumber-cpp-gtest-driver.a -lc++ -lboost_system-mt -lboost_regex-mt -lboost_chrono-mt -lboost_thread-mt
+  LDDEPS    += ../bin/Debug/libcucumber-cpp-main.a ../bin/Debug/libcucumber-cpp.a ../bin/Debug/libgooglemock.a ../bin/Debug/libcucumber-cpp-gtest-driver.a
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
   endef
@@ -50,18 +50,18 @@ ifeq ($(config),debug)
 endif
 
 ifeq ($(config),release)
-  OBJDIR     = Release/obj/Release/cucumber-cpp-unit-test
-  TARGETDIR  = ../bin/Release
-  TARGET     = $(TARGETDIR)/cucumber-cpp-unit-test
+  OBJDIR     = Release/obj/Release/GTestCalculatorSteps
+  TARGETDIR  = ../cucumber-cpp/examples/Calc/features/step_definitions
+  TARGET     = $(TARGETDIR)/GTestCalculatorSteps
   DEFINES   += -DRELEASE -DGTEST_USE_OWN_TR1_TUPLE=1
-  INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
+  INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include -I../cucumber-cpp/examples/Calc/src
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O2 -v  -fPIC
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -L.. -L../bin/Release -Wl,-x
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += ../bin/Release/libcucumber-cpp.a ../bin/Release/libgooglemock.a ../bin/Release/libgooglemock-main.a -lc++ -lboost_system-mt -lboost_regex-mt -lboost_thread-mt
-  LDDEPS    += ../bin/Release/libcucumber-cpp.a ../bin/Release/libgooglemock.a ../bin/Release/libgooglemock-main.a
+  LIBS      += ../bin/Release/libcucumber-cpp-main.a ../bin/Release/libcucumber-cpp.a ../bin/Release/libgooglemock.a ../bin/Release/libcucumber-cpp-gtest-driver.a -lc++ -lboost_system-mt -lboost_regex-mt -lboost_chrono-mt -lboost_thread-mt
+  LDDEPS    += ../bin/Release/libcucumber-cpp-main.a ../bin/Release/libcucumber-cpp.a ../bin/Release/libgooglemock.a ../bin/Release/libcucumber-cpp-gtest-driver.a
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
   endef
@@ -72,13 +72,8 @@ ifeq ($(config),release)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/ContextManagerTest.o \
-	$(OBJDIR)/CukeCommandsTest.o \
-	$(OBJDIR)/RegexTest.o \
-	$(OBJDIR)/StepCallChainTest.o \
-	$(OBJDIR)/StepManagerTest.o \
-	$(OBJDIR)/TableTest.o \
-	$(OBJDIR)/TagTest.o \
+	$(OBJDIR)/GTestCalculatorSteps.o \
+	$(OBJDIR)/Calculator.o \
 
 RESOURCES := \
 
@@ -96,7 +91,7 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 	@:
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking cucumber-cpp-unit-test
+	@echo Linking GTestCalculatorSteps
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -117,7 +112,7 @@ else
 endif
 
 clean:
-	@echo Cleaning cucumber-cpp-unit-test
+	@echo Cleaning GTestCalculatorSteps
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -143,25 +138,10 @@ endif
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 endif
 
-$(OBJDIR)/ContextManagerTest.o: ../cucumber-cpp/tests/unit/ContextManagerTest.cpp
+$(OBJDIR)/GTestCalculatorSteps.o: ../cucumber-cpp/examples/Calc/features/step_definitions/GTestCalculatorSteps.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/CukeCommandsTest.o: ../cucumber-cpp/tests/unit/CukeCommandsTest.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/RegexTest.o: ../cucumber-cpp/tests/unit/RegexTest.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/StepCallChainTest.o: ../cucumber-cpp/tests/unit/StepCallChainTest.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/StepManagerTest.o: ../cucumber-cpp/tests/unit/StepManagerTest.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/TableTest.o: ../cucumber-cpp/tests/unit/TableTest.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-$(OBJDIR)/TagTest.o: ../cucumber-cpp/tests/unit/TagTest.cpp
+$(OBJDIR)/Calculator.o: ../cucumber-cpp/examples/Calc/src/Calculator.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
