@@ -259,12 +259,10 @@ make_console_app("cucumber-cpp-unit-test",{"./cucumber-cpp/tests/unit/*.cpp"},fu
 		configuration { "*" }
 end)
 ----------------------------------------------------------------------------------------------------------------
-local function make_gtest_steps(name,files_,folder_,extras_)
+local function make_steps(name,files_,folder_,extras_)
 	local l = {
 		"cucumber-cpp-main",
-		"cucumber-cpp",
-		"googlemock",
-		"cucumber-cpp-gtest-driver"
+		"cucumber-cpp"
 	}
 	make_console_app(name,files_,function()
 		configuration { "linux" }
@@ -287,6 +285,22 @@ local function make_gtest_steps(name,files_,folder_,extras_)
 	end
 end
 ----------------------------------------------------------------------------------------------------------------
+local function make_gtest_steps(name,files_,folder_,extras_)
+	make_steps(name,files_,folder_,extras_)
+	links {
+		"googlemock",
+		"cucumber-cpp-gtest-driver"
+	}
+end
+----------------------------------------------------------------------------------------------------------------
+local function make_cppspec_steps(name,files_,folder_,extras_)
+	make_steps(name,files_,folder_,extras_)
+	links {
+		"cppspec",
+		"cucumber-cpp-cppspec-driver"
+	}
+end
+----------------------------------------------------------------------------------------------------------------
 make_gtest_steps("TagSteps",
 	{"./cucumber-cpp/examples/FeatureShowcase/features/step_definitions/TagSteps.cpp"},
 	[[./cucumber-cpp/examples/FeatureShowcase/features/step_definitions]])
@@ -296,6 +310,17 @@ make_gtest_steps("TableSteps",
 make_gtest_steps("GTestCalculatorSteps",
 	{	
 		"./cucumber-cpp/examples/Calc/features/step_definitions/GTestCalculatorSteps.cpp",
+		"./cucumber-cpp/examples/Calc/src/Calculator.cpp"
+	},
+	[[./cucumber-cpp/examples/Calc/features/step_definitions]],
+	function()
+		includedirs {
+			[[./cucumber-cpp/examples/Calc/src]],
+		}
+	end)
+make_cppspec_steps("CppSpecCalculatorSteps",
+	{	
+		"./cucumber-cpp/examples/Calc/features/step_definitions/CppSpecCalculatorSteps.cpp",
 		"./cucumber-cpp/examples/Calc/src/Calculator.cpp"
 	},
 	[[./cucumber-cpp/examples/Calc/features/step_definitions]],
@@ -353,5 +378,6 @@ newaction {
 		start_cucumber_for([[cucumber-cpp/examples/FeatureShowcase]],[[features/step_definitions/TableSteps]])
 		start_cucumber_for([[cucumber-cpp/examples/FeatureShowcase]],[[features/step_definitions/TagSteps]])
 		start_cucumber_for([[cucumber-cpp/examples/Calc]],[[features/step_definitions/GTestCalculatorSteps]])
+		start_cucumber_for([[cucumber-cpp/examples/Calc]],[[features/step_definitions/CppSpecCalculatorSteps]])
 	end
 }
