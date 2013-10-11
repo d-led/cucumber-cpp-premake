@@ -105,11 +105,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="cucumber-cpp.vcxproj">
-      <Project>{ABB4A90A-9717-39AF-409D-71652CDF0432}</Project>
-    </ProjectReference>
     <ProjectReference Include="cucumber-cpp-main.vcxproj">
       <Project>{1D16288F-892C-2625-D2A3-B1463EF9F6AC}</Project>
+    </ProjectReference>
+    <ProjectReference Include="cucumber-cpp.vcxproj">
+      <Project>{ABB4A90A-9717-39AF-409D-71652CDF0432}</Project>
     </ProjectReference>
     <ProjectReference Include="googlemock.vcxproj">
       <Project>{AC7B6BC4-9833-AD11-013B-866DED114802}</Project>

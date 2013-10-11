@@ -259,7 +259,7 @@ make_console_app("cucumber-cpp-unit-test",{"./cucumber-cpp/tests/unit/*.cpp"},fu
 		configuration { "*" }
 end)
 ----------------------------------------------------------------------------------------------------------------
-local function make_gtest_steps(name,files_,folder_)
+local function make_gtest_steps(name,files_,folder_,extras_)
 	local l = {
 		"cucumber-cpp-main",
 		"cucumber-cpp",
@@ -282,6 +282,9 @@ local function make_gtest_steps(name,files_,folder_)
 		configuration { "*" }
 	targetdir(folder_)
 	end)
+	if type(extras_) == "function" then
+		extras_()
+	end
 end
 ----------------------------------------------------------------------------------------------------------------
 make_gtest_steps("TagSteps",
@@ -290,6 +293,17 @@ make_gtest_steps("TagSteps",
 make_gtest_steps("TableSteps",
 	{"./cucumber-cpp/examples/FeatureShowcase/features/step_definitions/TableSteps.cpp"},
 	[[./cucumber-cpp/examples/FeatureShowcase/features/step_definitions]])
+make_gtest_steps("GTestCalculatorSteps",
+	{	
+		"./cucumber-cpp/examples/Calc/features/step_definitions/GTestCalculatorSteps.cpp",
+		"./cucumber-cpp/examples/Calc/src/Calculator.cpp"
+	},
+	[[./cucumber-cpp/examples/Calc/features/step_definitions]],
+	function()
+		includedirs {
+			[[./cucumber-cpp/examples/Calc/src]],
+		}
+	end)
 ----------------------------------------------------------------------------------------------------------------
 
 function file_exists(name)
@@ -338,5 +352,6 @@ newaction {
 	execute     = function ()
 		start_cucumber_for([[cucumber-cpp/examples/FeatureShowcase]],[[features/step_definitions/TableSteps]])
 		start_cucumber_for([[cucumber-cpp/examples/FeatureShowcase]],[[features/step_definitions/TagSteps]])
+		start_cucumber_for([[cucumber-cpp/examples/Calc]],[[features/step_definitions/GTestCalculatorSteps]])
 	end
 }

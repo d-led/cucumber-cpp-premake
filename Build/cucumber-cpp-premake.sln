@@ -29,6 +29,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TagSteps", "TagSteps.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TableSteps", "TableSteps.vcxproj", "{DCC0C988-C878-0BD6-3180-E4311D57A6C6}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GTestCalculatorSteps", "GTestCalculatorSteps.vcxproj", "{45CB9D9D-315A-2767-DA78-3B62C6E6370D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|native = Debug|native
@@ -91,6 +93,10 @@ Global
 		{DCC0C988-C878-0BD6-3180-E4311D57A6C6}.Debug|native.Build.0 = Debug native|Win32
 		{DCC0C988-C878-0BD6-3180-E4311D57A6C6}.Release|native.ActiveCfg = Release native|Win32
 		{DCC0C988-C878-0BD6-3180-E4311D57A6C6}.Release|native.Build.0 = Release native|Win32
+		{45CB9D9D-315A-2767-DA78-3B62C6E6370D}.Debug|native.ActiveCfg = Debug native|Win32
+		{45CB9D9D-315A-2767-DA78-3B62C6E6370D}.Debug|native.Build.0 = Debug native|Win32
+		{45CB9D9D-315A-2767-DA78-3B62C6E6370D}.Release|native.ActiveCfg = Release native|Win32
+		{45CB9D9D-315A-2767-DA78-3B62C6E6370D}.Release|native.Build.0 = Release native|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
