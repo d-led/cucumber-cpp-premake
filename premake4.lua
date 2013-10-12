@@ -1,16 +1,5 @@
 cfg = assert(require 'premake.config') --global os-specific configuration variables
 
-local function concat( array1, array2 )
-	local res = {}
-	for _,v in ipairs(array1) do
-		res[#res+1] = v
-	end
-	for _,v in ipairs(array2) do
-		res[#res+1] = v
-	end
-	return res
-end
-
 -- Apply to current "filter" (solution/project)
 function DefaultConfig()
 	location( cfg.location )
@@ -64,11 +53,12 @@ solution "cucumber-cpp-premake"
 		configurations { "Debug", "Release" }
 		platforms { "native" }
 		libdirs ( cfg.libdirs )
-		includedirs (concat ( cfg.includedirs, { 
+		includedirs ( cfg.includedirs )
+		includedirs { 
 			[[./cppspec/include]],
 			[[./googlemock/fused-src]],
 			[[./cucumber-cpp/include]]
-		} ) )
+		}
 		vpaths {
 			["Headers"] = {"**.h","**.hpp"},
 			["Sources"] = {"**.c", "**.cpp"},
@@ -117,7 +107,8 @@ make_static_lib("cucumber-cpp-main", { "./cucumber-cpp/src/main.cpp" }, function
 end)
 ----------------------------------------------------------------------------------------------------------------
 make_static_lib("cucumber-cpp-boost-driver", { "./cucumber-cpp/src/drivers/BoostDriver.cpp" }, function()
-	defines ( concat( cfg.defines, {"BOOST_TEST_ALTERNATIVE_INIT_API"} ) )
+	defines ( cfg.defines )
+	defines {"BOOST_TEST_ALTERNATIVE_INIT_API"}
 end)
 ----------------------------------------------------------------------------------------------------------------
 make_static_lib("cucumber-cpp-cppspec-driver", { "./cucumber-cpp/src/drivers/CppSpecDriver.cpp" }, function()
@@ -160,9 +151,8 @@ make_console_app("gmock-test",{"./googlemock/test/gmock_all_test.cc", "./googlem
 			[[./googlemock/include]],
 			[[./googlemock/gtest/include]],			
 		}
-		links( concat (cfg.links, { 
-			"googlemock"
-		}))
+		links( cfg.links )
+		links { "googlemock" }
 end)
 ----------------------------------------------------------------------------------------------------------------
 make_console_app("gtest-test",{"./googlemock/gtest/test/gtest_all_test.cc", "./googlemock/gtest/test/*.h"},function()
@@ -170,10 +160,11 @@ make_console_app("gtest-test",{"./googlemock/gtest/test/gtest_all_test.cc", "./g
 			[[./googlemock/gtest]],
 			[[./googlemock/gtest/include]]
 		}
-		links( concat (cfg.links, { 
+		links( cfg.links )
+		links { 
 			"googlemock",
 			"googlemock-main"
-		}))
+		}
 end)
 ----------------------------------------------------------------------------------------------------------------
 local function standard_gmock_test_links()
@@ -230,21 +221,26 @@ local function make_steps(name,files_,folder_,extras_)
 	}
 	make_console_app(name,files_,function()
 		configuration { "linux" }
-		links( concat (cfg.links, concat( l, {
+		links( cfg.links )
+		links( l )
+		links {
 			"boost_system",
 			"boost_regex",
 			"boost_chrono",
 			"boost_thread"
-		})))
+		}
         configuration { "macosx" }
-       	links( concat (cfg.links, concat( l, {
+       	links( cfg.links )
+       	links( l )
+       	links {
 			"boost_system-mt",
 			"boost_regex-mt",
 			"boost_chrono-mt",
 			"boost_thread-mt"
-		})))
+		}
 		configuration { "vs*" }
-		links( concat (cfg.links, l ) )
+		links( cfg.links )
+		links( l )
 		configuration { "*" }
 	targetdir(folder_)
 	end)
