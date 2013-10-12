@@ -1,51 +1,4 @@
-local OS=os.get()
-
-local cmd	=	{
-	dir = {
-  		linux = "ls",
-		windows = "dir",
-		macosx = "ls"
-	},
- 	libdirs = {
- 		linux = { "" },
-        windows = { path.join(os.getenv("BOOST"),path.join("stage","lib")) },
- 		macosx = { "" }
- 	},
-	includedirs = {
-		linux = { "" },
-		windows = { os.getenv("BOOST") },
-		macosx = { "" }
-	},
-	location = {
-		linux = "Build",
-		windows = "Build",
-		macosx = "BuildClang"
-	},
- 	buildoptions = {
- 		linux = "-v -fPIC",
- 		windows = "-v -std=c++11 -fPIC",
- 		macosx = "-v  -fPIC" ---stdlib=libc++ -std=c++11
- 	},
- 	links = {
- 		linux = { "pthread" },
- 		windows = { },
- 		macosx = { "c++" }
- 	},
- 	defines = {
- 		linux = { },
- 		windows = { "_WIN32_WINDOWS" },
- 		macosx = { }
- 	}
-}
-
-local cfg={}
-
-for i,v in pairs(cmd) do
- cfg[i]=cmd[i][OS]
-end
-
-cfg.debug_target_dir = path.join('bin','Debug')
-cfg.release_target_dir = path.join('bin','Release')
+cfg = assert(require 'premake.config') --global os-specific configuration variables
 
 local function concat( array1, array2 )
 	local res = {}
@@ -190,13 +143,13 @@ make_console_app("cppspec-test", {"./cppspec/test/*.cpp", "./cppspec/test/*.h"},
 		}
         configuration { "macosx" }
         links { 
-            "boost_regex",
-            "boost_program_options",
-            "boost_filesystem",
-            "boost_date_time",
-            "boost_chrono",
-            "boost_thread",
-            "boost_system"
+            "boost_regex-mt",
+            "boost_program_options-mt",
+            "boost_filesystem-mt",
+            "boost_date_time-mt",
+            "boost_chrono-mt",
+            "boost_thread-mt",
+            "boost_system-mt"
         }
 		configuration { "*" }
 end)
@@ -238,9 +191,9 @@ local function standard_gmock_test_links()
 		}
         configuration { "macosx" }
         links {
-            "boost_system",
-            "boost_regex",
-			"boost_thread"
+            "boost_system-mt",
+            "boost_regex-mt",
+			"boost_thread-mt"
         }
 		configuration { "*" }
 		defines ( cfg.defines )
@@ -285,10 +238,10 @@ local function make_steps(name,files_,folder_,extras_)
 		})))
         configuration { "macosx" }
        	links( concat (cfg.links, concat( l, {
-			"boost_system",
-			"boost_regex",
-			"boost_chrono",
-			"boost_thread"
+			"boost_system-mt",
+			"boost_regex-mt",
+			"boost_chrono-mt",
+			"boost_thread-mt"
 		})))
 		configuration { "vs*" }
 		links( concat (cfg.links, l ) )
