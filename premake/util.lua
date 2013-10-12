@@ -17,9 +17,12 @@ if os.get == nil then
 		return "windows"
 	end
 end
+
 if os.getcwd == nil then
-	if os.get() == "linux" then
-		return io.popen'pwd':read'*l'
+	os.getcwd = function()
+		if os.get() == "linux" then
+			return io.popen'pwd':read'*l'
+		end
 	end
 end
 
