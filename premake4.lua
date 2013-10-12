@@ -1,28 +1,9 @@
-cfg = assert(require 'premake.config') --global os-specific configuration variables
-actions = assert(require 'premake.actions')
+cfg = require 'premake.config' --global os-specific configuration variables
+actions = require 'premake.actions'
 
--- A solution contains projects, and defines the available configurations
-solution "cucumber-cpp-premake"
-	location( cfg.location )
-		configurations { "Debug", "Release" }
-		platforms { "native" }
-		libdirs ( cfg.libdirs )
-		includedirs ( cfg.includedirs )
-		includedirs { 
-			[[./cppspec/include]],
-			[[./googlemock/fused-src]],
-			[[./cucumber-cpp/include]]
-		}
-		vpaths {
-			["Headers"] = {"**.h","**.hpp"},
-			["Sources"] = {"**.c", "**.cpp"},
-		}
+assert(require'premake.solution')
+assert(require'premake.gmock')
 
-
-----------------------------------------------------------------------------------------------------------------
-actions.make_static_lib("googlemock", {"./googlemock/fused-src/gmock-gtest-all.cc"} )
-----------------------------------------------------------------------------------------------------------------
-actions.make_static_lib("googlemock-main", {"./googlemock/fused-src/gmock_main.cc"} )
 ----------------------------------------------------------------------------------------------------------------
 actions.make_static_lib("cppspec",{"./cppspec/src/*.cpp"} )
 ----------------------------------------------------------------------------------------------------------------
