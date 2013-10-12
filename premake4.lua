@@ -6,79 +6,9 @@ assert(require'premake.gmock')
 assert(require'premake.cppspec')
 assert(require'premake.cucumber-cpp')
 assert(require'premake.boost')
-----------------------------------------------------------------------------------------------------------------
-actions.make_console_app("cppspec-test", {"./cppspec/test/*.cpp", "./cppspec/test/*.h"}, function()
-	links { "cppspec", "googlemock" }
-	links ( cfg.links )
-	configuration { "linux" }
-		links { 
-			"boost_regex",
-			"boost_program_options",
-			"boost_filesystem",
-			"boost_date_time",
-			"boost_chrono",
-			"boost_thread",
-			"boost_system"
-		}
-        configuration { "macosx" }
-        links { 
-            "boost_regex-mt",
-            "boost_program_options-mt",
-            "boost_filesystem-mt",
-            "boost_date_time-mt",
-            "boost_chrono-mt",
-            "boost_thread-mt",
-            "boost_system-mt"
-        }
-		configuration { "*" }
-end)
-----------------------------------------------------------------------------------------------------------------
-actions.make_console_app("gmock-test",{"./googlemock/test/gmock_all_test.cc", "./googlemock/test/*.h"},function()
-		includedirs {
-			[[./googlemock]],
-			[[./googlemock/include]],
-			[[./googlemock/gtest/include]],			
-		}
-		links( cfg.links )
-		links { "googlemock" }
-end)
-----------------------------------------------------------------------------------------------------------------
-actions.make_console_app("gtest-test",{"./googlemock/gtest/test/gtest_all_test.cc", "./googlemock/gtest/test/*.h"},function()
-		includedirs {
-			[[./googlemock/gtest]],
-			[[./googlemock/gtest/include]]
-		}
-		links( cfg.links )
-		links { 
-			"googlemock",
-			"googlemock-main"
-		}
-end)
-
-----------------------------------------------------------------------------------------------------------------
-actions.make_console_app("cucumber-cpp-unit-test",{"./cucumber-cpp/tests/unit/*.cpp"},function()
-		excludes {
-			"./cucumber-cpp/tests/unit/BasicStepTest.cpp"	
-		}
-		actions.standard_gmock_test_links()
-end)
-----------------------------------------------------------------------------------------------------------------
-actions.make_console_app("cucumber-cpp-integration-test-1",{"./cucumber-cpp/tests/integration/*.cpp"},function()
-		excludes {
-			"./cucumber-cpp/tests/integration/drivers/*.cpp",
-			"./cucumber-cpp/tests/integration/StepRegistrationTest.cpp",
-			"./cucumber-cpp/tests/integration/TaggedHookRegistrationTest.cpp"
-		}
-		actions.standard_gmock_test_links()
-end)
-----------------------------------------------------------------------------------------------------------------
-actions.make_console_app("cucumber-cpp-integration-test-2",{"./cucumber-cpp/tests/integration/StepRegistrationTest.cpp"},function()
-		actions.standard_gmock_test_links()
-end)
-----------------------------------------------------------------------------------------------------------------
-actions.make_console_app("cucumber-cpp-integration-test-3",{"./cucumber-cpp/tests/integration/TaggedHookRegistrationTest.cpp"},function()
-		actions.standard_gmock_test_links()
-end)
+assert(require'premake.cppspec-test')
+assert(require'premake.gmock-test')
+assert(require'premake.cucumber-cpp-test')
 
 ----------------------------------------------------------------------------------------------------------------
 actions.make_gtest_steps("TagSteps",
