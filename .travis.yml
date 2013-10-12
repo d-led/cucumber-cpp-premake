@@ -1,7 +1,7 @@
 language: cpp
 
 before_script:
-  - sudo apt-get install libboost-all-dev
+  - sudo apt-get install libboost-all-dev libboost-chrono-dev
   - sudo apt-get install lua5.1
 
 script:
