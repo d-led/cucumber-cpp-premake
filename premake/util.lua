@@ -1,3 +1,28 @@
+if path == nil then
+	path = {}
+end
+if path.join == nil then
+	path.join = function(p1,p2)
+		return p1..'/'..p2 -- cheap
+	end
+end
+
+if os == nil then
+	os = {}
+end
+if os.get == nil then
+	os.get = function ()
+		local res = io.popen('uname'):read("*l")
+		if res then return "linux" end -- cheap
+		return "windows"
+	end
+end
+if os.getcwd == nil then
+	if os.get() == "linux" then
+		return io.popen'pwd':read'*l'
+	end
+end
+
 function file_exists(name)
 	local f=io.open(name,"r")
 	if f~=nil then io.close(f) return true else return false end
@@ -10,9 +35,16 @@ local function normalize_executable_path(p)
 	return p
 end
 
-local function start_test_of(executable)
-	local debug_path = normalize_executable_path( path.join( cfg.debug_target_dir , executable ) )
-	local release_path = normalize_executable_path( path.join( cfg.release_target_dir , executable ) )
+local util = {
+	file_exists = file_exists,
+	normalize_executable_path = normalize_executable_path
+}
+
+util.start_test_of = function(executable)
+	local debug_path = normalize_executable_path( path.join( "bin/Debug" , executable ) )
+	local release_path = normalize_executable_path( path.join( "bin/Release" , executable ) )
+	print(io.popen'pwd':read'*l')
+
 	if file_exists( debug_path ) then
 		os.execute( debug_path )
 	end
@@ -21,7 +53,7 @@ local function start_test_of(executable)
 	end
 end
 
-local function start_cucumber_for(path_,executable)
+util.start_cucumber_for = function(path_,executable)
 	local od = os.getcwd()
 	local p = path.join(od,path_)
 	os.chdir(p)
@@ -34,12 +66,5 @@ local function start_cucumber_for(path_,executable)
 	end
 	os.chdir( od )
 end
-
-local util = {
-	file_exists = file_exists,
-	normalize_executable_path = normalize_executable_path,
-	start_test_of = start_test_of,
-	start_cucumber_for = start_cucumber_for
-}
 
 return util

@@ -16,13 +16,8 @@ newaction {
 	trigger     = "test",
 	description = "run unit tests",
 	execute     = function ()
-		util.start_test_of( "cppspec-test" )
-		util.start_test_of( "gmock-test" )
-		util.start_test_of( "gtest-test" )
-		util.start_test_of( "cucumber-cpp-unit-test" )
-		util.start_test_of( "cucumber-cpp-integration-test-1" )
-		util.start_test_of( "cucumber-cpp-integration-test-2" )
-		util.start_test_of( "cucumber-cpp-integration-test-3" )
+	    local f = loadfile('premake/test-action.lua')
+		if f then f() end
 	end
 }
 ----------------------------------------------------------------------------------------------------------------
@@ -30,9 +25,7 @@ newaction {
 	trigger     = "cucumber",
 	description = "run cucumber tests",
 	execute     = function ()
-		util.start_cucumber_for([[cucumber-cpp/examples/FeatureShowcase]],[[features/step_definitions/TableSteps]])
-		util.start_cucumber_for([[cucumber-cpp/examples/FeatureShowcase]],[[features/step_definitions/TagSteps]])
-		util.start_cucumber_for([[cucumber-cpp/examples/Calc]],[[features/step_definitions/GTestCalculatorSteps]])
-		util.start_cucumber_for([[cucumber-cpp/examples/Calc]],[[features/step_definitions/CppSpecCalculatorSteps]])
+		local f = loadfile('premake/cucumber-action.lua')
+		if f then f() end
 	end
 }
