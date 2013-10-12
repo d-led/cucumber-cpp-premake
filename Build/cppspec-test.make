@@ -38,7 +38,7 @@ ifeq ($(config),debug)
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -L.. -L../bin/Debug
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += ../bin/Debug/libcppspec.a ../bin/Debug/libgooglemock.a -lpthread -lboost_regex-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_date_time-mt -lboost_chrono-mt -lboost_thread-mt -lboost_system-mt
+  LIBS      += ../bin/Debug/libcppspec.a ../bin/Debug/libgooglemock.a -lpthread -lboost_regex -lboost_program_options -lboost_filesystem -lboost_date_time -lboost_chrono -lboost_thread -lboost_system
   LDDEPS    += ../bin/Debug/libcppspec.a ../bin/Debug/libgooglemock.a
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
@@ -60,7 +60,7 @@ ifeq ($(config),release)
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -L.. -L../bin/Release -s
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += ../bin/Release/libcppspec.a ../bin/Release/libgooglemock.a -lpthread -lboost_regex-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_date_time-mt -lboost_chrono-mt -lboost_thread-mt -lboost_system-mt
+  LIBS      += ../bin/Release/libcppspec.a ../bin/Release/libgooglemock.a -lpthread -lboost_regex -lboost_program_options -lboost_filesystem -lboost_date_time -lboost_chrono -lboost_thread -lboost_system
   LDDEPS    += ../bin/Release/libcppspec.a ../bin/Release/libgooglemock.a
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS

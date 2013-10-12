@@ -180,23 +180,23 @@ make_console_app("cppspec-test", {"./cppspec/test/*.cpp", "./cppspec/test/*.h"},
 	links ( cfg.links )
 	configuration { "linux" }
 		links { 
-			"boost_regex-mt",
-			"boost_program_options-mt",
-			"boost_filesystem-mt",
-			"boost_date_time-mt",
-			"boost_chrono-mt",
-			"boost_thread-mt",
-			"boost_system-mt"
+			"boost_regex",
+			"boost_program_options",
+			"boost_filesystem",
+			"boost_date_time",
+			"boost_chrono",
+			"boost_thread",
+			"boost_system"
 		}
         configuration { "macosx" }
         links { 
-            "boost_regex-mt",
-            "boost_program_options-mt",
-            "boost_filesystem-mt",
-            "boost_date_time-mt",
-            "boost_chrono-mt",
-            "boost_thread-mt",
-            "boost_system-mt"
+            "boost_regex",
+            "boost_program_options",
+            "boost_filesystem",
+            "boost_date_time",
+            "boost_chrono",
+            "boost_thread",
+            "boost_system"
         }
 		configuration { "*" }
 end)
@@ -232,15 +232,15 @@ local function standard_gmock_test_links()
 		}
 		configuration { "linux" }
 		links {
-			"boost_system-mt",
-			"boost_regex-mt",
-			"boost_thread-mt"
+			"boost_system",
+			"boost_regex",
+			"boost_thread"
 		}
         configuration { "macosx" }
         links {
-            "boost_system-mt",
-            "boost_regex-mt",
-			"boost_thread-mt"
+            "boost_system",
+            "boost_regex",
+			"boost_thread"
         }
 		configuration { "*" }
 		defines ( cfg.defines )
@@ -278,17 +278,17 @@ local function make_steps(name,files_,folder_,extras_)
 	make_console_app(name,files_,function()
 		configuration { "linux" }
 		links( concat (cfg.links, concat( l, {
-			"boost_system-mt",
-			"boost_regex-mt",
-			"boost_chrono-mt",
-			"boost_thread-mt"
+			"boost_system",
+			"boost_regex",
+			"boost_chrono",
+			"boost_thread"
 		})))
         configuration { "macosx" }
        	links( concat (cfg.links, concat( l, {
-			"boost_system-mt",
-			"boost_regex-mt",
-			"boost_chrono-mt",
-			"boost_thread-mt"
+			"boost_system",
+			"boost_regex",
+			"boost_chrono",
+			"boost_thread"
 		})))
 		configuration { "vs*" }
 		links( concat (cfg.links, l ) )

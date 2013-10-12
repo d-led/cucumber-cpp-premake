@@ -38,7 +38,7 @@ ifeq ($(config),debug)
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -L.. -L../bin/Debug
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += ../bin/Debug/libcucumber-cpp-main.a ../bin/Debug/libcucumber-cpp.a ../bin/Debug/libcppspec.a ../bin/Debug/libcucumber-cpp-cppspec-driver.a -lpthread -lboost_system-mt -lboost_regex-mt -lboost_chrono-mt -lboost_thread-mt
+  LIBS      += ../bin/Debug/libcucumber-cpp-main.a ../bin/Debug/libcucumber-cpp.a ../bin/Debug/libcppspec.a ../bin/Debug/libcucumber-cpp-cppspec-driver.a -lpthread -lboost_system -lboost_regex -lboost_chrono -lboost_thread
   LDDEPS    += ../bin/Debug/libcucumber-cpp-main.a ../bin/Debug/libcucumber-cpp.a ../bin/Debug/libcppspec.a ../bin/Debug/libcucumber-cpp-cppspec-driver.a
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
@@ -60,7 +60,7 @@ ifeq ($(config),release)
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -L.. -L../bin/Release -s
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += ../bin/Release/libcucumber-cpp-main.a ../bin/Release/libcucumber-cpp.a ../bin/Release/libcppspec.a ../bin/Release/libcucumber-cpp-cppspec-driver.a -lpthread -lboost_system-mt -lboost_regex-mt -lboost_chrono-mt -lboost_thread-mt
+  LIBS      += ../bin/Release/libcucumber-cpp-main.a ../bin/Release/libcucumber-cpp.a ../bin/Release/libcppspec.a ../bin/Release/libcucumber-cpp-cppspec-driver.a -lpthread -lboost_system -lboost_regex -lboost_chrono -lboost_thread
   LDDEPS    += ../bin/Release/libcucumber-cpp-main.a ../bin/Release/libcucumber-cpp.a ../bin/Release/libcppspec.a ../bin/Release/libcucumber-cpp-cppspec-driver.a
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
