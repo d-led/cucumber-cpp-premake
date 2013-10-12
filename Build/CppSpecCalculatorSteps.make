@@ -28,18 +28,18 @@ ifndef RESCOMP
 endif
 
 ifeq ($(config),debug)
-  OBJDIR     = Debug/obj/Debug/TableSteps
-  TARGETDIR  = ../cucumber-cpp/examples/FeatureShowcase/features/step_definitions
-  TARGET     = $(TARGETDIR)/TableSteps
+  OBJDIR     = Debug/obj/Debug/CppSpecCalculatorSteps
+  TARGETDIR  = ../cucumber-cpp/examples/Calc/features/step_definitions
+  TARGET     = $(TARGETDIR)/CppSpecCalculatorSteps
   DEFINES   += -DDEBUG -D_DEBUG
-  INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
+  INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include -I../cucumber-cpp/examples/Calc/src
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -v -fPIC
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -L.. -L../bin/Debug
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += ../bin/Debug/libcucumber-cpp-main.a ../bin/Debug/libcucumber-cpp.a ../bin/Debug/libgooglemock.a ../bin/Debug/libcucumber-cpp-gtest-driver.a -lpthread -lboost_system-mt -lboost_regex-mt -lboost_chrono-mt -lboost_thread-mt
-  LDDEPS    += ../bin/Debug/libcucumber-cpp-main.a ../bin/Debug/libcucumber-cpp.a ../bin/Debug/libgooglemock.a ../bin/Debug/libcucumber-cpp-gtest-driver.a
+  LIBS      += ../bin/Debug/libcucumber-cpp-main.a ../bin/Debug/libcucumber-cpp.a ../bin/Debug/libcppspec.a ../bin/Debug/libcucumber-cpp-cppspec-driver.a -lpthread -lboost_system-mt -lboost_regex-mt -lboost_chrono-mt -lboost_thread-mt
+  LDDEPS    += ../bin/Debug/libcucumber-cpp-main.a ../bin/Debug/libcucumber-cpp.a ../bin/Debug/libcppspec.a ../bin/Debug/libcucumber-cpp-cppspec-driver.a
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
   endef
@@ -50,18 +50,18 @@ ifeq ($(config),debug)
 endif
 
 ifeq ($(config),release)
-  OBJDIR     = Release/obj/Release/TableSteps
-  TARGETDIR  = ../cucumber-cpp/examples/FeatureShowcase/features/step_definitions
-  TARGET     = $(TARGETDIR)/TableSteps
+  OBJDIR     = Release/obj/Release/CppSpecCalculatorSteps
+  TARGETDIR  = ../cucumber-cpp/examples/Calc/features/step_definitions
+  TARGET     = $(TARGETDIR)/CppSpecCalculatorSteps
   DEFINES   += -DRELEASE
-  INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
+  INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include -I../cucumber-cpp/examples/Calc/src
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O2 -v -fPIC
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -L.. -L../bin/Release -s
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += ../bin/Release/libcucumber-cpp-main.a ../bin/Release/libcucumber-cpp.a ../bin/Release/libgooglemock.a ../bin/Release/libcucumber-cpp-gtest-driver.a -lpthread -lboost_system-mt -lboost_regex-mt -lboost_chrono-mt -lboost_thread-mt
-  LDDEPS    += ../bin/Release/libcucumber-cpp-main.a ../bin/Release/libcucumber-cpp.a ../bin/Release/libgooglemock.a ../bin/Release/libcucumber-cpp-gtest-driver.a
+  LIBS      += ../bin/Release/libcucumber-cpp-main.a ../bin/Release/libcucumber-cpp.a ../bin/Release/libcppspec.a ../bin/Release/libcucumber-cpp-cppspec-driver.a -lpthread -lboost_system-mt -lboost_regex-mt -lboost_chrono-mt -lboost_thread-mt
+  LDDEPS    += ../bin/Release/libcucumber-cpp-main.a ../bin/Release/libcucumber-cpp.a ../bin/Release/libcppspec.a ../bin/Release/libcucumber-cpp-cppspec-driver.a
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
   endef
@@ -72,7 +72,8 @@ ifeq ($(config),release)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/TableSteps.o \
+	$(OBJDIR)/CppSpecCalculatorSteps.o \
+	$(OBJDIR)/Calculator.o \
 
 RESOURCES := \
 
@@ -90,7 +91,7 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 	@:
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking TableSteps
+	@echo Linking CppSpecCalculatorSteps
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -111,7 +112,7 @@ else
 endif
 
 clean:
-	@echo Cleaning TableSteps
+	@echo Cleaning CppSpecCalculatorSteps
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -137,7 +138,10 @@ endif
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 endif
 
-$(OBJDIR)/TableSteps.o: ../cucumber-cpp/examples/FeatureShowcase/features/step_definitions/TableSteps.cpp
+$(OBJDIR)/CppSpecCalculatorSteps.o: ../cucumber-cpp/examples/Calc/features/step_definitions/CppSpecCalculatorSteps.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/Calculator.o: ../cucumber-cpp/examples/Calc/src/Calculator.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 

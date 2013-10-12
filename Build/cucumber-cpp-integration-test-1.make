@@ -28,9 +28,9 @@ ifndef RESCOMP
 endif
 
 ifeq ($(config),debug)
-  OBJDIR     = Debug/obj/Debug/TableSteps
-  TARGETDIR  = ../cucumber-cpp/examples/FeatureShowcase/features/step_definitions
-  TARGET     = $(TARGETDIR)/TableSteps
+  OBJDIR     = Debug/obj/Debug/cucumber-cpp-integration-test-1
+  TARGETDIR  = ../bin/Debug
+  TARGET     = $(TARGETDIR)/cucumber-cpp-integration-test-1
   DEFINES   += -DDEBUG -D_DEBUG
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
@@ -38,8 +38,8 @@ ifeq ($(config),debug)
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -L.. -L../bin/Debug
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += ../bin/Debug/libcucumber-cpp-main.a ../bin/Debug/libcucumber-cpp.a ../bin/Debug/libgooglemock.a ../bin/Debug/libcucumber-cpp-gtest-driver.a -lpthread -lboost_system-mt -lboost_regex-mt -lboost_chrono-mt -lboost_thread-mt
-  LDDEPS    += ../bin/Debug/libcucumber-cpp-main.a ../bin/Debug/libcucumber-cpp.a ../bin/Debug/libgooglemock.a ../bin/Debug/libcucumber-cpp-gtest-driver.a
+  LIBS      += ../bin/Debug/libcucumber-cpp.a ../bin/Debug/libgooglemock.a ../bin/Debug/libgooglemock-main.a -lpthread -lboost_system-mt -lboost_regex-mt -lboost_thread-mt
+  LDDEPS    += ../bin/Debug/libcucumber-cpp.a ../bin/Debug/libgooglemock.a ../bin/Debug/libgooglemock-main.a
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
   endef
@@ -50,9 +50,9 @@ ifeq ($(config),debug)
 endif
 
 ifeq ($(config),release)
-  OBJDIR     = Release/obj/Release/TableSteps
-  TARGETDIR  = ../cucumber-cpp/examples/FeatureShowcase/features/step_definitions
-  TARGET     = $(TARGETDIR)/TableSteps
+  OBJDIR     = Release/obj/Release/cucumber-cpp-integration-test-1
+  TARGETDIR  = ../bin/Release
+  TARGET     = $(TARGETDIR)/cucumber-cpp-integration-test-1
   DEFINES   += -DRELEASE
   INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
@@ -60,8 +60,8 @@ ifeq ($(config),release)
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -L.. -L../bin/Release -s
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
-  LIBS      += ../bin/Release/libcucumber-cpp-main.a ../bin/Release/libcucumber-cpp.a ../bin/Release/libgooglemock.a ../bin/Release/libcucumber-cpp-gtest-driver.a -lpthread -lboost_system-mt -lboost_regex-mt -lboost_chrono-mt -lboost_thread-mt
-  LDDEPS    += ../bin/Release/libcucumber-cpp-main.a ../bin/Release/libcucumber-cpp.a ../bin/Release/libgooglemock.a ../bin/Release/libcucumber-cpp-gtest-driver.a
+  LIBS      += ../bin/Release/libcucumber-cpp.a ../bin/Release/libgooglemock.a ../bin/Release/libgooglemock-main.a -lpthread -lboost_system-mt -lboost_regex-mt -lboost_thread-mt
+  LDDEPS    += ../bin/Release/libcucumber-cpp.a ../bin/Release/libgooglemock.a ../bin/Release/libgooglemock-main.a
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(LIBS) $(LDFLAGS)
   define PREBUILDCMDS
   endef
@@ -72,7 +72,10 @@ ifeq ($(config),release)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/TableSteps.o \
+	$(OBJDIR)/HookRegistrationTest.o \
+	$(OBJDIR)/WireProtocolTest.o \
+	$(OBJDIR)/WireServerTest.o \
+	$(OBJDIR)/ContextHandlingTest.o \
 
 RESOURCES := \
 
@@ -90,7 +93,7 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 	@:
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking TableSteps
+	@echo Linking cucumber-cpp-integration-test-1
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -111,7 +114,7 @@ else
 endif
 
 clean:
-	@echo Cleaning TableSteps
+	@echo Cleaning cucumber-cpp-integration-test-1
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -137,7 +140,16 @@ endif
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 endif
 
-$(OBJDIR)/TableSteps.o: ../cucumber-cpp/examples/FeatureShowcase/features/step_definitions/TableSteps.cpp
+$(OBJDIR)/HookRegistrationTest.o: ../cucumber-cpp/tests/integration/HookRegistrationTest.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/WireProtocolTest.o: ../cucumber-cpp/tests/integration/WireProtocolTest.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/WireServerTest.o: ../cucumber-cpp/tests/integration/WireServerTest.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/ContextHandlingTest.o: ../cucumber-cpp/tests/integration/ContextHandlingTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 

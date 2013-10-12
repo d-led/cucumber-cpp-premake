@@ -28,11 +28,11 @@ ifndef RESCOMP
 endif
 
 ifeq ($(config),debug)
-  OBJDIR     = Debug/obj/Debug/TableSteps
-  TARGETDIR  = ../cucumber-cpp/examples/FeatureShowcase/features/step_definitions
-  TARGET     = $(TARGETDIR)/TableSteps
+  OBJDIR     = Debug/obj/Debug/GTestCalculatorSteps
+  TARGETDIR  = ../cucumber-cpp/examples/Calc/features/step_definitions
+  TARGET     = $(TARGETDIR)/GTestCalculatorSteps
   DEFINES   += -DDEBUG -D_DEBUG
-  INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
+  INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include -I../cucumber-cpp/examples/Calc/src
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -v -fPIC
   CXXFLAGS  += $(CFLAGS) 
@@ -50,11 +50,11 @@ ifeq ($(config),debug)
 endif
 
 ifeq ($(config),release)
-  OBJDIR     = Release/obj/Release/TableSteps
-  TARGETDIR  = ../cucumber-cpp/examples/FeatureShowcase/features/step_definitions
-  TARGET     = $(TARGETDIR)/TableSteps
+  OBJDIR     = Release/obj/Release/GTestCalculatorSteps
+  TARGETDIR  = ../cucumber-cpp/examples/Calc/features/step_definitions
+  TARGET     = $(TARGETDIR)/GTestCalculatorSteps
   DEFINES   += -DRELEASE
-  INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include
+  INCLUDES  += -I.. -I../cppspec/include -I../googlemock/fused-src -I../cucumber-cpp/include -I../cucumber-cpp/examples/Calc/src
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O2 -v -fPIC
   CXXFLAGS  += $(CFLAGS) 
@@ -72,7 +72,8 @@ ifeq ($(config),release)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/TableSteps.o \
+	$(OBJDIR)/GTestCalculatorSteps.o \
+	$(OBJDIR)/Calculator.o \
 
 RESOURCES := \
 
@@ -90,7 +91,7 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 	@:
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking TableSteps
+	@echo Linking GTestCalculatorSteps
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -111,7 +112,7 @@ else
 endif
 
 clean:
-	@echo Cleaning TableSteps
+	@echo Cleaning GTestCalculatorSteps
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -137,7 +138,10 @@ endif
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 endif
 
-$(OBJDIR)/TableSteps.o: ../cucumber-cpp/examples/FeatureShowcase/features/step_definitions/TableSteps.cpp
+$(OBJDIR)/GTestCalculatorSteps.o: ../cucumber-cpp/examples/Calc/features/step_definitions/GTestCalculatorSteps.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+$(OBJDIR)/Calculator.o: ../cucumber-cpp/examples/Calc/src/Calculator.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
