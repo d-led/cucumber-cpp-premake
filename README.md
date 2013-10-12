@@ -4,6 +4,7 @@ cucumber-cpp-premake
 building
 --------
 
+- Boost 1.47+ is a prerequisite, but the makefiles are prepared for Boost 1.53
 - Prepare makefiles using `premake4 _target_`. Check premake4 documentation on targets or just run your copy of `premake4` without parameters.
 - Build
 - If Build fails, check the configuration in `premake4.lua` and make it Build :)
@@ -12,5 +13,15 @@ building
 status
 ------
 
-not complete yet
+[![Build Status](https://travis-ci.org/d-led/cucumber-cpp-premake.png?branch=master)](https://travis-ci.org/d-led/cucumber-cpp-premake)
+
+- The libraries are built completely
+- Unit tests ok
+- Some Cucumber tests
+- Some integration tests
+
+to-do
+-----
+
+Build refactoring
 
