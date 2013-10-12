@@ -3,15 +3,13 @@ actions = require 'premake.actions'
 
 assert(require'premake.solution')
 assert(require'premake.gmock')
+assert(require'premake.cppspec')
 
-----------------------------------------------------------------------------------------------------------------
-actions.make_static_lib("cppspec",{"./cppspec/src/*.cpp"} )
 ----------------------------------------------------------------------------------------------------------------
 actions.make_static_lib("cucumber-cpp", {"./cucumber-cpp/src/*.cpp","./cucumber-cpp/src/connectors/wire/*.cpp"  }, function()
 	defines ( cfg.defines )
 	excludes { "./cucumber-cpp/src/main.cpp" }
 end)
-
 ----------------------------------------------------------------------------------------------------------------
 actions.make_static_lib("cucumber-cpp-main", { "./cucumber-cpp/src/main.cpp" }, function()
 	defines ( cfg.defines )
@@ -20,10 +18,6 @@ end)
 actions.make_static_lib("cucumber-cpp-boost-driver", { "./cucumber-cpp/src/drivers/BoostDriver.cpp" }, function()
 	defines ( cfg.defines )
 	defines {"BOOST_TEST_ALTERNATIVE_INIT_API"}
-end)
-----------------------------------------------------------------------------------------------------------------
-actions.make_static_lib("cucumber-cpp-cppspec-driver", { "./cucumber-cpp/src/drivers/CppSpecDriver.cpp" }, function()
-	defines ( cfg.defines )
 end)
 ----------------------------------------------------------------------------------------------------------------
 actions.make_static_lib("cucumber-cpp-gtest-driver", { "./cucumber-cpp/src/drivers/GTestDriver.cpp" }, function()

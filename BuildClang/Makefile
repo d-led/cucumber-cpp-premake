@@ -6,7 +6,7 @@ ifndef config
 endif
 export config
 
-PROJECTS := googlemock googlemock-main cppspec cucumber-cpp cucumber-cpp-main cucumber-cpp-boost-driver cucumber-cpp-cppspec-driver cucumber-cpp-gtest-driver cppspec-test gmock-test gtest-test cucumber-cpp-unit-test cucumber-cpp-integration-test-1 cucumber-cpp-integration-test-2 cucumber-cpp-integration-test-3 TagSteps TableSteps GTestCalculatorSteps CppSpecCalculatorSteps
+PROJECTS := googlemock googlemock-main cppspec cucumber-cpp-cppspec-driver cucumber-cpp cucumber-cpp-main cucumber-cpp-boost-driver cucumber-cpp-gtest-driver cppspec-test gmock-test gtest-test cucumber-cpp-unit-test cucumber-cpp-integration-test-1 cucumber-cpp-integration-test-2 cucumber-cpp-integration-test-3 TagSteps TableSteps GTestCalculatorSteps CppSpecCalculatorSteps
 
 .PHONY: all clean help $(PROJECTS)
 
@@ -24,6 +24,10 @@ cppspec:
 	@echo "==== Building cppspec ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f cppspec.make
 
+cucumber-cpp-cppspec-driver: 
+	@echo "==== Building cucumber-cpp-cppspec-driver ($(config)) ===="
+	@${MAKE} --no-print-directory -C . -f cucumber-cpp-cppspec-driver.make
+
 cucumber-cpp: 
 	@echo "==== Building cucumber-cpp ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f cucumber-cpp.make
@@ -35,10 +39,6 @@ cucumber-cpp-main:
 cucumber-cpp-boost-driver: 
 	@echo "==== Building cucumber-cpp-boost-driver ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f cucumber-cpp-boost-driver.make
-
-cucumber-cpp-cppspec-driver: 
-	@echo "==== Building cucumber-cpp-cppspec-driver ($(config)) ===="
-	@${MAKE} --no-print-directory -C . -f cucumber-cpp-cppspec-driver.make
 
 cucumber-cpp-gtest-driver: 
 	@echo "==== Building cucumber-cpp-gtest-driver ($(config)) ===="
@@ -92,10 +92,10 @@ clean:
 	@${MAKE} --no-print-directory -C . -f googlemock.make clean
 	@${MAKE} --no-print-directory -C . -f googlemock-main.make clean
 	@${MAKE} --no-print-directory -C . -f cppspec.make clean
+	@${MAKE} --no-print-directory -C . -f cucumber-cpp-cppspec-driver.make clean
 	@${MAKE} --no-print-directory -C . -f cucumber-cpp.make clean
 	@${MAKE} --no-print-directory -C . -f cucumber-cpp-main.make clean
 	@${MAKE} --no-print-directory -C . -f cucumber-cpp-boost-driver.make clean
-	@${MAKE} --no-print-directory -C . -f cucumber-cpp-cppspec-driver.make clean
 	@${MAKE} --no-print-directory -C . -f cucumber-cpp-gtest-driver.make clean
 	@${MAKE} --no-print-directory -C . -f cppspec-test.make clean
 	@${MAKE} --no-print-directory -C . -f gmock-test.make clean
@@ -122,10 +122,10 @@ help:
 	@echo "   googlemock"
 	@echo "   googlemock-main"
 	@echo "   cppspec"
+	@echo "   cucumber-cpp-cppspec-driver"
 	@echo "   cucumber-cpp"
 	@echo "   cucumber-cpp-main"
 	@echo "   cucumber-cpp-boost-driver"
-	@echo "   cucumber-cpp-cppspec-driver"
 	@echo "   cucumber-cpp-gtest-driver"
 	@echo "   cppspec-test"
 	@echo "   gmock-test"
