@@ -1,51 +1,5 @@
 cfg = assert(require 'premake.config') --global os-specific configuration variables
-
--- Apply to current "filter" (solution/project)
-function DefaultConfig()
-	location( cfg.location )
-	configuration "Debug"
-		defines { "DEBUG", "_DEBUG" }
-		objdir( path.join(cfg.location, path.join("Debug", "obj") ) )
-		targetdir ( cfg.debug_target_dir )
-		flags { "Symbols" }
-	configuration "Release"
-		defines { "RELEASE" }
-		objdir( path.join(cfg.location, path.join("Release", "obj") ) )
-		targetdir( cfg.release_target_dir )
-		flags { "Optimize" }
-	configuration "*" -- to reset configuration filter
-end
-
-function CompilerSpecificConfiguration()
-	configuration {"xcode*" }
-
-	configuration {"gmake"}
-		buildoptions( cfg.buildoptions )
-
-	configuration {"codeblocks" }
-
-	configuration { "vs*"}
-        defines {
-            "_VARIADIC_MAX=10"
-        }
-
-        buildoptions {
-        	"/bigobj"
-    	}
-
-        flags {
-        	"NoEditAndContinue"
-    	}
-
-	configuration { "macosx" }
-		defines { 
-			"GTEST_USE_OWN_TR1_TUPLE=1"
-		}
-
-	configuration { "*" }
-end
-
-----------------------------------------------------------------------------------------------------------------
+actions = assert(require 'premake.actions')
 
 -- A solution contains projects, and defines the available configurations
 solution "cucumber-cpp-premake"
@@ -66,60 +20,36 @@ solution "cucumber-cpp-premake"
 
 
 ----------------------------------------------------------------------------------------------------------------
-
-local function make_project(project_type,name,files_,extras)
-	project(name)
-	location( cfg.location )
-		kind(project_type)
-		DefaultConfig()
-		language "C++"
-		files (files_)
-		CompilerSpecificConfiguration()
-
-		if type(extras)=="function" then
-			extras()
-		end
-end
-
-local function make_static_lib(name,files_,extras)
-	make_project("StaticLib",name,files_,extras)
-end
-
-local function make_console_app(name,files_,extras)
-	make_project("ConsoleApp",name,files_,extras)
-end
-
+actions.make_static_lib("googlemock", {"./googlemock/fused-src/gmock-gtest-all.cc"} )
 ----------------------------------------------------------------------------------------------------------------
-make_static_lib("googlemock", {"./googlemock/fused-src/gmock-gtest-all.cc"} )
+actions.make_static_lib("googlemock-main", {"./googlemock/fused-src/gmock_main.cc"} )
 ----------------------------------------------------------------------------------------------------------------
-make_static_lib("googlemock-main", {"./googlemock/fused-src/gmock_main.cc"} )
+actions.make_static_lib("cppspec",{"./cppspec/src/*.cpp"} )
 ----------------------------------------------------------------------------------------------------------------
-make_static_lib("cppspec",{"./cppspec/src/*.cpp"} )
-----------------------------------------------------------------------------------------------------------------
-make_static_lib("cucumber-cpp", {"./cucumber-cpp/src/*.cpp","./cucumber-cpp/src/connectors/wire/*.cpp"  }, function()
+actions.make_static_lib("cucumber-cpp", {"./cucumber-cpp/src/*.cpp","./cucumber-cpp/src/connectors/wire/*.cpp"  }, function()
 	defines ( cfg.defines )
 	excludes { "./cucumber-cpp/src/main.cpp" }
 end)
 
 ----------------------------------------------------------------------------------------------------------------
-make_static_lib("cucumber-cpp-main", { "./cucumber-cpp/src/main.cpp" }, function()
+actions.make_static_lib("cucumber-cpp-main", { "./cucumber-cpp/src/main.cpp" }, function()
 	defines ( cfg.defines )
 end)
 ----------------------------------------------------------------------------------------------------------------
-make_static_lib("cucumber-cpp-boost-driver", { "./cucumber-cpp/src/drivers/BoostDriver.cpp" }, function()
+actions.make_static_lib("cucumber-cpp-boost-driver", { "./cucumber-cpp/src/drivers/BoostDriver.cpp" }, function()
 	defines ( cfg.defines )
 	defines {"BOOST_TEST_ALTERNATIVE_INIT_API"}
 end)
 ----------------------------------------------------------------------------------------------------------------
-make_static_lib("cucumber-cpp-cppspec-driver", { "./cucumber-cpp/src/drivers/CppSpecDriver.cpp" }, function()
+actions.make_static_lib("cucumber-cpp-cppspec-driver", { "./cucumber-cpp/src/drivers/CppSpecDriver.cpp" }, function()
 	defines ( cfg.defines )
 end)
 ----------------------------------------------------------------------------------------------------------------
-make_static_lib("cucumber-cpp-gtest-driver", { "./cucumber-cpp/src/drivers/GTestDriver.cpp" }, function()
+actions.make_static_lib("cucumber-cpp-gtest-driver", { "./cucumber-cpp/src/drivers/GTestDriver.cpp" }, function()
 	defines ( cfg.defines )
 end)
 ----------------------------------------------------------------------------------------------------------------
-make_console_app("cppspec-test", {"./cppspec/test/*.cpp", "./cppspec/test/*.h"}, function()
+actions.make_console_app("cppspec-test", {"./cppspec/test/*.cpp", "./cppspec/test/*.h"}, function()
 	links { "cppspec", "googlemock" }
 	links ( cfg.links )
 	configuration { "linux" }
@@ -145,7 +75,7 @@ make_console_app("cppspec-test", {"./cppspec/test/*.cpp", "./cppspec/test/*.h"},
 		configuration { "*" }
 end)
 ----------------------------------------------------------------------------------------------------------------
-make_console_app("gmock-test",{"./googlemock/test/gmock_all_test.cc", "./googlemock/test/*.h"},function()
+actions.make_console_app("gmock-test",{"./googlemock/test/gmock_all_test.cc", "./googlemock/test/*.h"},function()
 		includedirs {
 			[[./googlemock]],
 			[[./googlemock/include]],
@@ -155,7 +85,7 @@ make_console_app("gmock-test",{"./googlemock/test/gmock_all_test.cc", "./googlem
 		links { "googlemock" }
 end)
 ----------------------------------------------------------------------------------------------------------------
-make_console_app("gtest-test",{"./googlemock/gtest/test/gtest_all_test.cc", "./googlemock/gtest/test/*.h"},function()
+actions.make_console_app("gtest-test",{"./googlemock/gtest/test/gtest_all_test.cc", "./googlemock/gtest/test/*.h"},function()
 		includedirs {
 			[[./googlemock/gtest]],
 			[[./googlemock/gtest/include]]
@@ -166,112 +96,40 @@ make_console_app("gtest-test",{"./googlemock/gtest/test/gtest_all_test.cc", "./g
 			"googlemock-main"
 		}
 end)
+
 ----------------------------------------------------------------------------------------------------------------
-local function standard_gmock_test_links()
-		links ( cfg.links )
-		links {
-			"cucumber-cpp",
-			"googlemock",
-			"googlemock-main"
-		}
-		configuration { "linux" }
-		links {
-			"boost_system",
-			"boost_regex",
-			"boost_thread"
-		}
-        configuration { "macosx" }
-        links {
-            "boost_system-mt",
-            "boost_regex-mt",
-			"boost_thread-mt"
-        }
-		configuration { "*" }
-		defines ( cfg.defines )
-end
-----------------------------------------------------------------------------------------------------------------
-make_console_app("cucumber-cpp-unit-test",{"./cucumber-cpp/tests/unit/*.cpp"},function()
+actions.make_console_app("cucumber-cpp-unit-test",{"./cucumber-cpp/tests/unit/*.cpp"},function()
 		excludes {
 			"./cucumber-cpp/tests/unit/BasicStepTest.cpp"	
 		}
-		standard_gmock_test_links()
+		actions.standard_gmock_test_links()
 end)
 ----------------------------------------------------------------------------------------------------------------
-make_console_app("cucumber-cpp-integration-test-1",{"./cucumber-cpp/tests/integration/*.cpp"},function()
+actions.make_console_app("cucumber-cpp-integration-test-1",{"./cucumber-cpp/tests/integration/*.cpp"},function()
 		excludes {
 			"./cucumber-cpp/tests/integration/drivers/*.cpp",
 			"./cucumber-cpp/tests/integration/StepRegistrationTest.cpp",
 			"./cucumber-cpp/tests/integration/TaggedHookRegistrationTest.cpp"
 		}
-		standard_gmock_test_links()
+		actions.standard_gmock_test_links()
 end)
 ----------------------------------------------------------------------------------------------------------------
-make_console_app("cucumber-cpp-integration-test-2",{"./cucumber-cpp/tests/integration/StepRegistrationTest.cpp"},function()
-		standard_gmock_test_links()
+actions.make_console_app("cucumber-cpp-integration-test-2",{"./cucumber-cpp/tests/integration/StepRegistrationTest.cpp"},function()
+		actions.standard_gmock_test_links()
 end)
 ----------------------------------------------------------------------------------------------------------------
-make_console_app("cucumber-cpp-integration-test-3",{"./cucumber-cpp/tests/integration/TaggedHookRegistrationTest.cpp"},function()
-		standard_gmock_test_links()
+actions.make_console_app("cucumber-cpp-integration-test-3",{"./cucumber-cpp/tests/integration/TaggedHookRegistrationTest.cpp"},function()
+		actions.standard_gmock_test_links()
 end)
+
 ----------------------------------------------------------------------------------------------------------------
-local function make_steps(name,files_,folder_,extras_)
-	local l = {
-		"cucumber-cpp-main",
-		"cucumber-cpp"
-	}
-	make_console_app(name,files_,function()
-		configuration { "linux" }
-		links( cfg.links )
-		links( l )
-		links {
-			"boost_system",
-			"boost_regex",
-			"boost_chrono",
-			"boost_thread"
-		}
-        configuration { "macosx" }
-       	links( cfg.links )
-       	links( l )
-       	links {
-			"boost_system-mt",
-			"boost_regex-mt",
-			"boost_chrono-mt",
-			"boost_thread-mt"
-		}
-		configuration { "vs*" }
-		links( cfg.links )
-		links( l )
-		configuration { "*" }
-	targetdir(folder_)
-	end)
-	if type(extras_) == "function" then
-		extras_()
-	end
-end
-----------------------------------------------------------------------------------------------------------------
-local function make_gtest_steps(name,files_,folder_,extras_)
-	make_steps(name,files_,folder_,extras_)
-	links {
-		"googlemock",
-		"cucumber-cpp-gtest-driver"
-	}
-end
-----------------------------------------------------------------------------------------------------------------
-local function make_cppspec_steps(name,files_,folder_,extras_)
-	make_steps(name,files_,folder_,extras_)
-	links {
-		"cppspec",
-		"cucumber-cpp-cppspec-driver"
-	}
-end
-----------------------------------------------------------------------------------------------------------------
-make_gtest_steps("TagSteps",
+actions.make_gtest_steps("TagSteps",
 	{"./cucumber-cpp/examples/FeatureShowcase/features/step_definitions/TagSteps.cpp"},
 	[[./cucumber-cpp/examples/FeatureShowcase/features/step_definitions]])
-make_gtest_steps("TableSteps",
+actions.make_gtest_steps("TableSteps",
 	{"./cucumber-cpp/examples/FeatureShowcase/features/step_definitions/TableSteps.cpp"},
 	[[./cucumber-cpp/examples/FeatureShowcase/features/step_definitions]])
-make_gtest_steps("GTestCalculatorSteps",
+actions.make_gtest_steps("GTestCalculatorSteps",
 	{	
 		"./cucumber-cpp/examples/Calc/features/step_definitions/GTestCalculatorSteps.cpp",
 		"./cucumber-cpp/examples/Calc/src/Calculator.cpp"
@@ -282,7 +140,7 @@ make_gtest_steps("GTestCalculatorSteps",
 			[[./cucumber-cpp/examples/Calc/src]],
 		}
 	end)
-make_cppspec_steps("CppSpecCalculatorSteps",
+actions.make_cppspec_steps("CppSpecCalculatorSteps",
 	{	
 		"./cucumber-cpp/examples/Calc/features/step_definitions/CppSpecCalculatorSteps.cpp",
 		"./cucumber-cpp/examples/Calc/src/Calculator.cpp"
