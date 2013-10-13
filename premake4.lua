@@ -1,3 +1,4 @@
+package.path=package.path..[[;./?.lua;./?/?.lua]]
 cfg = assert( require 'premake.config' ) --global os-specific configuration variables
 actions = assert( require 'premake.actions' )
 util = assert( require 'premake.util' )
