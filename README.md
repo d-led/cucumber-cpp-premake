@@ -23,5 +23,5 @@ status
 to-do
 -----
 
-Build refactoring
-
+- create a sample project using this one
+- fix the failing tests and integrate them into the CI build
