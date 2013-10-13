@@ -12,8 +12,15 @@ if os == nil then
 end
 if os.get == nil then
 	os.get = function ()
+		local function normalize_windows_name(n)
+			if n:find 'windows' == 1 then
+				return 'windows'
+			end
+			return n
+		end
 		local res = io.popen('uname'):read("*l")
-		if res then return "linux" end -- cheap
+		res = normalize_windows_name(res)
+		if res then return res end -- cheap
 		return "windows"
 	end
 end
@@ -22,8 +29,16 @@ if os.getcwd == nil then
 	os.getcwd = function()
 		if os.get() == "linux" then
 			return io.popen'pwd':read'*l'
+		else
+			local lfs = require 'lfs'
+			return lfs.currentdir()
 		end
 	end
+end
+
+if not os.chdir then
+	local lfs = require 'lfs'
+	os.chdir = lfs.chdir
 end
 
 function file_exists(name)
@@ -46,7 +61,7 @@ local util = {
 util.start_test_of = function(executable)
 	local debug_path = normalize_executable_path( path.join( "bin/Debug" , executable ) )
 	local release_path = normalize_executable_path( path.join( "bin/Release" , executable ) )
-	print(io.popen'pwd':read'*l')
+	print(debug_path)
 
 	if file_exists( debug_path ) then
 		os.execute( debug_path )
