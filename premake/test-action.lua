@@ -1,3 +1,4 @@
+package.path=package.path..[[;./?.lua;./?/?.lua]]
 util = assert( require 'premake.util' )
 util.start_test_of( "cppspec-test" )
 util.start_test_of( "gmock-test" )
