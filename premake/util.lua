@@ -75,7 +75,7 @@ util.start_cucumber_for = function(path_,executable)
 	local od = os.getcwd()
 	local p = path.join(od,path_)
 	os.chdir(p)
-	if os.get() == "linux" or os.get() == "macosx" then
+	if os.get() == "linux" or os.get() == "Darwin" then
 		local command = executable.." > /dev/null & cucumber"
 		os.execute( command )
     elseif os.get() == "windows" then
