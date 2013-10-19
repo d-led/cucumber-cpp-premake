@@ -4,7 +4,9 @@ before_install:
   - sudo add-apt-repository --yes ppa:apokluda/boost1.53
   - sudo apt-get --yes update
   - sudo apt-get --yes install libboost1.53-all-dev
-  - sudo apt-get --yes install lua5.1
+  - sudo apt-get --yes install lua5.1 luarocks
+  - sudo luarocks install luafilesystem
+  - sudo apt-get install cucumber
 
 script:
   - make -C Build config=release
