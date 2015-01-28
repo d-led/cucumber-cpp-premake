@@ -6,7 +6,7 @@ ifndef config
 endif
 export config
 
-PROJECTS := googlemock googlemock-main cucumber-cpp-gtest-driver cppspec cucumber-cpp-cppspec-driver cucumber-cpp cucumber-cpp-main cucumber-cpp-boost-driver cppspec-test
+PROJECTS := googlemock googlemock-main cucumber-cpp-gtest-driver cppspec cucumber-cpp-cppspec-driver cucumber-cpp cucumber-cpp-main cucumber-cpp-boost-driver cppspec-test gmock-test gtest-test cucumber-cpp-unit-test cucumber-cpp-integration-test-1 cucumber-cpp-integration-test-2 cucumber-cpp-integration-test-3
 
 .PHONY: all clean help $(PROJECTS)
 
@@ -48,6 +48,30 @@ cppspec-test: cppspec googlemock
 	@echo "==== Building cppspec-test ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f cppspec-test.make
 
+gmock-test: googlemock
+	@echo "==== Building gmock-test ($(config)) ===="
+	@${MAKE} --no-print-directory -C . -f gmock-test.make
+
+gtest-test: googlemock googlemock-main
+	@echo "==== Building gtest-test ($(config)) ===="
+	@${MAKE} --no-print-directory -C . -f gtest-test.make
+
+cucumber-cpp-unit-test: cucumber-cpp googlemock googlemock-main
+	@echo "==== Building cucumber-cpp-unit-test ($(config)) ===="
+	@${MAKE} --no-print-directory -C . -f cucumber-cpp-unit-test.make
+
+cucumber-cpp-integration-test-1: cucumber-cpp googlemock googlemock-main
+	@echo "==== Building cucumber-cpp-integration-test-1 ($(config)) ===="
+	@${MAKE} --no-print-directory -C . -f cucumber-cpp-integration-test-1.make
+
+cucumber-cpp-integration-test-2: cucumber-cpp googlemock googlemock-main
+	@echo "==== Building cucumber-cpp-integration-test-2 ($(config)) ===="
+	@${MAKE} --no-print-directory -C . -f cucumber-cpp-integration-test-2.make
+
+cucumber-cpp-integration-test-3: cucumber-cpp googlemock googlemock-main
+	@echo "==== Building cucumber-cpp-integration-test-3 ($(config)) ===="
+	@${MAKE} --no-print-directory -C . -f cucumber-cpp-integration-test-3.make
+
 clean:
 	@${MAKE} --no-print-directory -C . -f googlemock.make clean
 	@${MAKE} --no-print-directory -C . -f googlemock-main.make clean
@@ -58,6 +82,12 @@ clean:
 	@${MAKE} --no-print-directory -C . -f cucumber-cpp-main.make clean
 	@${MAKE} --no-print-directory -C . -f cucumber-cpp-boost-driver.make clean
 	@${MAKE} --no-print-directory -C . -f cppspec-test.make clean
+	@${MAKE} --no-print-directory -C . -f gmock-test.make clean
+	@${MAKE} --no-print-directory -C . -f gtest-test.make clean
+	@${MAKE} --no-print-directory -C . -f cucumber-cpp-unit-test.make clean
+	@${MAKE} --no-print-directory -C . -f cucumber-cpp-integration-test-1.make clean
+	@${MAKE} --no-print-directory -C . -f cucumber-cpp-integration-test-2.make clean
+	@${MAKE} --no-print-directory -C . -f cucumber-cpp-integration-test-3.make clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -82,5 +112,11 @@ help:
 	@echo "   cucumber-cpp-main"
 	@echo "   cucumber-cpp-boost-driver"
 	@echo "   cppspec-test"
+	@echo "   gmock-test"
+	@echo "   gtest-test"
+	@echo "   cucumber-cpp-unit-test"
+	@echo "   cucumber-cpp-integration-test-1"
+	@echo "   cucumber-cpp-integration-test-2"
+	@echo "   cucumber-cpp-integration-test-3"
 	@echo ""
 	@echo "For more information, see http://industriousone.com/premake/quick-start"
