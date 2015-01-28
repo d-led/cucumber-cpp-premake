@@ -1,14 +1,29 @@
 include 'premake'
 ----------------------------------------------------------------------------------------------------------------
-assert( require 'premake.solution')
-assert( require 'premake.gmock')
-assert( require 'premake.cppspec')
-assert( require 'premake.cucumber-cpp')
-assert( require 'premake.boost')
-assert( require 'premake.cppspec-test')
-assert( require 'premake.gmock-test')
-assert( require 'premake.cucumber-cpp-test')
-assert( require 'premake.cucumber-cpp-steps')
+
+config.defines = {
+ 		linux = { },
+ 		windows = { "_WIN32_WINDOWS" },
+ 		macosx = { }
+}
+
+make_solution 'cucumber-cpp-premake'
+
+includedirs {
+	'googlemock/fused-src',
+	'cucumber-cpp/include'
+}
+
+assert( require 'recipes.gmock' )
+
+-- assert( require 'premake.gmock')
+-- assert( require 'premake.cppspec')
+-- assert( require 'premake.cucumber-cpp')
+-- assert( require 'premake.boost')
+-- assert( require 'premake.cppspec-test')
+-- assert( require 'premake.gmock-test')
+-- assert( require 'premake.cucumber-cpp-test')
+-- assert( require 'premake.cucumber-cpp-steps')
 ----------------------------------------------------------------------------------------------------------------
 newaction {
 	trigger     = "test",
