@@ -7,12 +7,15 @@ config.defines = {
  		macosx = { }
 }
 
+boost = assert(dofile 'premake/recipes/boost.lua')
+
 make_solution 'cucumber-cpp-premake'
 
 includedirs {
 	'googlemock/fused-src',
 	'cucumber-cpp/include',
-	'cppspec/include'
+	'cppspec/include',
+	boost.includedirs[os.get()]
 }
 
 assert( require 'recipes.gmock' )
