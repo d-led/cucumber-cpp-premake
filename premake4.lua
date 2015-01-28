@@ -9,7 +9,9 @@ config.defines = {
 
 boost = assert(dofile 'premake/recipes/boost.lua')
 
-make_solution 'cucumber-cpp-premake'
+if not required_recipes then
+	make_solution 'cucumber-cpp-premake'
+end
 
 configurations 'native'
 
