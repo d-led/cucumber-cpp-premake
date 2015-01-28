@@ -24,14 +24,21 @@ libdirs {
 	boost.libdirs[os.get()]
 }
 
-assert( require 'recipes.gmock' )
-assert( require 'recipes.cppspec')
-assert( require 'recipes.cucumber-cpp')
-assert( require 'recipes.cucumber-cpp-boost')
-assert( require 'recipes.cppspec-test')
-assert( require 'recipes.gmock-test')
-assert( require 'recipes.cucumber-cpp-test')
-assert( require 'recipes.cucumber-cpp-steps')
+if required_recipes then
+	for _,recipe in ipairs(required_recipes) do
+		assert( require (recipe) )
+	end
+else
+	assert( require 'recipes.gmock' )
+	assert( require 'recipes.cppspec')
+	assert( require 'recipes.cucumber-cpp')
+	assert( require 'recipes.cucumber-cpp-boost')
+	assert( require 'recipes.cppspec-test')
+	assert( require 'recipes.gmock-test')
+	assert( require 'recipes.cucumber-cpp-test')
+	assert( require 'recipes.cucumber-cpp-steps')
+end
+
 ----------------------------------------------------------------------------------------------------------------
 newaction {
 	trigger     = "test",
