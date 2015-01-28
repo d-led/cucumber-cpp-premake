@@ -21,3 +21,8 @@ to-do
 
 - create a sample project using this one
 - fix the failing tests and integrate them into the CI build
+
+license
+-------
+
+public domain of the build scripts. For the licenses of dependencies, check out the respective projectss
