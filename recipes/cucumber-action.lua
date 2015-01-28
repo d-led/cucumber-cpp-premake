@@ -1,24 +1,24 @@
 package.path=package.path..[[;./?.lua;./?/?.lua]]
-util = assert( require 'premake.util' )
+util = assert( require 'recipes/util' )
 
 util.start_cucumber {
 	start_in = 'cucumber-cpp/examples/FeatureShowcase' ,
-	executable = 'features/step_definitions/TableSteps' ,
+	executable = 'TableSteps' ,
 	feature = 'features/table.feature'
 }
 
 util.start_cucumber {
 	start_in = 'cucumber-cpp/examples/FeatureShowcase' ,
-	executable = 'features/step_definitions/TagSteps' ,
+	executable = 'TagSteps' ,
 	feature = 'features/tag.feature'
 }
 
 util.start_cucumber {
 	start_in = 'cucumber-cpp/examples/Calc' ,
-	executable = 'features/step_definitions/GTestCalculatorSteps'
+	executable = 'GTestCalculatorSteps'
 }
 
 util.start_cucumber {
 	start_in = 'cucumber-cpp/examples/Calc' ,
-	executable = 'features/step_definitions/CppSpecCalculatorSteps'
+	executable = 'CppSpecCalculatorSteps'
 }

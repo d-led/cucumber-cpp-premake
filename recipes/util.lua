@@ -59,9 +59,9 @@ end
 
 local function normalize_executable_path(p)
 	if os.get() == "windows" then
-		return p:gsub('/','\\')..".exe"
+		return plpath.abspath(p:gsub('/','\\')..".exe")
 	end
-	return p
+	return plpath.abspath(p)
 end
 
 local util = {
@@ -86,12 +86,13 @@ end
 util.start_cucumber_for = function(path_,executable)
 	local od = os.getcwd()
 	local p = path.join(od,path_)
+	local executable_path = normalize_executable_path( find_executable( 'bin', executable ) )
 	os.chdir(p)
 	if os.get() == "linux" or os.get() == "Darwin" or os.get() == "macosx" then
-		local command = executable.." > /dev/null & cucumber"
+		local command = executable_path.." > /dev/null & cucumber"
 		os.execute( command )
     elseif os.get() == "windows" then
-        os.execute("start /B "..executable)
+        os.execute("start /B "..executable_path)
         os.execute( "cucumber" )
 	end
 	os.chdir( od )
@@ -99,14 +100,16 @@ end
 
 util.start_cucumber = function(configuration)
 	assert( type(configuration) == "table" )
-	local od = os.getcwd()
+	assert( type(configuration.executable) == "string" )
+
+	local od = plpath.currentdir()
+	local executable_path = normalize_executable_path( find_executable( 'bin', configuration.executable ) )
+
 	
 	if type(configuration.start_in) == "string" then
-		local p = path.join(od,configuration.start_in)
+		local p = plpath.join(od,configuration.start_in)
 		os.chdir(p)
 	end
-	
-	assert( type(configuration.executable) == "string" )
 
 	local feature = ''
 	if type(configuration.feature) == "string" then
@@ -114,10 +117,10 @@ util.start_cucumber = function(configuration)
 	end
 
 	if os.get() == "linux" or os.get() == "Darwin" or os.get() == "macosx" then
-		local command = configuration.executable.." > /dev/null & cucumber" .. feature
+		local command = executable_path .. " > /dev/null & cucumber" .. feature
 		os.execute( command )
     elseif os.get() == "windows" then
-        os.execute("start /B "..executable)
+        os.execute("start /B " .. executable_path)
         os.execute( "cucumber" .. feature )
 	end
 	os.chdir( od )
