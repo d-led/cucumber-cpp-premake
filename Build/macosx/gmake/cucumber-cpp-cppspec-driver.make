@@ -20,10 +20,10 @@ ifndef RESCOMP
 endif
 
 ifeq ($(config),debug32)
-  OBJDIR     = ../../../obj/macosx/gmake/x32/Debug/cucumber-cpp-gtest-driver/x32
+  OBJDIR     = ../../../obj/macosx/gmake/x32/Debug/cucumber-cpp-cppspec-driver/x32
   TARGETDIR  = ../../../bin/macosx/gmake/x32/Debug
-  TARGET     = $(TARGETDIR)/libcucumber-cpp-gtest-driver.a
-  DEFINES   += -DDEBUG -D_DEBUG -DGTEST_USE_OWN_TR1_TUPLE=1
+  TARGET     = $(TARGETDIR)/libcucumber-cpp-cppspec-driver.a
+  DEFINES   += -DDEBUG -D_DEBUG
   INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -m32
@@ -42,10 +42,10 @@ ifeq ($(config),debug32)
 endif
 
 ifeq ($(config),release32)
-  OBJDIR     = ../../../obj/macosx/gmake/x32/Release/cucumber-cpp-gtest-driver/x32
+  OBJDIR     = ../../../obj/macosx/gmake/x32/Release/cucumber-cpp-cppspec-driver/x32
   TARGETDIR  = ../../../bin/macosx/gmake/x32/Release
-  TARGET     = $(TARGETDIR)/libcucumber-cpp-gtest-driver.a
-  DEFINES   += -DRELEASE -DGTEST_USE_OWN_TR1_TUPLE=1
+  TARGET     = $(TARGETDIR)/libcucumber-cpp-cppspec-driver.a
+  DEFINES   += -DRELEASE
   INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -m32
@@ -64,10 +64,10 @@ ifeq ($(config),release32)
 endif
 
 ifeq ($(config),debug64)
-  OBJDIR     = ../../../obj/macosx/gmake/x64/Debug/cucumber-cpp-gtest-driver/x64
+  OBJDIR     = ../../../obj/macosx/gmake/x64/Debug/cucumber-cpp-cppspec-driver/x64
   TARGETDIR  = ../../../bin/macosx/gmake/x64/Debug
-  TARGET     = $(TARGETDIR)/libcucumber-cpp-gtest-driver.a
-  DEFINES   += -DDEBUG -D_DEBUG -DGTEST_USE_OWN_TR1_TUPLE=1
+  TARGET     = $(TARGETDIR)/libcucumber-cpp-cppspec-driver.a
+  DEFINES   += -DDEBUG -D_DEBUG
   INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -m64
@@ -86,10 +86,10 @@ ifeq ($(config),debug64)
 endif
 
 ifeq ($(config),release64)
-  OBJDIR     = ../../../obj/macosx/gmake/x64/Release/cucumber-cpp-gtest-driver/x64
+  OBJDIR     = ../../../obj/macosx/gmake/x64/Release/cucumber-cpp-cppspec-driver/x64
   TARGETDIR  = ../../../bin/macosx/gmake/x64/Release
-  TARGET     = $(TARGETDIR)/libcucumber-cpp-gtest-driver.a
-  DEFINES   += -DRELEASE -DGTEST_USE_OWN_TR1_TUPLE=1
+  TARGET     = $(TARGETDIR)/libcucumber-cpp-cppspec-driver.a
+  DEFINES   += -DRELEASE
   INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -m64
@@ -108,7 +108,7 @@ ifeq ($(config),release64)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/GTestDriver.o \
+	$(OBJDIR)/CppSpecDriver.o \
 
 RESOURCES := \
 
@@ -126,7 +126,7 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 	@:
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking cucumber-cpp-gtest-driver
+	@echo Linking cucumber-cpp-cppspec-driver
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -147,7 +147,7 @@ else
 endif
 
 clean:
-	@echo Cleaning cucumber-cpp-gtest-driver
+	@echo Cleaning cucumber-cpp-cppspec-driver
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -168,7 +168,7 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) -x c++-header $(ALL_CXXFLAGS) -MMD -MP $(DEFINES) $(INCLUDES) -o "$@" -MF "$(@:%.gch=%.d)" -c "$<"
 endif
 
-$(OBJDIR)/GTestDriver.o: ../../../cucumber-cpp/src/drivers/GTestDriver.cpp
+$(OBJDIR)/CppSpecDriver.o: ../../../cucumber-cpp/src/drivers/CppSpecDriver.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 

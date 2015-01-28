@@ -11,13 +11,13 @@ make_solution 'cucumber-cpp-premake'
 
 includedirs {
 	'googlemock/fused-src',
-	'cucumber-cpp/include'
+	'cucumber-cpp/include',
+	'cppspec/include'
 }
 
 assert( require 'recipes.gmock' )
+assert( require 'recipes.cppspec')
 
--- assert( require 'premake.gmock')
--- assert( require 'premake.cppspec')
 -- assert( require 'premake.cucumber-cpp')
 -- assert( require 'premake.boost')
 -- assert( require 'premake.cppspec-test')
