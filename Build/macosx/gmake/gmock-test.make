@@ -29,7 +29,7 @@ ifeq ($(config),debug32)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -m32
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -L../../../bin/macosx/gmake/x32/Debug -m32 -L/usr/lib32
+  ALL_LDFLAGS   += $(LDFLAGS) -L/usr/local/lib -L../../../bin/macosx/gmake/x32/Debug -m32 -L/usr/lib32
   LDDEPS    += ../../../bin/macosx/gmake/x32/Debug/libgooglemock.a
   LIBS      += $(LDDEPS)
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
@@ -51,7 +51,7 @@ ifeq ($(config),release32)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -m32
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -L../../../bin/macosx/gmake/x32/Release -Wl,-x -m32 -L/usr/lib32
+  ALL_LDFLAGS   += $(LDFLAGS) -L/usr/local/lib -L../../../bin/macosx/gmake/x32/Release -Wl,-x -m32 -L/usr/lib32
   LDDEPS    += ../../../bin/macosx/gmake/x32/Release/libgooglemock.a
   LIBS      += $(LDDEPS)
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
@@ -73,7 +73,7 @@ ifeq ($(config),native32)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -m32
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -L../../../bin/macosx/gmake -Wl,-x -m32 -L/usr/lib32
+  ALL_LDFLAGS   += $(LDFLAGS) -L/usr/local/lib -L../../../bin/macosx/gmake -Wl,-x -m32 -L/usr/lib32
   LDDEPS    += ../../../bin/macosx/gmake/libgooglemock.a
   LIBS      += $(LDDEPS)
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
@@ -95,7 +95,7 @@ ifeq ($(config),debug64)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -m64
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -L../../../bin/macosx/gmake/x64/Debug -m64 -L/usr/lib64
+  ALL_LDFLAGS   += $(LDFLAGS) -L/usr/local/lib -L../../../bin/macosx/gmake/x64/Debug -m64 -L/usr/lib64
   LDDEPS    += ../../../bin/macosx/gmake/x64/Debug/libgooglemock.a
   LIBS      += $(LDDEPS)
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
@@ -117,7 +117,7 @@ ifeq ($(config),release64)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -m64
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -L../../../bin/macosx/gmake/x64/Release -Wl,-x -m64 -L/usr/lib64
+  ALL_LDFLAGS   += $(LDFLAGS) -L/usr/local/lib -L../../../bin/macosx/gmake/x64/Release -Wl,-x -m64 -L/usr/lib64
   LDDEPS    += ../../../bin/macosx/gmake/x64/Release/libgooglemock.a
   LIBS      += $(LDDEPS)
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
@@ -139,7 +139,7 @@ ifeq ($(config),native64)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -m64
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -L../../../bin/macosx/gmake -Wl,-x -m64 -L/usr/lib64
+  ALL_LDFLAGS   += $(LDFLAGS) -L/usr/local/lib -L../../../bin/macosx/gmake -Wl,-x -m64 -L/usr/lib64
   LDDEPS    += ../../../bin/macosx/gmake/libgooglemock.a
   LIBS      += $(LDDEPS)
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)

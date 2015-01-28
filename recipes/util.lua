@@ -1,3 +1,14 @@
+local pldir = assert( require 'pl.dir' )
+local plpath = assert( require 'pl.path' )
+
+function string.starts_with(self,what)
+   return string.sub(self, 1, string.len(what)) == what
+end
+
+function string.ends_with(self,what)
+   return what == '' or string.sub(self, -string.len(what)) == what
+end
+
 if path == nil then
 	path = {}
 end
@@ -58,16 +69,17 @@ local util = {
 	normalize_executable_path = normalize_executable_path
 }
 
-util.start_test_of = function(executable)
-	local debug_path = normalize_executable_path( path.join( "bin/Debug" , executable ) )
-	local release_path = normalize_executable_path( path.join( "bin/Release" , executable ) )
-	print(debug_path)
+local find_executable = function (dir, what)
+	assert(type(dir) == 'string')
+	for _,v in ipairs(pldir.getallfiles(dir,what)) do
+		return v
+	end
+end
 
+util.start_test_of = function(executable)
+	local debug_path = normalize_executable_path( find_executable( 'bin', executable ) )
 	if file_exists( debug_path ) then
 		os.execute( debug_path )
-	end
-	if file_exists( release_path ) then
-		os.execute( release_path )
 	end
 end
 

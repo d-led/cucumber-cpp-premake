@@ -20,6 +20,10 @@ includedirs {
 	boost.includedirs[os.get()]
 }
 
+libdirs {
+	boost.libdirs[os.get()]
+}
+
 assert( require 'recipes.gmock' )
 assert( require 'recipes.cppspec')
 assert( require 'recipes.cucumber-cpp')
@@ -27,7 +31,7 @@ assert( require 'recipes.cucumber-cpp-boost')
 assert( require 'recipes.cppspec-test')
 assert( require 'recipes.gmock-test')
 assert( require 'recipes.cucumber-cpp-test')
--- assert( require 'premake.cucumber-cpp-steps')
+assert( require 'recipes.cucumber-cpp-steps')
 ----------------------------------------------------------------------------------------------------------------
 newaction {
 	trigger     = "test",

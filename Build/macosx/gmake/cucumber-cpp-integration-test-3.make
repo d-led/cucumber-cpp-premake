@@ -29,7 +29,7 @@ ifeq ($(config),debug32)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -m32
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -L../../../bin/macosx/gmake/x32/Debug -L. -m32 -L/usr/lib32
+  ALL_LDFLAGS   += $(LDFLAGS) -L/usr/local/lib -L../../../bin/macosx/gmake/x32/Debug -L. -m32 -L/usr/lib32
   LDDEPS    += ../../../bin/macosx/gmake/x32/Debug/libcucumber-cpp.a ../../../bin/macosx/gmake/x32/Debug/libgooglemock.a ../../../bin/macosx/gmake/x32/Debug/libgooglemock-main.a
   LIBS      += $(LDDEPS) -lboost_system-mt -lboost_regex-mt -lboost_thread-mt
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
@@ -51,7 +51,7 @@ ifeq ($(config),release32)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -m32
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -L../../../bin/macosx/gmake/x32/Release -L. -Wl,-x -m32 -L/usr/lib32
+  ALL_LDFLAGS   += $(LDFLAGS) -L/usr/local/lib -L../../../bin/macosx/gmake/x32/Release -L. -Wl,-x -m32 -L/usr/lib32
   LDDEPS    += ../../../bin/macosx/gmake/x32/Release/libcucumber-cpp.a ../../../bin/macosx/gmake/x32/Release/libgooglemock.a ../../../bin/macosx/gmake/x32/Release/libgooglemock-main.a
   LIBS      += $(LDDEPS) -lboost_system-mt -lboost_regex-mt -lboost_thread-mt
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
@@ -73,7 +73,7 @@ ifeq ($(config),native32)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -m32
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -L../../../bin/macosx/gmake -L. -Wl,-x -m32 -L/usr/lib32
+  ALL_LDFLAGS   += $(LDFLAGS) -L/usr/local/lib -L../../../bin/macosx/gmake -L. -Wl,-x -m32 -L/usr/lib32
   LDDEPS    += ../../../bin/macosx/gmake/libcucumber-cpp.a ../../../bin/macosx/gmake/libgooglemock.a ../../../bin/macosx/gmake/libgooglemock-main.a
   LIBS      += $(LDDEPS) -lboost_system-mt -lboost_regex-mt -lboost_thread-mt
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
@@ -95,7 +95,7 @@ ifeq ($(config),debug64)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -m64
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -L../../../bin/macosx/gmake/x64/Debug -L. -m64 -L/usr/lib64
+  ALL_LDFLAGS   += $(LDFLAGS) -L/usr/local/lib -L../../../bin/macosx/gmake/x64/Debug -L. -m64 -L/usr/lib64
   LDDEPS    += ../../../bin/macosx/gmake/x64/Debug/libcucumber-cpp.a ../../../bin/macosx/gmake/x64/Debug/libgooglemock.a ../../../bin/macosx/gmake/x64/Debug/libgooglemock-main.a
   LIBS      += $(LDDEPS) -lboost_system-mt -lboost_regex-mt -lboost_thread-mt
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
@@ -117,7 +117,7 @@ ifeq ($(config),release64)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -m64
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -L../../../bin/macosx/gmake/x64/Release -L. -Wl,-x -m64 -L/usr/lib64
+  ALL_LDFLAGS   += $(LDFLAGS) -L/usr/local/lib -L../../../bin/macosx/gmake/x64/Release -L. -Wl,-x -m64 -L/usr/lib64
   LDDEPS    += ../../../bin/macosx/gmake/x64/Release/libcucumber-cpp.a ../../../bin/macosx/gmake/x64/Release/libgooglemock.a ../../../bin/macosx/gmake/x64/Release/libgooglemock-main.a
   LIBS      += $(LDDEPS) -lboost_system-mt -lboost_regex-mt -lboost_thread-mt
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
@@ -139,7 +139,7 @@ ifeq ($(config),native64)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -m64
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -L../../../bin/macosx/gmake -L. -Wl,-x -m64 -L/usr/lib64
+  ALL_LDFLAGS   += $(LDFLAGS) -L/usr/local/lib -L../../../bin/macosx/gmake -L. -Wl,-x -m64 -L/usr/lib64
   LDDEPS    += ../../../bin/macosx/gmake/libcucumber-cpp.a ../../../bin/macosx/gmake/libgooglemock.a ../../../bin/macosx/gmake/libgooglemock-main.a
   LIBS      += $(LDDEPS) -lboost_system-mt -lboost_regex-mt -lboost_thread-mt
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)

@@ -20,18 +20,18 @@ ifndef RESCOMP
 endif
 
 ifeq ($(config),debug32)
-  OBJDIR     = ../../../obj/macosx/gmake/x32/Debug/cucumber-cpp-integration-test-2/x32
+  OBJDIR     = ../../../obj/macosx/gmake/x32/Debug/GTestCalculatorSteps/x32
   TARGETDIR  = ../../../bin/macosx/gmake/x32/Debug
-  TARGET     = $(TARGETDIR)/cucumber-cpp-integration-test-2
+  TARGET     = $(TARGETDIR)/GTestCalculatorSteps
   DEFINES   += -DDEBUG -D_DEBUG -DGTEST_USE_OWN_TR1_TUPLE=1
-  INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include
+  INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include -I../../../cucumber-cpp/examples/Calc/src
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -m32
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   ALL_LDFLAGS   += $(LDFLAGS) -L/usr/local/lib -L../../../bin/macosx/gmake/x32/Debug -L. -m32 -L/usr/lib32
-  LDDEPS    += ../../../bin/macosx/gmake/x32/Debug/libcucumber-cpp.a ../../../bin/macosx/gmake/x32/Debug/libgooglemock.a ../../../bin/macosx/gmake/x32/Debug/libgooglemock-main.a
-  LIBS      += $(LDDEPS) -lboost_system-mt -lboost_regex-mt -lboost_thread-mt
+  LDDEPS    += ../../../bin/macosx/gmake/x32/Debug/libcucumber-cpp-main.a ../../../bin/macosx/gmake/x32/Debug/libcucumber-cpp.a ../../../bin/macosx/gmake/x32/Debug/libgooglemock.a ../../../bin/macosx/gmake/x32/Debug/libcucumber-cpp-gtest-driver.a
+  LIBS      += $(LDDEPS) -lboost_system-mt -lboost_regex-mt -lboost_chrono-mt -lboost_thread-mt
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -42,18 +42,18 @@ ifeq ($(config),debug32)
 endif
 
 ifeq ($(config),release32)
-  OBJDIR     = ../../../obj/macosx/gmake/x32/Release/cucumber-cpp-integration-test-2/x32
+  OBJDIR     = ../../../obj/macosx/gmake/x32/Release/GTestCalculatorSteps/x32
   TARGETDIR  = ../../../bin/macosx/gmake/x32/Release
-  TARGET     = $(TARGETDIR)/cucumber-cpp-integration-test-2
+  TARGET     = $(TARGETDIR)/GTestCalculatorSteps
   DEFINES   += -DRELEASE -DGTEST_USE_OWN_TR1_TUPLE=1
-  INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include
+  INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include -I../../../cucumber-cpp/examples/Calc/src
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -m32
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   ALL_LDFLAGS   += $(LDFLAGS) -L/usr/local/lib -L../../../bin/macosx/gmake/x32/Release -L. -Wl,-x -m32 -L/usr/lib32
-  LDDEPS    += ../../../bin/macosx/gmake/x32/Release/libcucumber-cpp.a ../../../bin/macosx/gmake/x32/Release/libgooglemock.a ../../../bin/macosx/gmake/x32/Release/libgooglemock-main.a
-  LIBS      += $(LDDEPS) -lboost_system-mt -lboost_regex-mt -lboost_thread-mt
+  LDDEPS    += ../../../bin/macosx/gmake/x32/Release/libcucumber-cpp-main.a ../../../bin/macosx/gmake/x32/Release/libcucumber-cpp.a ../../../bin/macosx/gmake/x32/Release/libgooglemock.a ../../../bin/macosx/gmake/x32/Release/libcucumber-cpp-gtest-driver.a
+  LIBS      += $(LDDEPS) -lboost_system-mt -lboost_regex-mt -lboost_chrono-mt -lboost_thread-mt
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -64,18 +64,18 @@ ifeq ($(config),release32)
 endif
 
 ifeq ($(config),native32)
-  OBJDIR     = ../../../obj/macosx/gmake/x32/native/cucumber-cpp-integration-test-2/x32
+  OBJDIR     = ../../../obj/macosx/gmake/x32/native/GTestCalculatorSteps/x32
   TARGETDIR  = ../../../bin/macosx/gmake
-  TARGET     = $(TARGETDIR)/cucumber-cpp-integration-test-2
+  TARGET     = $(TARGETDIR)/GTestCalculatorSteps
   DEFINES   += -DGTEST_USE_OWN_TR1_TUPLE=1
-  INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include
+  INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include -I../../../cucumber-cpp/examples/Calc/src
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -m32
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   ALL_LDFLAGS   += $(LDFLAGS) -L/usr/local/lib -L../../../bin/macosx/gmake -L. -Wl,-x -m32 -L/usr/lib32
-  LDDEPS    += ../../../bin/macosx/gmake/libcucumber-cpp.a ../../../bin/macosx/gmake/libgooglemock.a ../../../bin/macosx/gmake/libgooglemock-main.a
-  LIBS      += $(LDDEPS) -lboost_system-mt -lboost_regex-mt -lboost_thread-mt
+  LDDEPS    += ../../../bin/macosx/gmake/libcucumber-cpp-main.a ../../../bin/macosx/gmake/libcucumber-cpp.a ../../../bin/macosx/gmake/libgooglemock.a ../../../bin/macosx/gmake/libcucumber-cpp-gtest-driver.a
+  LIBS      += $(LDDEPS) -lboost_system-mt -lboost_regex-mt -lboost_chrono-mt -lboost_thread-mt
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -86,18 +86,18 @@ ifeq ($(config),native32)
 endif
 
 ifeq ($(config),debug64)
-  OBJDIR     = ../../../obj/macosx/gmake/x64/Debug/cucumber-cpp-integration-test-2/x64
+  OBJDIR     = ../../../obj/macosx/gmake/x64/Debug/GTestCalculatorSteps/x64
   TARGETDIR  = ../../../bin/macosx/gmake/x64/Debug
-  TARGET     = $(TARGETDIR)/cucumber-cpp-integration-test-2
+  TARGET     = $(TARGETDIR)/GTestCalculatorSteps
   DEFINES   += -DDEBUG -D_DEBUG -DGTEST_USE_OWN_TR1_TUPLE=1
-  INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include
+  INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include -I../../../cucumber-cpp/examples/Calc/src
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -m64
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   ALL_LDFLAGS   += $(LDFLAGS) -L/usr/local/lib -L../../../bin/macosx/gmake/x64/Debug -L. -m64 -L/usr/lib64
-  LDDEPS    += ../../../bin/macosx/gmake/x64/Debug/libcucumber-cpp.a ../../../bin/macosx/gmake/x64/Debug/libgooglemock.a ../../../bin/macosx/gmake/x64/Debug/libgooglemock-main.a
-  LIBS      += $(LDDEPS) -lboost_system-mt -lboost_regex-mt -lboost_thread-mt
+  LDDEPS    += ../../../bin/macosx/gmake/x64/Debug/libcucumber-cpp-main.a ../../../bin/macosx/gmake/x64/Debug/libcucumber-cpp.a ../../../bin/macosx/gmake/x64/Debug/libgooglemock.a ../../../bin/macosx/gmake/x64/Debug/libcucumber-cpp-gtest-driver.a
+  LIBS      += $(LDDEPS) -lboost_system-mt -lboost_regex-mt -lboost_chrono-mt -lboost_thread-mt
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -108,18 +108,18 @@ ifeq ($(config),debug64)
 endif
 
 ifeq ($(config),release64)
-  OBJDIR     = ../../../obj/macosx/gmake/x64/Release/cucumber-cpp-integration-test-2/x64
+  OBJDIR     = ../../../obj/macosx/gmake/x64/Release/GTestCalculatorSteps/x64
   TARGETDIR  = ../../../bin/macosx/gmake/x64/Release
-  TARGET     = $(TARGETDIR)/cucumber-cpp-integration-test-2
+  TARGET     = $(TARGETDIR)/GTestCalculatorSteps
   DEFINES   += -DRELEASE -DGTEST_USE_OWN_TR1_TUPLE=1
-  INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include
+  INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include -I../../../cucumber-cpp/examples/Calc/src
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -m64
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   ALL_LDFLAGS   += $(LDFLAGS) -L/usr/local/lib -L../../../bin/macosx/gmake/x64/Release -L. -Wl,-x -m64 -L/usr/lib64
-  LDDEPS    += ../../../bin/macosx/gmake/x64/Release/libcucumber-cpp.a ../../../bin/macosx/gmake/x64/Release/libgooglemock.a ../../../bin/macosx/gmake/x64/Release/libgooglemock-main.a
-  LIBS      += $(LDDEPS) -lboost_system-mt -lboost_regex-mt -lboost_thread-mt
+  LDDEPS    += ../../../bin/macosx/gmake/x64/Release/libcucumber-cpp-main.a ../../../bin/macosx/gmake/x64/Release/libcucumber-cpp.a ../../../bin/macosx/gmake/x64/Release/libgooglemock.a ../../../bin/macosx/gmake/x64/Release/libcucumber-cpp-gtest-driver.a
+  LIBS      += $(LDDEPS) -lboost_system-mt -lboost_regex-mt -lboost_chrono-mt -lboost_thread-mt
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -130,18 +130,18 @@ ifeq ($(config),release64)
 endif
 
 ifeq ($(config),native64)
-  OBJDIR     = ../../../obj/macosx/gmake/x64/native/cucumber-cpp-integration-test-2/x64
+  OBJDIR     = ../../../obj/macosx/gmake/x64/native/GTestCalculatorSteps/x64
   TARGETDIR  = ../../../bin/macosx/gmake
-  TARGET     = $(TARGETDIR)/cucumber-cpp-integration-test-2
+  TARGET     = $(TARGETDIR)/GTestCalculatorSteps
   DEFINES   += -DGTEST_USE_OWN_TR1_TUPLE=1
-  INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include
+  INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include -I../../../cucumber-cpp/examples/Calc/src
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -m64
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   ALL_LDFLAGS   += $(LDFLAGS) -L/usr/local/lib -L../../../bin/macosx/gmake -L. -Wl,-x -m64 -L/usr/lib64
-  LDDEPS    += ../../../bin/macosx/gmake/libcucumber-cpp.a ../../../bin/macosx/gmake/libgooglemock.a ../../../bin/macosx/gmake/libgooglemock-main.a
-  LIBS      += $(LDDEPS) -lboost_system-mt -lboost_regex-mt -lboost_thread-mt
+  LDDEPS    += ../../../bin/macosx/gmake/libcucumber-cpp-main.a ../../../bin/macosx/gmake/libcucumber-cpp.a ../../../bin/macosx/gmake/libgooglemock.a ../../../bin/macosx/gmake/libcucumber-cpp-gtest-driver.a
+  LIBS      += $(LDDEPS) -lboost_system-mt -lboost_regex-mt -lboost_chrono-mt -lboost_thread-mt
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -152,7 +152,8 @@ ifeq ($(config),native64)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/StepRegistrationTest.o \
+	$(OBJDIR)/GTestCalculatorSteps.o \
+	$(OBJDIR)/Calculator.o \
 
 RESOURCES := \
 
@@ -170,7 +171,7 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 	@:
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking cucumber-cpp-integration-test-2
+	@echo Linking GTestCalculatorSteps
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -191,7 +192,7 @@ else
 endif
 
 clean:
-	@echo Cleaning cucumber-cpp-integration-test-2
+	@echo Cleaning GTestCalculatorSteps
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -212,7 +213,11 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) -x c++-header $(ALL_CXXFLAGS) -MMD -MP $(DEFINES) $(INCLUDES) -o "$@" -MF "$(@:%.gch=%.d)" -c "$<"
 endif
 
-$(OBJDIR)/StepRegistrationTest.o: ../../../cucumber-cpp/tests/integration/StepRegistrationTest.cpp
+$(OBJDIR)/GTestCalculatorSteps.o: ../../../cucumber-cpp/examples/Calc/features/step_definitions/GTestCalculatorSteps.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/Calculator.o: ../../../cucumber-cpp/examples/Calc/src/Calculator.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
