@@ -9,6 +9,9 @@ function gmock_config() --global
 			'GTEST_USE_OWN_TR1_TUPLE=1'
 		}
 
+	configuration 'linux'
+		links 'pthread'
+
 	configuration '*'
 end
 ----------------------------------------------------------------------------------------------------------------

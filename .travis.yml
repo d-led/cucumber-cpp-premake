@@ -10,8 +10,8 @@ before_install:
  - sudo luarocks install luafilesystem
  - sudo luarocks install penlight
 
-before_script:
-  - premake4 gmake
+# before_script:
+  # - premake4 gmake
 
 script:
   - make -C Build/linux/gmake config=release64
