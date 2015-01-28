@@ -17,8 +17,7 @@ includedirs {
 
 assert( require 'recipes.gmock' )
 assert( require 'recipes.cppspec')
-
--- assert( require 'premake.cucumber-cpp')
+assert( require 'recipes.cucumber-cpp')
 -- assert( require 'premake.boost')
 -- assert( require 'premake.cppspec-test')
 -- assert( require 'premake.gmock-test')
