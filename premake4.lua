@@ -1,7 +1,4 @@
-package.path=package.path..[[;./?.lua;./?/?.lua]]
-cfg = assert( require 'premake.config' ) --global os-specific configuration variables
-actions = assert( require 'premake.actions' )
-util = assert( require 'premake.util' )
+include 'premake'
 ----------------------------------------------------------------------------------------------------------------
 assert( require 'premake.solution')
 assert( require 'premake.gmock')

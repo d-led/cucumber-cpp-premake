@@ -7,3 +7,6 @@
 [submodule "cucumber-cpp"]
 	path = cucumber-cpp
 	url = https://github.com/d-led/cucumber-cpp.git
+[submodule "premake"]
+	path = premake
+	url = https://github.com/d-led/premake-meta-cpp.git
