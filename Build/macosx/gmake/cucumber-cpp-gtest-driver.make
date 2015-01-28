@@ -63,6 +63,28 @@ ifeq ($(config),release32)
   endef
 endif
 
+ifeq ($(config),native32)
+  OBJDIR     = ../../../obj/macosx/gmake/x32/native/cucumber-cpp-gtest-driver/x32
+  TARGETDIR  = ../../../bin/macosx/gmake
+  TARGET     = $(TARGETDIR)/libcucumber-cpp-gtest-driver.a
+  DEFINES   += -DGTEST_USE_OWN_TR1_TUPLE=1
+  INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include
+  ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
+  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -m32
+  ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
+  ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
+  ALL_LDFLAGS   += $(LDFLAGS) -Wl,-x -m32 -L/usr/lib32
+  LDDEPS    +=
+  LIBS      += $(LDDEPS)
+  LINKCMD    = $(AR) -rcs $(TARGET) $(OBJECTS)
+  define PREBUILDCMDS
+  endef
+  define PRELINKCMDS
+  endef
+  define POSTBUILDCMDS
+  endef
+endif
+
 ifeq ($(config),debug64)
   OBJDIR     = ../../../obj/macosx/gmake/x64/Debug/cucumber-cpp-gtest-driver/x64
   TARGETDIR  = ../../../bin/macosx/gmake/x64/Debug
@@ -93,6 +115,28 @@ ifeq ($(config),release64)
   INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -m64
+  ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
+  ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
+  ALL_LDFLAGS   += $(LDFLAGS) -Wl,-x -m64 -L/usr/lib64
+  LDDEPS    +=
+  LIBS      += $(LDDEPS)
+  LINKCMD    = $(AR) -rcs $(TARGET) $(OBJECTS)
+  define PREBUILDCMDS
+  endef
+  define PRELINKCMDS
+  endef
+  define POSTBUILDCMDS
+  endef
+endif
+
+ifeq ($(config),native64)
+  OBJDIR     = ../../../obj/macosx/gmake/x64/native/cucumber-cpp-gtest-driver/x64
+  TARGETDIR  = ../../../bin/macosx/gmake
+  TARGET     = $(TARGETDIR)/libcucumber-cpp-gtest-driver.a
+  DEFINES   += -DGTEST_USE_OWN_TR1_TUPLE=1
+  INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include
+  ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
+  ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -m64
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   ALL_LDFLAGS   += $(LDFLAGS) -Wl,-x -m64 -L/usr/lib64

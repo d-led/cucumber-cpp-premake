@@ -11,6 +11,8 @@ boost = assert(dofile 'premake/recipes/boost.lua')
 
 make_solution 'cucumber-cpp-premake'
 
+configurations 'native'
+
 includedirs {
 	'googlemock/fused-src',
 	'cucumber-cpp/include',
@@ -22,7 +24,7 @@ assert( require 'recipes.gmock' )
 assert( require 'recipes.cppspec')
 assert( require 'recipes.cucumber-cpp')
 assert( require 'recipes.cucumber-cpp-boost')
--- assert( require 'premake.cppspec-test')
+assert( require 'recipes.cppspec-test')
 -- assert( require 'premake.gmock-test')
 -- assert( require 'premake.cucumber-cpp-test')
 -- assert( require 'premake.cucumber-cpp-steps')

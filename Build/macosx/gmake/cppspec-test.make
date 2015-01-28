@@ -20,19 +20,19 @@ ifndef RESCOMP
 endif
 
 ifeq ($(config),debug32)
-  OBJDIR     = ../../../obj/macosx/gmake/x32/Debug/cucumber-cpp/x32
+  OBJDIR     = ../../../obj/macosx/gmake/x32/Debug/cppspec-test/x32
   TARGETDIR  = ../../../bin/macosx/gmake/x32/Debug
-  TARGET     = $(TARGETDIR)/libcucumber-cpp.a
-  DEFINES   += -DDEBUG -D_DEBUG
+  TARGET     = $(TARGETDIR)/cppspec-test
+  DEFINES   += -DDEBUG -D_DEBUG -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -m32
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -m32 -L/usr/lib32
-  LDDEPS    +=
-  LIBS      += $(LDDEPS)
-  LINKCMD    = $(AR) -rcs $(TARGET) $(OBJECTS)
+  ALL_LDFLAGS   += $(LDFLAGS) -L../../../bin/macosx/gmake/x32/Debug -L. -m32 -L/usr/lib32
+  LDDEPS    += ../../../bin/macosx/gmake/x32/Debug/libcppspec.a ../../../bin/macosx/gmake/x32/Debug/libgooglemock.a
+  LIBS      += $(LDDEPS) -lboost_regex-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_date_time-mt -lboost_chrono-mt -lboost_thread-mt -lboost_system-mt
+  LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
   define PRELINKCMDS
@@ -42,19 +42,19 @@ ifeq ($(config),debug32)
 endif
 
 ifeq ($(config),release32)
-  OBJDIR     = ../../../obj/macosx/gmake/x32/Release/cucumber-cpp/x32
+  OBJDIR     = ../../../obj/macosx/gmake/x32/Release/cppspec-test/x32
   TARGETDIR  = ../../../bin/macosx/gmake/x32/Release
-  TARGET     = $(TARGETDIR)/libcucumber-cpp.a
-  DEFINES   += -DRELEASE
+  TARGET     = $(TARGETDIR)/cppspec-test
+  DEFINES   += -DRELEASE -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -m32
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -Wl,-x -m32 -L/usr/lib32
-  LDDEPS    +=
-  LIBS      += $(LDDEPS)
-  LINKCMD    = $(AR) -rcs $(TARGET) $(OBJECTS)
+  ALL_LDFLAGS   += $(LDFLAGS) -L../../../bin/macosx/gmake/x32/Release -L. -Wl,-x -m32 -L/usr/lib32
+  LDDEPS    += ../../../bin/macosx/gmake/x32/Release/libcppspec.a ../../../bin/macosx/gmake/x32/Release/libgooglemock.a
+  LIBS      += $(LDDEPS) -lboost_regex-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_date_time-mt -lboost_chrono-mt -lboost_thread-mt -lboost_system-mt
+  LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
   define PRELINKCMDS
@@ -64,19 +64,19 @@ ifeq ($(config),release32)
 endif
 
 ifeq ($(config),native32)
-  OBJDIR     = ../../../obj/macosx/gmake/x32/native/cucumber-cpp/x32
+  OBJDIR     = ../../../obj/macosx/gmake/x32/native/cppspec-test/x32
   TARGETDIR  = ../../../bin/macosx/gmake
-  TARGET     = $(TARGETDIR)/libcucumber-cpp.a
-  DEFINES   +=
+  TARGET     = $(TARGETDIR)/cppspec-test
+  DEFINES   += -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -m32
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -Wl,-x -m32 -L/usr/lib32
-  LDDEPS    +=
-  LIBS      += $(LDDEPS)
-  LINKCMD    = $(AR) -rcs $(TARGET) $(OBJECTS)
+  ALL_LDFLAGS   += $(LDFLAGS) -L../../../bin/macosx/gmake -L. -Wl,-x -m32 -L/usr/lib32
+  LDDEPS    += ../../../bin/macosx/gmake/libcppspec.a ../../../bin/macosx/gmake/libgooglemock.a
+  LIBS      += $(LDDEPS) -lboost_regex-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_date_time-mt -lboost_chrono-mt -lboost_thread-mt -lboost_system-mt
+  LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
   define PRELINKCMDS
@@ -86,19 +86,19 @@ ifeq ($(config),native32)
 endif
 
 ifeq ($(config),debug64)
-  OBJDIR     = ../../../obj/macosx/gmake/x64/Debug/cucumber-cpp/x64
+  OBJDIR     = ../../../obj/macosx/gmake/x64/Debug/cppspec-test/x64
   TARGETDIR  = ../../../bin/macosx/gmake/x64/Debug
-  TARGET     = $(TARGETDIR)/libcucumber-cpp.a
-  DEFINES   += -DDEBUG -D_DEBUG
+  TARGET     = $(TARGETDIR)/cppspec-test
+  DEFINES   += -DDEBUG -D_DEBUG -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -m64
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -m64 -L/usr/lib64
-  LDDEPS    +=
-  LIBS      += $(LDDEPS)
-  LINKCMD    = $(AR) -rcs $(TARGET) $(OBJECTS)
+  ALL_LDFLAGS   += $(LDFLAGS) -L../../../bin/macosx/gmake/x64/Debug -L. -m64 -L/usr/lib64
+  LDDEPS    += ../../../bin/macosx/gmake/x64/Debug/libcppspec.a ../../../bin/macosx/gmake/x64/Debug/libgooglemock.a
+  LIBS      += $(LDDEPS) -lboost_regex-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_date_time-mt -lboost_chrono-mt -lboost_thread-mt -lboost_system-mt
+  LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
   define PRELINKCMDS
@@ -108,19 +108,19 @@ ifeq ($(config),debug64)
 endif
 
 ifeq ($(config),release64)
-  OBJDIR     = ../../../obj/macosx/gmake/x64/Release/cucumber-cpp/x64
+  OBJDIR     = ../../../obj/macosx/gmake/x64/Release/cppspec-test/x64
   TARGETDIR  = ../../../bin/macosx/gmake/x64/Release
-  TARGET     = $(TARGETDIR)/libcucumber-cpp.a
-  DEFINES   += -DRELEASE
+  TARGET     = $(TARGETDIR)/cppspec-test
+  DEFINES   += -DRELEASE -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -m64
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -Wl,-x -m64 -L/usr/lib64
-  LDDEPS    +=
-  LIBS      += $(LDDEPS)
-  LINKCMD    = $(AR) -rcs $(TARGET) $(OBJECTS)
+  ALL_LDFLAGS   += $(LDFLAGS) -L../../../bin/macosx/gmake/x64/Release -L. -Wl,-x -m64 -L/usr/lib64
+  LDDEPS    += ../../../bin/macosx/gmake/x64/Release/libcppspec.a ../../../bin/macosx/gmake/x64/Release/libgooglemock.a
+  LIBS      += $(LDDEPS) -lboost_regex-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_date_time-mt -lboost_chrono-mt -lboost_thread-mt -lboost_system-mt
+  LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
   define PRELINKCMDS
@@ -130,19 +130,19 @@ ifeq ($(config),release64)
 endif
 
 ifeq ($(config),native64)
-  OBJDIR     = ../../../obj/macosx/gmake/x64/native/cucumber-cpp/x64
+  OBJDIR     = ../../../obj/macosx/gmake/x64/native/cppspec-test/x64
   TARGETDIR  = ../../../bin/macosx/gmake
-  TARGET     = $(TARGETDIR)/libcucumber-cpp.a
-  DEFINES   +=
+  TARGET     = $(TARGETDIR)/cppspec-test
+  DEFINES   += -DGTEST_USE_OWN_TR1_TUPLE=1
   INCLUDES  += -I../../../googlemock/fused-src -I../../../cucumber-cpp/include -I../../../cppspec/include -I/usr/local/include
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -m64
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -Wl,-x -m64 -L/usr/lib64
-  LDDEPS    +=
-  LIBS      += $(LDDEPS)
-  LINKCMD    = $(AR) -rcs $(TARGET) $(OBJECTS)
+  ALL_LDFLAGS   += $(LDFLAGS) -L../../../bin/macosx/gmake -L. -Wl,-x -m64 -L/usr/lib64
+  LDDEPS    += ../../../bin/macosx/gmake/libcppspec.a ../../../bin/macosx/gmake/libgooglemock.a
+  LIBS      += $(LDDEPS) -lboost_regex-mt -lboost_program_options-mt -lboost_filesystem-mt -lboost_date_time-mt -lboost_chrono-mt -lboost_thread-mt -lboost_system-mt
+  LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
   define PRELINKCMDS
@@ -152,19 +152,21 @@ ifeq ($(config),native64)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/ContextManager.o \
-	$(OBJDIR)/CukeCommands.o \
-	$(OBJDIR)/CukeEngine.o \
-	$(OBJDIR)/CukeEngineImpl.o \
-	$(OBJDIR)/HookRegistrar.o \
-	$(OBJDIR)/Regex.o \
-	$(OBJDIR)/Scenario.o \
-	$(OBJDIR)/StepManager.o \
-	$(OBJDIR)/Table.o \
-	$(OBJDIR)/Tag.o \
-	$(OBJDIR)/WireProtocol.o \
-	$(OBJDIR)/WireProtocolCommands.o \
-	$(OBJDIR)/WireServer.o \
+	$(OBJDIR)/BoostTimerTest.o \
+	$(OBJDIR)/DummyReporter.o \
+	$(OBJDIR)/ExceptionThrowingSpecificationTest.o \
+	$(OBJDIR)/ExpectationTest.o \
+	$(OBJDIR)/InvocationTest.o \
+	$(OBJDIR)/InvokingTypeTest.o \
+	$(OBJDIR)/JUnitReporterTest.o \
+	$(OBJDIR)/main.o \
+	$(OBJDIR)/MatcherTest.o \
+	$(OBJDIR)/SpecDoxReporterTest.o \
+	$(OBJDIR)/SpecificationRegistryTest.o \
+	$(OBJDIR)/SpecificationTest.o \
+	$(OBJDIR)/SpecRunnerTest.o \
+	$(OBJDIR)/TypeHasStreamingOperatorTest.o \
+	$(OBJDIR)/VoidSpecification.o \
 
 RESOURCES := \
 
@@ -182,7 +184,7 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 	@:
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking cucumber-cpp
+	@echo Linking cppspec-test
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -203,7 +205,7 @@ else
 endif
 
 clean:
-	@echo Cleaning cucumber-cpp
+	@echo Cleaning cppspec-test
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -224,55 +226,63 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) -x c++-header $(ALL_CXXFLAGS) -MMD -MP $(DEFINES) $(INCLUDES) -o "$@" -MF "$(@:%.gch=%.d)" -c "$<"
 endif
 
-$(OBJDIR)/ContextManager.o: ../../../cucumber-cpp/src/ContextManager.cpp
+$(OBJDIR)/BoostTimerTest.o: ../../../cppspec/test/BoostTimerTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
-$(OBJDIR)/CukeCommands.o: ../../../cucumber-cpp/src/CukeCommands.cpp
+$(OBJDIR)/DummyReporter.o: ../../../cppspec/test/DummyReporter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
-$(OBJDIR)/CukeEngine.o: ../../../cucumber-cpp/src/CukeEngine.cpp
+$(OBJDIR)/ExceptionThrowingSpecificationTest.o: ../../../cppspec/test/ExceptionThrowingSpecificationTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
-$(OBJDIR)/CukeEngineImpl.o: ../../../cucumber-cpp/src/CukeEngineImpl.cpp
+$(OBJDIR)/ExpectationTest.o: ../../../cppspec/test/ExpectationTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
-$(OBJDIR)/HookRegistrar.o: ../../../cucumber-cpp/src/HookRegistrar.cpp
+$(OBJDIR)/InvocationTest.o: ../../../cppspec/test/InvocationTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
-$(OBJDIR)/Regex.o: ../../../cucumber-cpp/src/Regex.cpp
+$(OBJDIR)/InvokingTypeTest.o: ../../../cppspec/test/InvokingTypeTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
-$(OBJDIR)/Scenario.o: ../../../cucumber-cpp/src/Scenario.cpp
+$(OBJDIR)/JUnitReporterTest.o: ../../../cppspec/test/JUnitReporterTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
-$(OBJDIR)/StepManager.o: ../../../cucumber-cpp/src/StepManager.cpp
+$(OBJDIR)/main.o: ../../../cppspec/test/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
-$(OBJDIR)/Table.o: ../../../cucumber-cpp/src/Table.cpp
+$(OBJDIR)/MatcherTest.o: ../../../cppspec/test/MatcherTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
-$(OBJDIR)/Tag.o: ../../../cucumber-cpp/src/Tag.cpp
+$(OBJDIR)/SpecDoxReporterTest.o: ../../../cppspec/test/SpecDoxReporterTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
-$(OBJDIR)/WireProtocol.o: ../../../cucumber-cpp/src/connectors/wire/WireProtocol.cpp
+$(OBJDIR)/SpecificationRegistryTest.o: ../../../cppspec/test/SpecificationRegistryTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
-$(OBJDIR)/WireProtocolCommands.o: ../../../cucumber-cpp/src/connectors/wire/WireProtocolCommands.cpp
+$(OBJDIR)/SpecificationTest.o: ../../../cppspec/test/SpecificationTest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
-$(OBJDIR)/WireServer.o: ../../../cucumber-cpp/src/connectors/wire/WireServer.cpp
+$(OBJDIR)/SpecRunnerTest.o: ../../../cppspec/test/SpecRunnerTest.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/TypeHasStreamingOperatorTest.o: ../../../cppspec/test/TypeHasStreamingOperatorTest.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
+
+$(OBJDIR)/VoidSpecification.o: ../../../cppspec/test/VoidSpecification.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 

@@ -1,4 +1,4 @@
-local function gmock_config()
+function gmock_config() --global
 	configuration 'vs*'
         defines {
             '_VARIADIC_MAX=10'
@@ -20,3 +20,7 @@ gmock_config()
 ----------------------------------------------------------------------------------------------------------------
 make_static_lib('cucumber-cpp-gtest-driver', { './cucumber-cpp/src/drivers/GTestDriver.cpp' })
 gmock_config()
+
+return {
+	gmock_config = gmock_config
+}

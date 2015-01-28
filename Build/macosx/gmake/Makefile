@@ -6,7 +6,7 @@ ifndef config
 endif
 export config
 
-PROJECTS := googlemock googlemock-main cucumber-cpp-gtest-driver cppspec cucumber-cpp-cppspec-driver cucumber-cpp cucumber-cpp-main cucumber-cpp-boost-driver
+PROJECTS := googlemock googlemock-main cucumber-cpp-gtest-driver cppspec cucumber-cpp-cppspec-driver cucumber-cpp cucumber-cpp-main cucumber-cpp-boost-driver cppspec-test
 
 .PHONY: all clean help $(PROJECTS)
 
@@ -44,6 +44,10 @@ cucumber-cpp-boost-driver:
 	@echo "==== Building cucumber-cpp-boost-driver ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f cucumber-cpp-boost-driver.make
 
+cppspec-test: cppspec googlemock
+	@echo "==== Building cppspec-test ($(config)) ===="
+	@${MAKE} --no-print-directory -C . -f cppspec-test.make
+
 clean:
 	@${MAKE} --no-print-directory -C . -f googlemock.make clean
 	@${MAKE} --no-print-directory -C . -f googlemock-main.make clean
@@ -53,6 +57,7 @@ clean:
 	@${MAKE} --no-print-directory -C . -f cucumber-cpp.make clean
 	@${MAKE} --no-print-directory -C . -f cucumber-cpp-main.make clean
 	@${MAKE} --no-print-directory -C . -f cucumber-cpp-boost-driver.make clean
+	@${MAKE} --no-print-directory -C . -f cppspec-test.make clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -60,8 +65,10 @@ help:
 	@echo "CONFIGURATIONS:"
 	@echo "   debug32"
 	@echo "   release32"
+	@echo "   native32"
 	@echo "   debug64"
 	@echo "   release64"
+	@echo "   native64"
 	@echo ""
 	@echo "TARGETS:"
 	@echo "   all (default)"
@@ -74,5 +81,6 @@ help:
 	@echo "   cucumber-cpp"
 	@echo "   cucumber-cpp-main"
 	@echo "   cucumber-cpp-boost-driver"
+	@echo "   cppspec-test"
 	@echo ""
 	@echo "For more information, see http://industriousone.com/premake/quick-start"
