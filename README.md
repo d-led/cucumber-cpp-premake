@@ -22,12 +22,6 @@ status
 
 [![Build Status](https://travis-ci.org/d-led/cucumber-cpp-premake.png?branch=master)](https://travis-ci.org/d-led/cucumber-cpp-premake)
 
-to-do
------
-
-- create a sample project using this one
-- fix the failing tests and integrate them into the CI build
-
 license
 -------
 
