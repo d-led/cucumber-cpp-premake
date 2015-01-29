@@ -1,6 +1,10 @@
 cucumber-cpp-premake
 ====================
 
+a simple way to build and use cucumber-cpp
+
+[![Build Status](https://travis-ci.org/d-led/cucumber-cpp-premake.png?branch=master)](https://travis-ci.org/d-led/cucumber-cpp-premake)
+
 building
 --------
 
@@ -17,10 +21,6 @@ example project
 
 [cucumber-cpp-premake-example](https://github.com/d-led/cucumber-cpp-premake-example)
 
-status
-------
-
-[![Build Status](https://travis-ci.org/d-led/cucumber-cpp-premake.png?branch=master)](https://travis-ci.org/d-led/cucumber-cpp-premake)
 
 license
 -------
