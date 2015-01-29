@@ -71,7 +71,7 @@ local util = {
 
 local find_executable = function (dir, what)
 	assert(type(dir) == 'string')
-	for _,v in ipairs(pldir.getallfiles(dir,what)) do
+	for _,v in ipairs(pldir.getallfiles(dir,what..'*')) do
 		return v
 	end
 end
