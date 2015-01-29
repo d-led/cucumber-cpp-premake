@@ -101,6 +101,7 @@ util.start_cucumber = function(configuration)
 
 	local od = plpath.currentdir()
 	local executable_path = normalize_executable_path( find_executable( 'bin', configuration.executable ) )
+	print("executable :",executable_path)
 
 	
 	if type(configuration.start_in) == "string" then
@@ -113,13 +114,12 @@ util.start_cucumber = function(configuration)
 		feature = ' ' .. configuration.feature
 	end
 
-	if os.get() == "linux" or os.get() == "Darwin" or os.get() == "macosx" then
-		local command = executable_path .. " > /dev/null & cucumber" .. feature
-		os.execute( command )
-    elseif os.get() == "windows" then
-        os.execute("start /B " .. executable_path)
-        os.execute( "cucumber" .. feature )
+    if os.get() == "windows" then
+        os.execute("start /B " .. executable_path .. " && cucumber" .. feature)
+	else
+		os.execute( executable_path.." > /dev/null & cucumber" .. feature )
 	end
+
 	os.chdir( od )
 end
 
