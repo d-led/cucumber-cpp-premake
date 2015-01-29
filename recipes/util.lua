@@ -91,6 +91,7 @@ util.start_cucumber_for = function(path_,executable)
         os.execute("start /B " .. executable_path .. " && cucumber")
 	else
 		os.execute( executable_path.." > /dev/null & cucumber" )
+	end
 	os.chdir( od )
 end
 
