@@ -11,6 +11,12 @@ building
 - Start the tests using `premake4 test`
 - Start the cucumber tests using `premake4 cucumber`
 
+
+example project
+---------------
+
+[cucumber-cpp-premake-example](https://github.com/d-led/cucumber-cpp-premake-example)
+
 status
 ------
 
